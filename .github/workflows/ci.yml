@@ -1,0 +1,59 @@
+name: Continuous integration
+
+on:
+  # Pull requests, pushes to main, or manual execution can all run the test suite
+  push:
+    branches: ['main']
+  pull_request:
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install project dependencies
+      run: |
+        pip install -r backend/requirements/app-requirements.txt
+        pip install -r backend/requirements/test-requirements.txt
+    - name: Run test suite with pytest
+      run: |
+        cd backend
+        pytest
+
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    # We only want to have to install the dev requirements once
+    - name: Install dev requirements
+      run: |
+        pip install -r backend/requirements/dev-requirements.txt
+    - name: Run mypy
+      run: |
+        cd backend
+        mypy .
+    - name: Run black
+      if: success() || failure()
+      run: |
+        cd backend/sudoku
+        black .
+    - name: Run isort on all python code
+      if: success() || failure()
+      run: |
+        cd backend/sudoku
+        isort . --profile=black
+    - name: Run flake8 on all python code
+      if: success() || failure()
+      run: |
+        cd backend/sudoku
+        flake8 .

@@ -1,0 +1,38 @@
+repos:
+    # Mypy for static type checking
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.3.0'
+    hooks:
+    -   id: mypy
+        args: [ --ignore-missing-imports, --disallow-untyped-defs ]
+        exclude: (tests)
+
+    # black code formatter
+-   repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+    -   id: black
+        language_version: python3.11
+
+    # isort
+-   repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+        args: [--profile, black]
+        name: isort (python)
+
+    # flake8
+-   repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+    -   id: flake8
+        args: [--config=backend/.flake8]
+
+    # Basic pre-commit hooks provided by default
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
