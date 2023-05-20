@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         choices=[
                             ("EASY", "Easy"),
-                            ("INTERMEDIATE", "Intermediate"),
+                            ("MEDIUM", "Medium"),
                             ("HARD", "Hard"),
                         ],
                         max_length=64,

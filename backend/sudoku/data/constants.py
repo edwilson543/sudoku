@@ -3,9 +3,8 @@ from django.db import models as django_models
 
 
 class SudokuDifficulty(django_models.TextChoices):
-    # TOOD -> look up actual levels
     EASY = "EASY", "Easy"
-    INTERMEDIATE = "INTERMEDIATE", "Intermediate"
+    MEDIUM = "MEDIUM", "Medium"
     HARD = "HARD", "Hard"
 
 
