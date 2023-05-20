@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-# Third party imports
-from data import constants
-
 # Django imports
 from django.db import models as django_models
+
+# Local application imports
+from data import constants
 
 
 class Sudoku(django_models.Model):
