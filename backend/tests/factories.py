@@ -45,7 +45,7 @@ class Sudoku(factory_django.DjangoModelFactory):
     solution = factory.LazyFunction(sudoku_solution)
     size = 9
     difficulty = constants.SudokuDifficulty.MEDIUM
-    number_of_missing_values = 43
+    number_of_missing_values = 36
 
     class Meta:
         model = models.Sudoku
