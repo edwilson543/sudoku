@@ -20,3 +20,11 @@ class Player(django_models.Model):
     """
     When the player first visited the site.
     """
+
+    # ----------
+    # Factories
+    # ----------
+
+    @classmethod
+    def create_new(cls, *, ip_address: str) -> Player:
+        return cls.objects.create(ip_address=ip_address)
