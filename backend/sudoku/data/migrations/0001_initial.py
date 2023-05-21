@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("ip_address", models.GenericIPAddressField(unique=True)),
+                ("ip_address", models.CharField(unique=True, max_length=128)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),

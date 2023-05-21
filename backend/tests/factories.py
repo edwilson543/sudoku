@@ -49,3 +49,31 @@ class Sudoku(factory_django.DjangoModelFactory):
 
     class Meta:
         model = models.Sudoku
+
+
+class Player(factory_django.DjangoModelFactory):
+    ip_address = factory.Sequence(lambda n: f"ip-address-{n}")
+
+    class Meta:
+        model = models.Player
+
+
+class Game(factory_django.DjangoModelFactory):
+    player = factory.SubFactory(Player)
+    sudoku = factory.SubFactory(Sudoku)
+    status = constants.GameStatus.ACTIVE
+
+    class Meta:
+        model = models.Game
+
+
+class Move(factory_django.DjangoModelFactory):
+    game = factory.SubFactory(Game)
+    row = factory.Sequence(lambda n: n)
+    column = factory.Sequence(lambda n: n)
+    value = factory.Sequence(lambda n: n)
+    is_correct = False
+    is_erased = False
+
+    class Meta:
+        model = models.Move
