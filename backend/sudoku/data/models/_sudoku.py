@@ -26,6 +26,13 @@ class Sudoku(django_models.Model):
     Integers specify every value, and there are no `null` values in the list.
     """
 
+    difficulty = django_models.CharField(
+        choices=constants.SudokuDifficulty.choices, max_length=64
+    )
+    """
+    Rough difficulty of the sudoku based on the number of missing values.
+    """
+
     size = django_models.PositiveIntegerField()
     """
     The size of this sudoku.
@@ -33,13 +40,6 @@ class Sudoku(django_models.Model):
     Size is defined as the number of cells per row / column / tile,
     which is `9` for the bog standard sudoku.
     To keep it simple, we only allow square sudokus.
-    """
-
-    difficulty = django_models.CharField(
-        choices=constants.SudokuDifficulty.choices, max_length=64
-    )
-    """
-    Rough difficulty of the sudoku based on the number of missing values.
     """
 
     number_of_missing_values = django_models.PositiveIntegerField()
@@ -53,6 +53,28 @@ class Sudoku(django_models.Model):
     """
     When the sudoku was first created.
     """
+
+    # ----------
+    # Factories
+    # ----------
+
+    @classmethod
+    def create_new(
+        cls,
+        *,
+        problem: list[list[int | None]],
+        solution: list[list[int]],
+        difficulty: constants.SudokuDifficulty,
+        size: int,
+        number_of_missing_values: int,
+    ) -> Sudoku:
+        return cls.objects.create(
+            problem=problem,
+            solution=solution,
+            difficulty=difficulty,
+            size=size,
+            number_of_missing_values=number_of_missing_values,
+        )
 
     # ----------
     # Queries
