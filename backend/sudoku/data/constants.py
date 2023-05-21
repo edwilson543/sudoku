@@ -18,8 +18,5 @@ class GameStatus(django_models.TextChoices):
     # The player eventually completed the sudoku with at least one incorrect move
     COMPLETE_WITH_ERRORS = "COMPLETE_WITH_ERRORS"
 
-    # The application decided to give the player a new sudoku before
-    INCOMPLETE_STALE = "INCOMPLETE_STALE"
-
     # The player asked to be given a new sudoku
     INCOMPLETE_DISCARDED = "INCOMPLETE_DISCARDED"

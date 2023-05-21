@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
                             ("ACTIVE", "Active"),
                             ("COMPLETE_NO_ERRORS", "Complete No Errors"),
                             ("COMPLETE_WITH_ERRORS", "Complete With Errors"),
-                            ("INCOMPLETE_STALE", "Incomplete Stale"),
                             ("INCOMPLETE_DISCARDED", "Incomplete Discarded"),
                         ],
                         max_length=64,

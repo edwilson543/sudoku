@@ -4,8 +4,8 @@ from data import models
 
 def create_new_game(*, ip_address: str) -> models.Game:
     """
-    - Completes or discards old active game if there was one
-    - Gets an unsolved sudoku by querying or by generating
-    - Calls the operation to make a new game
+    - Call operation to terminate active game
+    - Get or create unattempted sudoku
+    - Calls the model method to make a new game
     """
     pass
