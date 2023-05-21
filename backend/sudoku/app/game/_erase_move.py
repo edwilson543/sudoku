@@ -4,6 +4,8 @@ from data import models
 
 def erase_move(*, game: models.Game, row: int, column: int, value: int) -> models.Move:
     """
-    - this needs to retrieve the move and then erase it
+    - Call get non-erased move
+    - Raise a custom exception if it does not exist
+    - Otherwise erase it
     """
     pass
