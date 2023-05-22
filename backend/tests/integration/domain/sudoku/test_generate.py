@@ -45,16 +45,13 @@ class TestGenerate:
         )
         assert not any(None in row for row in sudoku.solution)
 
-    def test_timeout_raised_when_sudoku_not_found(self, monkeypatch):
-        # Timeout the generator after 0 seconds (which means it gets exactly 1 attempt)
-        monkeypatch.setattr(generate.sudoku_constants, "GENERATION_TIMEOUT_SECONDS", 0)
-
+    def test_timeout_raised_when_sudoku_not_found(self):
         # Set the random seed such that the first generation attempt is invalid
         random.seed(0)
 
         with pytest.raises(generate.SudokuGenerationTimeout):
             generate.generate_sudoku(
-                difficulty=constants.SudokuDifficulty.HARD, size=9, timeout=True
+                difficulty=constants.SudokuDifficulty.HARD, size=9, timeout_seconds=0
             )
 
     @pytest.mark.parametrize(

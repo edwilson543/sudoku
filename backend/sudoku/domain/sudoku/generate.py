@@ -33,7 +33,10 @@ class Sudoku:
 
 
 def generate_sudoku(
-    *, difficulty: constants.SudokuDifficulty, size: int, timeout: bool = True
+    *,
+    difficulty: constants.SudokuDifficulty,
+    size: int,
+    timeout_seconds: int = sudoku_constants.GENERATION_TIMEOUT_SECONDS,
 ) -> Sudoku:
     """
     Generate a new `Sudoku` for the given size and difficulty.
@@ -58,10 +61,8 @@ def generate_sudoku(
             )
             break
         except (solve.SudokuSolutionIsNotUnique, solve.SudokuSolutionNotFound):
-            if (
-                timeout
-                and time.perf_counter() - start_time
-                > sudoku_constants.GENERATION_TIMEOUT_SECONDS
+            if (timeout_seconds is not None) and (
+                time.perf_counter() - start_time > timeout_seconds
             ):
                 raise SudokuGenerationTimeout
 

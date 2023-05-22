@@ -1,5 +1,6 @@
 # Local application imports
 from data import constants, models
+from domain.sudoku import constants as sudoku_constants
 from domain.sudoku import generate, queries
 
 
@@ -33,7 +34,11 @@ def create_new_sudoku(
     :raises UnableToCreateSudoku: If sudoku generation timed out.
     """
     try:
-        sudoku = generate.generate_sudoku(difficulty=difficulty, size=size)
+        sudoku = generate.generate_sudoku(
+            difficulty=difficulty,
+            size=size,
+            timeout_seconds=sudoku_constants.GENERATION_TIMEOUT_SECONDS,
+        )
     except generate.SudokuGenerationTimeout:
         raise UnableToCreateSudoku
 
