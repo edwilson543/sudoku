@@ -6,7 +6,7 @@ from django.db import models as django_models
 
 class Move(django_models.Model):
     """
-    Representation of a single move in a game of sudoku.
+    Record an attempt at inserting the correct value into a game of sudoku.
     """
 
     game = django_models.ForeignKey(

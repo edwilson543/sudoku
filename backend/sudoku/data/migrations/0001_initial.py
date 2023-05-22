@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
                             ("ACTIVE", "Active"),
                             ("COMPLETE_NO_ERRORS", "Complete No Errors"),
                             ("COMPLETE_WITH_ERRORS", "Complete With Errors"),
-                            ("INCOMPLETE_STALE", "Incomplete Stale"),
                             ("INCOMPLETE_DISCARDED", "Incomplete Discarded"),
                         ],
                         max_length=64,
@@ -52,7 +51,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("ip_address", models.GenericIPAddressField(unique=True)),
+                ("ip_address", models.CharField(unique=True, max_length=128)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
@@ -76,7 +75,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         choices=[
                             ("EASY", "Easy"),
-                            ("INTERMEDIATE", "Intermediate"),
+                            ("MEDIUM", "Medium"),
                             ("HARD", "Hard"),
                         ],
                         max_length=64,

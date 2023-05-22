@@ -9,7 +9,7 @@ class Player(django_models.Model):
     Someone who has at some point played sudoku using the app.
     """
 
-    ip_address = django_models.GenericIPAddressField(unique=True)
+    ip_address = django_models.CharField(unique=True, max_length=128)
     """
     Someone who has played sudoku at least once.
 
@@ -20,3 +20,11 @@ class Player(django_models.Model):
     """
     When the player first visited the site.
     """
+
+    # ----------
+    # Factories
+    # ----------
+
+    @classmethod
+    def create_new(cls, *, ip_address: str) -> Player:
+        return cls.objects.create(ip_address=ip_address)

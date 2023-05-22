@@ -4,14 +4,14 @@ from __future__ import annotations
 import datetime as dt
 from typing import TYPE_CHECKING
 
-# Third party imports
-from data import constants
-
 # Django imports
 from django.db import models as django_models
 
+# Local application imports
+from data import constants
+
 if TYPE_CHECKING:
-    # Third party imports
+    # Local application imports
     from data.models import _move, _player, _sudoku
 
 
@@ -50,6 +50,8 @@ class Game(django_models.Model):
     """
     When the player completed or discarded this game.
     """
+
+    moves: django_models.QuerySet[_move.Move]
 
     # ----------
     # Factories
