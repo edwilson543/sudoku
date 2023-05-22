@@ -2,10 +2,12 @@
 from data import models
 
 
-def erase_move(*, game: models.Game, row: int, column: int, value: int) -> models.Move:
+def erase_move(*, move: models.Move) -> None:
     """
-    - Call get non-erased move
-    - Raise a custom exception if it does not exist
-    - Otherwise erase it
+    Erase a single move from the game (but maintain a record that it existed).
+
+    This is called when:
+    * The user realised they made a mistake and wants to retract the remove
+    * The user wants to make a new move in the occupied cell
     """
-    pass
+    move.erase()
