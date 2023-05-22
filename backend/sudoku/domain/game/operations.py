@@ -19,4 +19,5 @@ def terminate_game(*, game: models.Game) -> None:
     else:
         status = constants.GameStatus.INCOMPLETE_DISCARDED
 
-    game.update_status(status=status)
+    # Mypy thinks status is a `str` rather than `GameStatus`
+    game.update_status(status=status)  # type: ignore[arg-type]

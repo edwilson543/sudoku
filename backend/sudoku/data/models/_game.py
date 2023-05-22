@@ -51,6 +51,8 @@ class Game(django_models.Model):
     When the player completed or discarded this game.
     """
 
+    moves: django_models.QuerySet[_move.Move]
+
     # ----------
     # Factories
     # ----------

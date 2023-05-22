@@ -1,4 +1,4 @@
-from ._create_new_game import create_new_game
+from ._create_next_game import PlayerHasNoActiveGame, create_next_game
 from ._erase_all_invalid_moves import erase_all_invalid_moves
 from ._erase_move import erase_move
 from ._get_or_create_active_game import get_or_create_active_game
