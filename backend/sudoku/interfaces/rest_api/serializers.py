@@ -1,8 +1,11 @@
+# Standard library imports
+from collections import OrderedDict
+
 # Third party imports
 from rest_framework import serializers
 
 # Local application imports
-from data import constants
+from data import constants, models
 
 
 class Sudoku(serializers.Serializer):
@@ -28,3 +31,20 @@ class Move(serializers.Serializer):
     value = serializers.IntegerField()
     is_correct = serializers.IntegerField(read_only=True)
     is_erased = serializers.IntegerField(read_only=True)
+
+
+class Game(serializers.Serializer):
+    """
+    Serializer for a game of sudoku, including historic moves.
+    """
+
+    sudoku = serializers.SerializerMethodField()
+    moves = serializers.SerializerMethodField()
+    started_at = serializers.DateTimeField(format="YYYY-MM-DDTHH:MM:SS")
+
+    def get_sudoku(self, game: models.Game) -> list[OrderedDict]:
+        return Sudoku(instance=game.sudoku).data
+
+    def get_moves(self, game: models.Game) -> list[OrderedDict]:
+        return Sudoku(instance=game.moves.all(), many=True).data
+

@@ -107,3 +107,20 @@ class TestMove:
         assert not serializer.is_valid()
 
         assert str(serializer.errors["value"][0]) == "This field may not be null."
+
+
+@pytest.mark.django_db
+class TestGame:
+    def test_serializes_game_with_no_moves(self):
+        game = factories.Game()
+
+        serialized_game = serializers.Game(instance=game).data
+
+        assert serialized_game == OrderedDict(
+            # Sudoku serializer directly above
+            [
+                ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
+                ("moves", []),
+                ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
+            ]
+        )
