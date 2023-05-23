@@ -5,9 +5,57 @@ from collections import OrderedDict
 import pytest
 
 # Local application imports
-from data import models
+from data import constants, models
 from interfaces.rest_api import serializers
 from tests import factories
+
+
+@pytest.mark.django_db
+class TestSudoku:
+    def test_serializes_sudoku(self):
+        problem = [[None, 2, None, 4], [4, 3, 2, 1], [3, 4, 1, 2], [None, 1, 4, None]]
+        solution = [
+            [1, 2, 3, 4],
+            [4, 3, 2, 1],
+            [3, 4, 1, 2],
+            [2, 1, 4, 3],
+        ]
+
+        sudoku = factories.Sudoku(
+            problem=problem,
+            solution=solution,
+            difficulty=constants.SudokuDifficulty.EASY,
+            size=4,
+            number_of_missing_values=4,
+        )
+
+        serialized_sudoku = serializers.Sudoku(instance=sudoku).data
+
+        assert serialized_sudoku == OrderedDict(
+            [
+                ("problem", problem),
+                ("solution", solution),
+                ("difficulty", "EASY"),
+                ("size", 4),
+                ("number_of_missing_values", 4),
+            ]
+        )
+
+    def test_deserializes_and_validates_new_sudoku_payload(self):
+        data = {"difficulty": "MEDIUM", "size": 9}
+
+        serializer = serializers.Sudoku(data=data)
+
+        serializer.is_valid()
+
+        assert serializer.validated_data == data
+
+    def test_deserialization_raises_for_missing_difficulty(self):
+        data = {"size": 9}
+
+        serializer = serializers.Sudoku(data=data)
+
+        assert not serializer.is_valid()
 
 
 @pytest.mark.django_db
