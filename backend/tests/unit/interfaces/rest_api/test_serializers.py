@@ -11,6 +11,28 @@ from tests import factories
 
 
 @pytest.mark.django_db
+class TestPlayer:
+    def test_deserializes_and_validates_ip_address(self):
+        data = {"ip_address": "192.0.2.1"}
+
+        serializer = serializers.Player(data=data)
+
+        assert serializer.is_valid()
+        assert serializer.validated_data == data
+
+    def test_validation_fails_for_invalid_ip_address(self):
+        data = {"ip_address": "ed@gmail.com"}
+
+        serializer = serializers.Player(data=data)
+
+        assert not serializer.is_valid()
+        assert (
+            str(serializer.errors["ip_address"][0])
+            == "Enter a valid IPv4 or IPv6 address."
+        )
+
+
+@pytest.mark.django_db
 class TestSudoku:
     def test_serializes_sudoku(self):
         problem = [[None, 2, None, 4], [4, 3, 2, 1], [3, 4, 1, 2], [None, 1, 4, None]]
@@ -50,7 +72,7 @@ class TestSudoku:
 
         assert serializer.validated_data == data
 
-    def test_deserialization_raises_for_missing_difficulty(self):
+    def test_validation_fails_when_difficulty_is_missing(self):
         data = {"size": 9}
 
         serializer = serializers.Sudoku(data=data)
@@ -99,13 +121,12 @@ class TestMove:
 
         assert serializer.validated_data == data
 
-    def test_deserialization_raises_for_moving_missing_a_value(self):
+    def test_validation_fails_when_move_value_is_missing(self):
         data = {"row": 4, "column": 6, "value": None}
 
         serializer = serializers.Move(data=data)
 
         assert not serializer.is_valid()
-
         assert str(serializer.errors["value"][0]) == "This field may not be null."
 
 

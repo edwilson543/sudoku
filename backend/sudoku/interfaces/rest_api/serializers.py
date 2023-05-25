@@ -8,6 +8,14 @@ from rest_framework import serializers
 from data import constants, models
 
 
+class Player(serializers.Serializer):
+    """
+    Serializer for a player of the game.
+    """
+
+    ip_address = serializers.IPAddressField()
+
+
 class Sudoku(serializers.Serializer):
     """
     Serializer for a sudoku definition.
