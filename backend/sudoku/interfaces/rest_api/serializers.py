@@ -8,12 +8,17 @@ from rest_framework import serializers
 from data import constants, models
 
 
-class Player(serializers.Serializer):
+class GameInitiation(serializers.Serializer):
     """
-    Serializer for a player of the game.
+    Serialize the information required to initiate a game.
     """
 
     ip_address = serializers.IPAddressField()
+    difficulty = serializers.ChoiceField(
+        choices=constants.SudokuDifficulty.choices,
+        default=constants.SudokuDifficulty.MEDIUM,
+    )
+    size = serializers.IntegerField(default=9)
 
 
 class Sudoku(serializers.Serializer):
@@ -21,11 +26,11 @@ class Sudoku(serializers.Serializer):
     Serializer for a sudoku definition.
     """
 
-    problem = serializers.JSONField(read_only=True)
-    solution = serializers.JSONField(read_only=True)
+    problem = serializers.JSONField()
+    solution = serializers.JSONField()
     difficulty = serializers.ChoiceField(choices=constants.SudokuDifficulty.choices)
     size = serializers.IntegerField()
-    number_of_missing_values = serializers.IntegerField(read_only=True)
+    number_of_missing_values = serializers.IntegerField()
 
 
 class Move(serializers.Serializer):

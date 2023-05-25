@@ -11,19 +11,29 @@ from tests import factories
 
 
 @pytest.mark.django_db
-class TestPlayer:
+class TestGameInitiation:
     def test_deserializes_and_validates_ip_address(self):
         data = {"ip_address": "192.0.2.1"}
+        defaults = {"difficulty": "MEDIUM", "size": 9}
 
-        serializer = serializers.Player(data=data)
+        serializer = serializers.GameInitiation(data=data)
 
         assert serializer.is_valid()
+        assert serializer.validated_data == data | defaults
+
+    def test_deserializes_and_validates_new_sudoku_payload(self):
+        data = {"ip_address": "192.0.2.1", "difficulty": "MEDIUM", "size": 9}
+
+        serializer = serializers.GameInitiation(data=data)
+
+        serializer.is_valid()
+
         assert serializer.validated_data == data
 
     def test_validation_fails_for_invalid_ip_address(self):
         data = {"ip_address": "ed@gmail.com"}
 
-        serializer = serializers.Player(data=data)
+        serializer = serializers.GameInitiation(data=data)
 
         assert not serializer.is_valid()
         assert (
@@ -62,22 +72,6 @@ class TestSudoku:
                 ("number_of_missing_values", 4),
             ]
         )
-
-    def test_deserializes_and_validates_new_sudoku_payload(self):
-        data = {"difficulty": "MEDIUM", "size": 9}
-
-        serializer = serializers.Sudoku(data=data)
-
-        serializer.is_valid()
-
-        assert serializer.validated_data == data
-
-    def test_validation_fails_when_difficulty_is_missing(self):
-        data = {"size": 9}
-
-        serializer = serializers.Sudoku(data=data)
-
-        assert not serializer.is_valid()
 
 
 @pytest.mark.django_db

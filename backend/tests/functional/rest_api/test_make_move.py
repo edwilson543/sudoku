@@ -9,7 +9,7 @@ from tests import factories
 
 
 class TestMakeMove:
-    def test_record_correct_move(self, rest_api_client):
+    def test_records_correct_move(self, rest_api_client):
         # Create a sudoku game
         problem = [[None]]
         solution = [[1]]

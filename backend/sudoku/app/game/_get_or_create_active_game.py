@@ -8,6 +8,10 @@ from domain.player import operations as player_operations
 from domain.sudoku import operations as sudoku_operations
 
 
+class UnableToCreateSudoku(sudoku_operations.UnableToCreateSudoku):
+    pass
+
+
 @transaction.atomic
 def get_or_create_active_game(
     *,
@@ -32,9 +36,12 @@ def get_or_create_active_game(
 
     # Otherwise, create a new active game for the player
     else:
-        unattempted_sudoku = (
-            sudoku_operations.get_or_create_unattempted_sudoku_for_player(
-                player=player, difficulty=difficulty, size=size
+        try:
+            unattempted_sudoku = (
+                sudoku_operations.get_or_create_unattempted_sudoku_for_player(
+                    player=player, difficulty=difficulty, size=size
+                )
             )
-        )
+        except sudoku_operations.UnableToCreateSudoku:
+            raise UnableToCreateSudoku
         return models.Game.create_new(player=player, sudoku=unattempted_sudoku)

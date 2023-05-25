@@ -5,7 +5,7 @@ from django import urls
 from interfaces.rest_api import views
 
 urlpatterns = [
-    urls.path("game/active/", view=views.ActiveGame.as_view()),
+    urls.path("game/active/", view=views.ActiveGame.as_view(), name="active-game"),
     urls.path(
         "game/<int:game_id>/make-move/", view=views.MakeMove.as_view(), name="make-move"
     ),
