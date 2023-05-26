@@ -11,8 +11,10 @@ from django import shortcuts
 from app import game
 from data import models
 from interfaces.rest_api import serializers
+from interfaces.rest_api.views import _decorators as decorators
 
 
+@decorators.frontend_only
 class MakeMove(views.APIView):
     """
     Record an attempt at inserting the correct value in a game of sudoku.

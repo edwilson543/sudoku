@@ -11,8 +11,10 @@ from django import shortcuts
 from app import game
 from data import models
 from interfaces.rest_api import serializers
+from interfaces.rest_api.views import _decorators as decorators
 
 
+@decorators.frontend_only
 class EraseAllIncorrectMoves(views.APIView):
     """
     Find and erase all incorrect moves from a game.

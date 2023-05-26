@@ -7,8 +7,10 @@ from rest_framework import views
 # Local application imports
 from app import game
 from interfaces.rest_api import serializers
+from interfaces.rest_api.views import _decorators as decorators
 
 
+@decorators.frontend_only
 class ActiveGame(views.APIView):
     """
     Get or create an active sudoku game for an IP address.
