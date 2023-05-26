@@ -9,10 +9,15 @@ urlpatterns = [
     urls.path(
         "game/<int:game_id>/make-move/", view=views.MakeMove.as_view(), name="make-move"
     ),
-    urls.path("game/<int:game_id>/erase-move/", view=views.EraseMove.as_view()),
+    urls.path(
+        "game/<int:game_id>/erase-move/",
+        view=views.EraseMove.as_view(),
+        name="erase-move",
+    ),
     urls.path(
         "game/<int:game_id>/erase-incorect-moves/",
         view=views.EraseAllIncorrectMoves.as_view(),
+        name="erase-incorrect-moves",
     ),
     urls.path("game/next/", view=views.CreateNextGame.as_view(), name="next-game"),
 ]
