@@ -11,16 +11,19 @@ from domain.sudoku import operations as sudoku_operations
 class PlayerHasNoActiveGame(Exception):
     def __init__(self, ip_address: str):
         super().__init__(
-            f"Tried to create a new game for ip address {ip_address} which has no active game"
+            f"Tried to create a new game for IP address {ip_address} which has no active game"
         )
 
 
 @transaction.atomic
 def create_next_game(
-    *, ip_address: str, difficulty: constants.SudokuDifficulty, size: int
+    *,
+    ip_address: str,
+    difficulty: constants.SudokuDifficulty,
+    size: constants.SudokuSize,
 ) -> models.Game:
     """
-    Create a new game with a fresh sudoku for the player at the given ip address.
+    Create a new game with a fresh sudoku for the player at the given IP address.
 
     This is for continuation of an existing player who has already played.
 

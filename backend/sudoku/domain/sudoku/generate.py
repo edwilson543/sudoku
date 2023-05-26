@@ -15,7 +15,9 @@ class SudokuGenerationTimeout(TimeoutError):
 
 
 class SudokuDifficultyAndOrSizeNotSupported(NotImplementedError):
-    def __init__(self, difficulty: constants.SudokuDifficulty, size: int) -> None:
+    def __init__(
+        self, difficulty: constants.SudokuDifficulty, size: constants.SudokuSize
+    ) -> None:
         super().__init__(
             f"Sudokus of size {size} and difficulty {difficulty} are not currently supported.",
             size,
@@ -27,7 +29,7 @@ class SudokuDifficultyAndOrSizeNotSupported(NotImplementedError):
 class Sudoku:
     problem: list[list[int | None]]
     solution: list[list[int]]
-    size: int
+    size: constants.SudokuSize
     difficulty: constants.SudokuDifficulty
     number_of_missing_values: int
 
@@ -35,7 +37,7 @@ class Sudoku:
 def generate_sudoku(
     *,
     difficulty: constants.SudokuDifficulty,
-    size: int,
+    size: constants.SudokuSize,
     timeout_seconds: int = sudoku_constants.GENERATION_TIMEOUT_SECONDS,
 ) -> Sudoku:
     """
@@ -75,7 +77,7 @@ def generate_sudoku(
     )
 
 
-def _get_solved_sudoku_for_size(size: int) -> list[list[int]]:
+def _get_solved_sudoku_for_size(size: constants.SudokuSize) -> list[list[int]]:
     """
     Get a valid sudoku solution for the given size.
     """
@@ -123,7 +125,9 @@ def _shuffle(solution: list[list[int]]) -> list[list[int]]:
 
 
 def _create_problem_from_solution(
-    solution: list[list[int]], number_of_values_to_remove: int, size: int
+    solution: list[list[int]],
+    number_of_values_to_remove: int,
+    size: constants.SudokuSize,
 ) -> list[list[int | None]]:
     """
     Create a sudoku problem from the solution by removing some clues.
@@ -146,7 +150,7 @@ def _create_problem_from_solution(
 
 
 def _get_number_of_clues_to_remove(
-    difficulty: constants.SudokuDifficulty, size: int
+    difficulty: constants.SudokuDifficulty, size: constants.SudokuSize
 ) -> int:
     try:
         number_of_clues = sudoku_constants.NUMBER_OF_CLUES_FOR_SIZE[size][difficulty]

@@ -8,6 +8,12 @@ class SudokuDifficulty(django_models.TextChoices):
     HARD = "HARD", "Hard"
 
 
+class SudokuSize(django_models.IntegerChoices):
+    ONE = 1
+    FOUR = 4
+    NINE = 9
+
+
 class GameStatus(django_models.TextChoices):
     # The player is currently (i.e. whenever on the site) playing this sudoku
     ACTIVE = "ACTIVE"

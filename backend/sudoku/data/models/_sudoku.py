@@ -65,7 +65,7 @@ class Sudoku(django_models.Model):
         problem: list[list[int | None]],
         solution: list[list[int]],
         difficulty: constants.SudokuDifficulty,
-        size: int,
+        size: constants.SudokuSize,
         number_of_missing_values: int,
     ) -> Sudoku:
         return cls.objects.create(

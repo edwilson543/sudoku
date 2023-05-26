@@ -39,11 +39,17 @@ class TestGetUnattemptedSudokusForPlayer:
     def test_returns_empty_queryset_when_no_sudokus_available(self):
         player = factories.Player()
 
-        factories.Sudoku(size=4, difficulty=constants.SudokuDifficulty.EASY)
-        factories.Sudoku(size=9, difficulty=constants.SudokuDifficulty.MEDIUM)
+        factories.Sudoku(
+            size=constants.SudokuSize.FOUR, difficulty=constants.SudokuDifficulty.EASY
+        )
+        factories.Sudoku(
+            size=constants.SudokuSize.NINE, difficulty=constants.SudokuDifficulty.MEDIUM
+        )
 
         sudokus = queries.get_unattempted_sudokus_for_player(
-            player=player, size=4, difficulty=constants.SudokuDifficulty.MEDIUM
+            player=player,
+            size=constants.SudokuSize.FOUR,
+            difficulty=constants.SudokuDifficulty.MEDIUM,
         )
 
         assert not sudokus.exists()

@@ -19,9 +19,11 @@ class TestGenerate:
             constants.SudokuDifficulty.HARD,
         ],
     )
-    @pytest.mark.parametrize("size", [4, 9])
+    @pytest.mark.parametrize(
+        "size", [constants.SudokuSize.FOUR, constants.SudokuSize.NINE]
+    )
     def test_generates_sudoku_for_supported_sizes_and_difficulties(
-        self, difficulty: constants.SudokuDifficulty, size: int
+        self, difficulty: constants.SudokuDifficulty, size: constants.SudokuSize
     ):
         # Set the random seed such that the generation loop never has to retry.
         # This value was found by trial and error
@@ -51,7 +53,9 @@ class TestGenerate:
 
         with pytest.raises(generate.SudokuGenerationTimeout):
             generate.generate_sudoku(
-                difficulty=constants.SudokuDifficulty.HARD, size=9, timeout_seconds=0
+                difficulty=constants.SudokuDifficulty.HARD,
+                size=constants.SudokuSize.NINE,
+                timeout_seconds=0,
             )
 
     @pytest.mark.parametrize(
@@ -63,7 +67,7 @@ class TestGenerate:
         ],
     )
     def test_raises_not_implemented_error_for_unsupported_size_and_difficulty(
-        self, difficulty: constants.SudokuDifficulty, size: int
+        self, difficulty: constants.SudokuDifficulty, size: constants.SudokuSize
     ):
         with pytest.raises(generate.SudokuDifficultyAndOrSizeNotSupported):
             generate.generate_sudoku(difficulty=difficulty, size=size)

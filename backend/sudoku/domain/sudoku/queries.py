@@ -6,7 +6,10 @@ from data import constants, models
 
 
 def get_unattempted_sudokus_for_player(
-    *, player: models.Player, difficulty: constants.SudokuDifficulty, size: int
+    *,
+    player: models.Player,
+    difficulty: constants.SudokuDifficulty,
+    size: constants.SudokuSize
 ) -> django_models.QuerySet[models.Sudoku]:
     """
     Get the sudokus of the given difficulty and size this player has not attempted.
