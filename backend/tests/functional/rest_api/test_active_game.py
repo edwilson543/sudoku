@@ -16,10 +16,9 @@ class TestActiveGame:
         player = factories.Player(ip_address="192.0.2.1")
         game = factories.Game(player=player, status=constants.GameStatus.ACTIVE)
 
-        # Create a payload containing a valid move in this game
         payload = {"ip_address": player.ip_address}
 
-        # Get the active game for this player via the api
+        # Get the active game for this player via the API
         endpoint = django_urls.reverse("active-game")
         response = rest_api_client.post(endpoint, data=payload)
 
@@ -30,7 +29,6 @@ class TestActiveGame:
     def test_creates_game_for_new_player(self, rest_api_client):
         ip_address = "192.0.2.1"
 
-        # Create a payload containing a valid move in this game
         sudoku = factories.Sudoku()
         payload = {
             "ip_address": ip_address,
@@ -38,7 +36,7 @@ class TestActiveGame:
             "size": sudoku.size,
         }
 
-        # Get the active game for this player via the api
+        # Get the active game for this player via the API
         endpoint = django_urls.reverse("active-game")
         response = rest_api_client.post(endpoint, data=payload)
 
