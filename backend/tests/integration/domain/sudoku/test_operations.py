@@ -31,11 +31,13 @@ class TestGetOrCreateNewSudokuForPlayer:
         factories.Game(sudoku=sudoku)
 
         # Create a sudoku for some other size and difficulty
-        factories.Sudoku(size=9)
+        factories.Sudoku(size=constants.SudokuSize.NINE)
         factories.Sudoku(difficulty=constants.SudokuDifficulty.EASY)
 
         operations.get_or_create_unattempted_sudoku_for_player(
-            player=player, difficulty=constants.SudokuDifficulty.MEDIUM, size=4
+            player=player,
+            difficulty=constants.SudokuDifficulty.MEDIUM,
+            size=constants.SudokuSize.FOUR,
         )
 
         # Ensure this was a new sudoku (we made 3 from factories, so a new one would make 4)
@@ -48,7 +50,9 @@ class TestCreateNewSudoku:
         # Fix the random seed, so we know what sudoku to expect
         random.seed(5)
 
-        operations.create_new_sudoku(difficulty=constants.SudokuDifficulty.EASY, size=4)
+        operations.create_new_sudoku(
+            difficulty=constants.SudokuDifficulty.EASY, size=constants.SudokuSize.FOUR
+        )
 
         # Ensure the relevant db content was created
         sudoku = models.Sudoku.objects.get()
@@ -78,5 +82,6 @@ class TestCreateNewSudoku:
 
         with pytest.raises(operations.UnableToCreateSudoku):
             operations.create_new_sudoku(
-                difficulty=constants.SudokuDifficulty.HARD, size=9
+                difficulty=constants.SudokuDifficulty.HARD,
+                size=constants.SudokuSize.NINE,
             )

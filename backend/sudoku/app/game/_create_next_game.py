@@ -17,7 +17,10 @@ class PlayerHasNoActiveGame(Exception):
 
 @transaction.atomic
 def create_next_game(
-    *, ip_address: str, difficulty: constants.SudokuDifficulty, size: int
+    *,
+    ip_address: str,
+    difficulty: constants.SudokuDifficulty,
+    size: constants.SudokuSize,
 ) -> models.Game:
     """
     Create a new game with a fresh sudoku for the player at the given ip address.

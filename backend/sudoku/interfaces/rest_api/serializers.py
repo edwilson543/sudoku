@@ -18,7 +18,9 @@ class GameInitiation(serializers.Serializer):
         choices=constants.SudokuDifficulty.choices,
         default=constants.SudokuDifficulty.MEDIUM,
     )
-    size = serializers.IntegerField(default=9)
+    size = serializers.ChoiceField(
+        choices=constants.SudokuSize.choices, default=constants.SudokuSize.NINE
+    )
 
 
 class Sudoku(serializers.Serializer):
@@ -29,7 +31,7 @@ class Sudoku(serializers.Serializer):
     problem = serializers.JSONField()
     solution = serializers.JSONField()
     difficulty = serializers.ChoiceField(choices=constants.SudokuDifficulty.choices)
-    size = serializers.IntegerField()
+    size = serializers.ChoiceField(choices=constants.SudokuSize.choices)
     number_of_missing_values = serializers.IntegerField()
 
 

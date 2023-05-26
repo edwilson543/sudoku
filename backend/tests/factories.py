@@ -43,7 +43,7 @@ def sudoku_solution() -> list[list[int | None]]:
 class Sudoku(factory_django.DjangoModelFactory):
     problem = factory.LazyFunction(sudoku_problem)
     solution = factory.LazyFunction(sudoku_solution)
-    size = 9
+    size = constants.SudokuSize.NINE
     difficulty = constants.SudokuDifficulty.MEDIUM
     number_of_missing_values = 36
 

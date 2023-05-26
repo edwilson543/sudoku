@@ -9,7 +9,10 @@ class UnableToCreateSudoku(generate.SudokuGenerationTimeout):
 
 
 def get_or_create_unattempted_sudoku_for_player(
-    *, player: models.Player, difficulty: constants.SudokuDifficulty, size: int
+    *,
+    player: models.Player,
+    difficulty: constants.SudokuDifficulty,
+    size: constants.SudokuSize,
 ) -> models.Sudoku:
     """
     Get a sudoku the player hasn't attempted, otherwise create a new one.
@@ -26,7 +29,7 @@ def get_or_create_unattempted_sudoku_for_player(
 
 
 def create_new_sudoku(
-    *, difficulty: constants.SudokuDifficulty, size: int
+    *, difficulty: constants.SudokuDifficulty, size: constants.SudokuSize
 ) -> models.Sudoku:
     """
     Create a new sudoku in the db of the given difficulty and size.

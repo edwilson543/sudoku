@@ -57,7 +57,7 @@ class TestSudoku:
             problem=problem,
             solution=solution,
             difficulty=constants.SudokuDifficulty.EASY,
-            size=4,
+            size=constants.SudokuSize.FOUR,
             number_of_missing_values=4,
         )
 

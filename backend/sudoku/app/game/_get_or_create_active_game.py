@@ -16,8 +16,8 @@ class UnableToCreateSudoku(sudoku_operations.UnableToCreateSudoku):
 def get_or_create_active_game(
     *,
     ip_address: str,
-    difficulty: constants.SudokuDifficulty = constants.SudokuDifficulty.EASY,  # type: ignore[assignment]
-    size: int = 9,
+    difficulty: constants.SudokuDifficulty = constants.SudokuDifficulty.EASY,
+    size: constants.SudokuSize = constants.SudokuSize.NINE,
 ) -> models.Game:
     """
     Get the active game associated with some ip address.

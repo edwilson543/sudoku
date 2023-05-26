@@ -35,7 +35,7 @@ class TestCreateNextGame:
             game.create_next_game(
                 ip_address="no-corresponding-player",
                 difficulty=constants.SudokuDifficulty.EASY,
-                size=4,
+                size=constants.SudokuSize.FOUR,
             )
 
     def test_raises_when_player_has_no_activ_game(self):
@@ -45,5 +45,5 @@ class TestCreateNextGame:
             game.create_next_game(
                 ip_address=player.ip_address,
                 difficulty=constants.SudokuDifficulty.EASY,
-                size=4,
+                size=constants.SudokuSize.FOUR,
             )
