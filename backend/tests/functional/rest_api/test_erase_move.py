@@ -8,8 +8,8 @@ from django import urls as django_urls
 from tests import factories
 
 
-class TestMakeMove:
-    def test_records_correct_move(self, rest_api_client):
+class TestEraseMove:
+    def test_erases_specified_move(self, rest_api_client):
         # Create a sudoku game, with some moves
         game = factories.Game()
         move = factories.Move(game=game, is_erased=False)

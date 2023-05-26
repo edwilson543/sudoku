@@ -139,3 +139,18 @@ class TestGame:
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
             ]
         )
+
+    def test_serializes_game_with_move(self):
+        game = factories.Game()
+        move = factories.Move(game=game)
+
+        serialized_game = serializers.Game(instance=game).data
+
+        assert serialized_game == OrderedDict(
+            # Sudoku serializer directly above
+            [
+                ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
+                ("moves", [serializers.Move(instance=move).data]),
+                ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
+            ]
+        )

@@ -10,7 +10,7 @@ from interfaces.rest_api import serializers
 from tests import factories
 
 
-class TestActiveGame:
+class TestCreateNextGame:
     def test_creates_new_game_for_player(self, rest_api_client):
         # Create an existing player with an existing game
         player = factories.Player(ip_address="192.0.2.1")
