@@ -41,9 +41,9 @@ class Move(serializers.Serializer):
     """
 
     id = serializers.IntegerField(read_only=True)
-    row = serializers.IntegerField()
-    column = serializers.IntegerField()
-    value = serializers.IntegerField(required=False)
+    row = serializers.IntegerField(min_value=0)
+    column = serializers.IntegerField(min_value=0)
+    value = serializers.IntegerField(required=False, min_value=1)
     is_correct = serializers.IntegerField(read_only=True)
     is_erased = serializers.IntegerField(read_only=True)
 
