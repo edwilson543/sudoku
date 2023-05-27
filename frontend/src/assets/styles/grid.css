@@ -1,15 +1,20 @@
 .grid {
+    /* Display */
     display: flex;
     flex-direction: column;
+
+    /* Border */
+    border: 5px solid black;
 }
 
 .cell-row {
+    /* Display */
     display: flex;
     flex-direction: row;
 }
 
 .cell {
-    /* Display and box model */
+    /* Display */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,4 +23,8 @@
 
     /* Border */
     border: 1px solid black;
+
+    /* Typography */
+    font-size: 35px;
+    font-weight: bold;
 }

@@ -1,0 +1,23 @@
+.page-content {
+    /* Display */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.headstrap {
+    /* Display */
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    /* Border */
+    border-bottom: 1px solid grey;
+
+    /* Typography */
+    font-weight: bold;
+    font-style: italic;
+}
