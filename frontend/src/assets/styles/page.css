@@ -6,6 +6,9 @@
     min-width: 50%;
     margin-left: 25%;
     margin-right: 25%;
+
+    /* Typography */
+    font-family: Monaco;
 }
 
 .headstrap {
@@ -20,4 +23,5 @@
     /* Typography */
     font-weight: bold;
     font-style: italic;
+    font-family: Arial;
 }
