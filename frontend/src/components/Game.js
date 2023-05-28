@@ -1,4 +1,5 @@
 import Grid from "./board/Grid";
+import { SudokuSizeContext } from "./SudokuSizeConext";
 
 
 export default function Game({sudoku, existingMoves}) {
@@ -9,9 +10,11 @@ export default function Game({sudoku, existingMoves}) {
      * @property moves: Moves that existed at the start of the game.
      */
     return (
-      <div className={"game"}>
-          <Grid sudoku={sudoku} moves={combineAllMoves(existingMoves, sudoku.size)}/>
-      </div>
+        <div className={"game"}>
+            <SudokuSizeContext.Provider value={sudoku.size}>
+                <Grid sudoku={sudoku} moves={combineAllMoves(existingMoves, sudoku.size)}/>
+            </SudokuSizeContext.Provider>
+        </div>
     );
 };
 

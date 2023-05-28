@@ -6,7 +6,7 @@ export default function GameCell({move}) {
      * @property value: A move object (has a `value` and `is_correct` value).
     */
     return (
-        <div className={"cell"}>
+        <div className={"cell game-cell"}>
             {move ? move.value : ''}
         </div>
     );
