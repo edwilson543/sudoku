@@ -1,16 +1,10 @@
 import {useContext} from "react";
-
 import {SudokuSizeContext} from "../SudokuSizeConext";
 import {getTileIndex} from "../../utils/gemoetry";
 
 
-export default function GameCell({move, activeCell, setActiveCell, rowIndex, columnIndex}) {
-    /**
-     * A cell that the user must fill in as part of the game.
-     * It may or may not already have a value from an existing move.
-     *
-     * @property value: A move object (has a `value` and `is_correct` value).
-     */
+export default function Cell({isClueCell, value, rowIndex, columnIndex, activeCell, setActiveCell}) {
+    /** A cell in the sudoku grid that may or may not contain a clue. */
     const sudokuSize = useContext(SudokuSizeContext);
     const tileIndex = getTileIndex(rowIndex, columnIndex, sudokuSize);
 
@@ -19,13 +13,15 @@ export default function GameCell({move, activeCell, setActiveCell, rowIndex, col
             rowIndex: rowIndex,
             columnIndex: columnIndex,
             tileIndex: tileIndex,
-            value: move,
-            isGameCell: true
+            value: value,
         })
     }
 
     function getClassName() {
-        let className = "cell game-cell";
+        let className = "cell";
+        if (!isClueCell) {
+            className += " game-cell";
+        }
         if (activeCell.rowIndex === rowIndex &&
             activeCell.columnIndex === columnIndex
         ) {
@@ -35,7 +31,7 @@ export default function GameCell({move, activeCell, setActiveCell, rowIndex, col
             activeCell.tileIndex === tileIndex
         ) {
             className += " highlighted-cell";
-        } else if (activeCell.value === move && move !== null) {
+        } else if (activeCell.value === value && value) {
             className += " highlighted-cell-value";
         }
         return className;
@@ -43,7 +39,7 @@ export default function GameCell({move, activeCell, setActiveCell, rowIndex, col
 
     return (
         <div className={getClassName()} onClick={handleClick}>
-            {move ? move.value : ''}
+            {value}
         </div>
     );
 }

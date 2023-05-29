@@ -48,21 +48,21 @@
 
 .game-cell {
     /* Typography */
-    color: blue;
+    color: #3e569e;
 }
 
 .active-cell {
     /* Background */
-    background-color: #1ac5eb;
+    background-color: #79b9c9;
 }
 
 .highlighted-cell {
     /* Background */
-    background-color: #9ce1f0;
+    background-color: #cfe1e6;
 }
 
 .highlighted-cell-value {
     /* Background */
-    background-color: #5aadbf;
+    background-color: #abc3c9;
 
 }

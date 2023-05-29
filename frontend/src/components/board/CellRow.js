@@ -1,5 +1,4 @@
-import ClueCell from "./ClueCell";
-import GameCell from "./GameCell";
+import Cell from "./Cell";
 
 
 export default function CellRow(
@@ -16,28 +15,24 @@ export default function CellRow(
     return (
         <div className={"cell-row"}>
             {solutionRow.map((solutionValue, colIndex) => {
-                if (problemRow[colIndex] === solutionValue) {
-                    return (
-                        <ClueCell
-                            key={colIndex}
-                            rowIndex={rowIndex}
-                            columnIndex={colIndex}
-                            value={solutionValue}
-                            activeCell={activeCell}
-                            setActiveCell={setActiveCell}
-                        />);
+                const isClueCell = problemRow[colIndex] === solutionValue;
+                let value = null;
+                if (isClueCell) {
+                    value = solutionValue;
                 } else {
-                    return (
-                        <GameCell
-                            key={colIndex}
-                            rowIndex={rowIndex}
-                            columnIndex={colIndex}
-                            move={rowMoves[colIndex]}
-                            activeCell={activeCell}
-                            setActiveCell={setActiveCell}
-                        />
-                    );
+                    value = rowMoves[colIndex] ? rowMoves[colIndex].value : ''
                 }
+                return (
+                    <Cell
+                        key={colIndex}
+                        isClueCell={isClueCell}
+                        value={value}
+                        rowIndex={rowIndex}
+                        columnIndex={colIndex}
+                        activeCell={activeCell}
+                        setActiveCell={setActiveCell}
+                    />
+                );
             })}
         </div>
     );

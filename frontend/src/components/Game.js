@@ -17,7 +17,6 @@ export default function Game({sudoku, existingMoves}) {
         columnIndex: -1,
         tileIndex: -1,
         value: -1,
-        isGameCell: false
     };
     const [activeCell, setActiveCell] = useState(initialActiveCell);
 
