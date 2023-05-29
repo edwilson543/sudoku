@@ -1,0 +1,53 @@
+@import "./colour-scheme.css";
+
+/* ----------------------------------------
+Global settings
+---------------------------------------- */
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  justify-content: center;
+}
+
+/* ----------------------------------------
+Page layout
+---------------------------------------- */
+.page-content {
+  /* Display */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+
+  /* Typography */
+  font-family: Monaco;
+}
+
+.headstrap {
+  /* Display */
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 0;
+
+  /* Border */
+  background-color: var(--background-control);
+  border-bottom: 1px solid var(--border-grey);
+
+  /* Typography */
+  color: var(--font-grey-blue);
+  font-weight: bold;
+  font-family: Arial;
+}
+
+/* ----------------------------------------
+Game layout
+---------------------------------------- */
+.game {
+  /* Display */
+  display: flex;
+  justify-content: center;
+}

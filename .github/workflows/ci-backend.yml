@@ -1,7 +1,6 @@
-name: Continuous integration
+name: Continuous integration (backend)
 
 on:
-  # Pull requests, pushes to main, or manual execution can all run the test suite
   push:
     branches: ['main']
   pull_request:
@@ -17,7 +16,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install project dependencies
+    - name: Install backend dependencies
       run: |
         pip install -r backend/requirements/app-requirements.txt
         pip install -r backend/requirements/test-requirements.txt

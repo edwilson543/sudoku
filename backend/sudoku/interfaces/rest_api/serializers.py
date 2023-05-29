@@ -44,8 +44,8 @@ class Move(serializers.Serializer):
     row = serializers.IntegerField(min_value=0)
     column = serializers.IntegerField(min_value=0)
     value = serializers.IntegerField(required=False, min_value=1)
-    is_correct = serializers.IntegerField(read_only=True)
-    is_erased = serializers.IntegerField(read_only=True)
+    is_correct = serializers.BooleanField(read_only=True)
+    is_erased = serializers.BooleanField(read_only=True)
 
 
 class Game(serializers.Serializer):
