@@ -1,4 +1,5 @@
 import {useContext} from "react";
+
 import {SudokuSizeContext} from "../SudokuSizeConext";
 import {getTileIndex} from "../../utils/gemoetry";
 

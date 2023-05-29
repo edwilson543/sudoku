@@ -2,12 +2,7 @@ import CellRow from "./CellRow";
 
 
 export default function Grid({sudoku, moves, activeCell, setActiveCell}) {
-    /**
-     * The grid of cells in a game of sudoku.
-     *
-     * @property sudoku: Object containing the sudoku problem and solution.
-     * @property moves: An array of arrays of moves for each row. Same shape as problem & solution.
-     */
+    /** The grid of cells in a game of sudoku. */
     return (
         <div className={"grid"}>
             {sudoku.problem.map((problemRow, rowIndex) => {

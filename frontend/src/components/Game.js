@@ -5,12 +5,7 @@ import {SudokuSizeContext} from "./SudokuSizeConext";
 
 
 export default function Game({sudoku, existingMoves}) {
-    /**
-     * A game of sudoku, including the grid and the controls.
-     *
-     * @property sudoku: Object containing the sudoku problem and solution.
-     * @property moves: Moves that existed at the start of the game.
-     */
+    /** A game of sudoku, including the grid and the controls. */
     // Set the initially active cell to a non-existent one
     const initialActiveCell = {
         rowIndex: -1,
