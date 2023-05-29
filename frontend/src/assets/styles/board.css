@@ -1,5 +1,7 @@
+@import "./colour-scheme.css";
+
 :root {
-  --tile-border: 2px solid black;
+  --tile-border: 2px solid var(--border-black);
 }
 
 .grid {
@@ -8,7 +10,7 @@
   flex-direction: column;
 
   /* Border */
-  border: 1px solid black;
+  border: 1px solid var(--border-black);
 }
 
 .cell-row {
@@ -33,14 +35,14 @@
   height: 50px;
 
   /* Border */
-  border: 0.5px solid grey;
+  border: 0.5px solid var(--border-grey);
 
   /* Typography */
   font-size: 35px;
 }
 .cell:hover {
   cursor: default;
-  background-color: #79b9c9;
+  background-color: var(--background-cell-active);
 }
 /* Embolden the sudoku tile column borders */
 .cell:nth-child(3n) {
@@ -52,20 +54,20 @@
 
 .game-cell {
   /* Typography */
-  color: #1a55ba;
+  color: var(--font-dark-blue);
 }
 
 .active-cell {
   /* Background */
-  background-color: #79b9c9;
+  background-color: var(--background-cell-active);
 }
 
 .highlighted-cell {
   /* Background */
-  background-color: #cfe1e6;
+  background-color: var(--background-cell-highlighted);
 }
 
 .highlighted-cell-value {
   /* Background */
-  background-color: #abc3c9;
+  background-color: var(--background-cell-value-highlighted);
 }

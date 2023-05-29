@@ -1,3 +1,5 @@
+@import "./colour-scheme.css";
+
 .control-panel {
   /* Display */
   display: flex;
@@ -32,16 +34,16 @@ Number input panel and children
   margin: 2px;
 
   /* Background and border */
-  background-color: #e6ebf2;
+  background-color: var(--background-control);
   border-radius: 10px;
 
   /* Typography */
   font-size: 40px;
-  color: #1a55ba;
+  color: var(--font-dark-blue);
 }
 .number-input:hover {
   cursor: pointer;
-  background-color: #d3dceb;
+  background-color: var(--background-control-hover);
 }
 
 /* ----------------------------------------
@@ -71,12 +73,12 @@ Action panel and children
   height: 60px;
 
   /* Background and border */
-  background-color: #e6ebf2;
+  background-color: var(--background-control);
   border-radius: 50%;
 }
 .action-button-icon-wrapper:hover {
   cursor: pointer;
-  background-color: #d3dceb;
+  background-color: var(--background-control-hover);
 }
 
 .action-button-icon {
@@ -85,10 +87,10 @@ Action panel and children
   height: 50%;
 
   /* Typography */
-  color: #1a55ba;
+  color: var(--font-dark-blue);
 }
 
 .action-button-text {
   /* Typography */
-  color: #1a55ba;
+  color: var(--font-dark-blue);
 }
