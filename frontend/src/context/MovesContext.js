@@ -51,6 +51,13 @@ function movesReducer(moves, action) {
       };
       return [...moves, erasedMove];
     }
+
+    // Undo the previous move (be it an entry or an erasing) */
+    case "undo-move": {
+      // TODO -> fire an API call here depending on the move nature
+      return moves.slice(0, -1);
+    }
+
     default: {
       throw Error("Unknown action " + action.type);
     }
