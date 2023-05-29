@@ -18,6 +18,7 @@ export default function Cell({
       column: columnIndex,
       tile: tileIndex,
       value: value,
+      isClueCell: isClueCell,
     });
   }
 
@@ -42,7 +43,7 @@ export default function Cell({
 
   return (
     <div className={getClassName()} onClick={handleClick}>
-      {value}
+      {value ? value : ""}
     </div>
   );
 }

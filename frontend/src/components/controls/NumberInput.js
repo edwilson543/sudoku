@@ -1,6 +1,11 @@
 import { useMovesDispatch } from "../../context/MovesContext";
 
-export default function NumberInput({ value, sudoku, activeCell }) {
+export default function NumberInput({
+  value,
+  sudoku,
+  activeCell,
+  setActiveCell,
+}) {
   const movesDispatch = useMovesDispatch();
 
   function handleClick() {
@@ -17,6 +22,15 @@ export default function NumberInput({ value, sudoku, activeCell }) {
       column: activeCell.column,
       value: value,
       isCorrect: isCorrect,
+    });
+
+    // Need to update the value stored in the activeCell state
+    setActiveCell({
+      row: activeCell.row,
+      column: activeCell.column,
+      tile: activeCell.tile,
+      value: value,
+      isClueCell: activeCell.isClueCell,
     });
   }
 

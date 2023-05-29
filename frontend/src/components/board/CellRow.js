@@ -18,7 +18,7 @@ export default function CellRow({
         if (isClueCell) {
           value = solutionValue;
         } else {
-          value = rowMoves[colIndex] ? rowMoves[colIndex].value : "";
+          value = rowMoves[colIndex] ? rowMoves[colIndex].value : null;
         }
         return (
           <Cell

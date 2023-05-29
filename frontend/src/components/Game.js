@@ -12,6 +12,7 @@ export default function Game({ sudoku, existingMoves }) {
     column: -1,
     tile: -1,
     value: -1,
+    isClueCell: null,
   };
   const [activeCell, setActiveCell] = useState(initialActiveCell);
 
@@ -24,7 +25,11 @@ export default function Game({ sudoku, existingMoves }) {
           activeCell={activeCell}
           setActiveCell={setActiveCell}
         />
-        <ControlPanel sudoku={sudoku} activeCell={activeCell} />
+        <ControlPanel
+          sudoku={sudoku}
+          activeCell={activeCell}
+          setActiveCell={setActiveCell}
+        />
       </MovesProvider>
     </div>
   );

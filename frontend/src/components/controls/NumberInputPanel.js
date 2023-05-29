@@ -1,6 +1,10 @@
 import NumberInput from "./NumberInput";
 
-export default function NumberInputPanel({ sudoku, activeCell }) {
+export default function NumberInputPanel({
+  sudoku,
+  activeCell,
+  setActiveCell,
+}) {
   const numbers = [...Array(sudoku.size).keys()].map((i) => i + 1);
 
   return (
@@ -12,6 +16,7 @@ export default function NumberInputPanel({ sudoku, activeCell }) {
             value={number}
             sudoku={sudoku}
             activeCell={activeCell}
+            setActiveCell={setActiveCell}
           />
         );
       })}

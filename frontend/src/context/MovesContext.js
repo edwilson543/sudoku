@@ -24,6 +24,7 @@ export function MovesProvider({ children }) {
 
 function movesReducer(moves, action) {
   switch (action.type) {
+    // Create a new move and add it to the end of the array
     case "create-move": {
       // TODO -> fire a create move API call
       const newMove = {
@@ -34,6 +35,21 @@ function movesReducer(moves, action) {
         isErased: false,
       };
       return [...moves, newMove];
+    }
+
+    // Create an erased move and add it to the end of the array.
+    // Rather than find the original move and erase it, it's much
+    // cleaner and more useful to create an 'overwriting' effect
+    case "erase-move": {
+      // TODO -> fire an erase move API call
+      const erasedMove = {
+        row: action.row,
+        column: action.column,
+        value: null,
+        isCorrect: null,
+        isErased: true,
+      };
+      return [...moves, erasedMove];
     }
     default: {
       throw Error("Unknown action " + action.type);

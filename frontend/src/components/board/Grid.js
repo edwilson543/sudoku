@@ -49,13 +49,13 @@ function combineAllMoves(stateMoves, existingMoves, sudokuSize) {
   }
 
   // Add the moves held in state
+  // Note the last move for any index will overwrite all previous values,
+  // including more recent moves with `isErased: true`
   for (let move of stateMoves) {
-    if (!move.isErased) {
-      rows[move.row][move.column] = {
-        value: move.value,
-        is_correct: move.isCorrect,
-      };
-    }
+    rows[move.row][move.column] = {
+      value: move.value,
+      is_correct: move.isCorrect,
+    };
   }
   return rows;
 }
