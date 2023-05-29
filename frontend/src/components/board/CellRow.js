@@ -1,6 +1,7 @@
 import Cell from "./Cell";
 
 export default function CellRow({
+  sudoku,
   rowIndex,
   problemRow,
   solutionRow,
@@ -22,6 +23,7 @@ export default function CellRow({
         return (
           <Cell
             key={colIndex}
+            sudokuSize={sudoku.size}
             isClueCell={isClueCell}
             value={value}
             rowIndex={rowIndex}

@@ -1,9 +1,7 @@
-import { useContext } from "react";
-
-import { SudokuSizeContext } from "../../context/SudokuSizeConext";
 import { getTileIndex } from "../../utils/gemoetry";
 
 export default function Cell({
+  sudokuSize,
   isClueCell,
   value,
   rowIndex,
@@ -12,7 +10,6 @@ export default function Cell({
   setActiveCell,
 }) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
-  const sudokuSize = useContext(SudokuSizeContext);
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudokuSize);
 
   function handleClick() {

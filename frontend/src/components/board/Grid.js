@@ -16,6 +16,7 @@ export default function Grid({
         return (
           <CellRow
             key={rowIndex}
+            sudoku={sudoku}
             rowIndex={rowIndex}
             problemRow={problemRow}
             solutionRow={sudoku.solution[rowIndex]}
