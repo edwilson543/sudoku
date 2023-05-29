@@ -38,6 +38,10 @@
   /* Typography */
   font-size: 35px;
 }
+.cell:hover {
+  cursor: default;
+  background-color: #79b9c9;
+}
 /* Embolden the sudoku tile column borders */
 .cell:nth-child(3n) {
   border-right: var(--tile-border);
