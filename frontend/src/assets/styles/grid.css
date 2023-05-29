@@ -50,3 +50,19 @@
     /* Typography */
     color: blue;
 }
+
+.active-cell {
+    /* Background */
+    background-color: #1ac5eb;
+}
+
+.highlighted-cell {
+    /* Background */
+    background-color: #9ce1f0;
+}
+
+.highlighted-cell-value {
+    /* Background */
+    background-color: #5aadbf;
+
+}

@@ -1,5 +1,7 @@
+import {useState} from "react";
+
 import Grid from "./board/Grid";
-import { SudokuSizeContext } from "./SudokuSizeConext";
+import {SudokuSizeContext} from "./SudokuSizeConext";
 
 
 export default function Game({sudoku, existingMoves}) {
@@ -9,10 +11,25 @@ export default function Game({sudoku, existingMoves}) {
      * @property sudoku: Object containing the sudoku problem and solution.
      * @property moves: Moves that existed at the start of the game.
      */
+    // Set the initially active cell to a non-existent one
+    const initialActiveCell = {
+        rowIndex: -1,
+        columnIndex: -1,
+        tileIndex: -1,
+        value: -1,
+        isGameCell: false
+    };
+    const [activeCell, setActiveCell] = useState(initialActiveCell);
+
     return (
         <div className={"game"}>
             <SudokuSizeContext.Provider value={sudoku.size}>
-                <Grid sudoku={sudoku} moves={combineAllMoves(existingMoves, sudoku.size)}/>
+                <Grid
+                    sudoku={sudoku}
+                    moves={combineAllMoves(existingMoves, sudoku.size)}
+                    activeCell={activeCell}
+                    setActiveCell={setActiveCell}
+                />
             </SudokuSizeContext.Provider>
         </div>
     );

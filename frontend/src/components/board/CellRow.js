@@ -2,7 +2,9 @@ import ClueCell from "./ClueCell";
 import GameCell from "./GameCell";
 
 
-export default function CellRow({problemRow, solutionRow, rowMoves}) {
+export default function CellRow(
+    {rowIndex, problemRow, solutionRow, rowMoves, activeCell, setActiveCell}
+) {
     /**
      A row of cells in the sudoku board.
      *
@@ -15,9 +17,26 @@ export default function CellRow({problemRow, solutionRow, rowMoves}) {
         <div className={"cell-row"}>
             {solutionRow.map((solutionValue, colIndex) => {
                 if (problemRow[colIndex] === solutionValue) {
-                    return <ClueCell key={colIndex} value={solutionValue}/>;
+                    return (
+                        <ClueCell
+                            key={colIndex}
+                            rowIndex={rowIndex}
+                            columnIndex={colIndex}
+                            value={solutionValue}
+                            activeCell={activeCell}
+                            setActiveCell={setActiveCell}
+                        />);
                 } else {
-                    return <GameCell key={colIndex} move={rowMoves[colIndex]}/>
+                    return (
+                        <GameCell
+                            key={colIndex}
+                            rowIndex={rowIndex}
+                            columnIndex={colIndex}
+                            move={rowMoves[colIndex]}
+                            activeCell={activeCell}
+                            setActiveCell={setActiveCell}
+                        />
+                    );
                 }
             })}
         </div>
