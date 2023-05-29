@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SudokuSizeContext } from "../SudokuSizeConext";
+import { SudokuSizeContext } from "../../context/SudokuSizeConext";
 import NumberInput from "./NumberInput";
 
 export default function NumberInputPanel() {

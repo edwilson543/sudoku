@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SudokuSizeContext } from "../SudokuSizeConext";
+import { SudokuSizeContext } from "../../context/SudokuSizeConext";
 import { getTileIndex } from "../../utils/gemoetry";
 
 export default function Cell({

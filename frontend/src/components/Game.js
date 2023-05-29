@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Grid from "./board/Grid";
 import NumberInputPanel from "./controls/NumberInputPanel";
-import { SudokuSizeContext } from "./SudokuSizeConext";
+import { SudokuSizeContext } from "../context/SudokuSizeConext";
 
 export default function Game({ sudoku, existingMoves }) {
   /** A game of sudoku, including the grid and the controls. */
