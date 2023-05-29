@@ -2,6 +2,7 @@ import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import "./assets/styles/game.css";
 import "./assets/styles/page.css";
+import { MovesProvider } from "./context/MovesContext";
 
 import Game from "./components/Game";
 
@@ -13,7 +14,9 @@ function App() {
     <>
       <h1 className={"headstrap"}>Eduko</h1>
       <div className={"page-content"}>
-        <Game sudoku={game.sudoku} existingMoves={game.moves} />
+        <MovesProvider>
+          <Game sudoku={game.sudoku} existingMoves={game.moves} />
+        </MovesProvider>
       </div>
     </>
   );
