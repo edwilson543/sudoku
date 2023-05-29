@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Grid from "./board/Grid";
 import NumberInputPanel from "./controls/NumberInputPanel";
+import { MovesProvider } from "../context/MovesContext";
 import { SudokuSizeContext } from "../context/SudokuSizeConext";
 
 export default function Game({ sudoku, existingMoves }) {
@@ -17,32 +18,19 @@ export default function Game({ sudoku, existingMoves }) {
 
   return (
     <div className={"game"}>
-      <SudokuSizeContext.Provider value={sudoku.size}>
-        <Grid
-          sudoku={sudoku}
-          moves={combineAllMoves(existingMoves, sudoku.size)}
-          activeCell={activeCell}
-          setActiveCell={setActiveCell}
-        />
-      </SudokuSizeContext.Provider>
-      <div className={"control-panel"}>
-        <NumberInputPanel />
-      </div>
+      <MovesProvider>
+        <SudokuSizeContext.Provider value={sudoku.size}>
+          <Grid
+            sudoku={sudoku}
+            existingMoves={existingMoves}
+            activeCell={activeCell}
+            setActiveCell={setActiveCell}
+          />
+          <div className={"control-panel"}>
+            <NumberInputPanel sudoku={sudoku} activeCell={activeCell} />
+          </div>
+        </SudokuSizeContext.Provider>
+      </MovesProvider>
     </div>
   );
-}
-
-function combineAllMoves(existingMoves, sudokuSize) {
-  /** Combine the moves received from the API with the moves held in state */
-  let rows = [];
-  for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
-    rows.push(new Array(sudokuSize).fill(null));
-  }
-  for (let move of existingMoves) {
-    rows[move.row][move.column] = {
-      value: move.value,
-      is_correct: move.is_correct,
-    };
-  }
-  return rows;
 }

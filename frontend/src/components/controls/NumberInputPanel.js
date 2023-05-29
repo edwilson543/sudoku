@@ -1,16 +1,19 @@
-import { useContext } from "react";
-
-import { SudokuSizeContext } from "../../context/SudokuSizeConext";
 import NumberInput from "./NumberInput";
 
-export default function NumberInputPanel() {
-  const sudokuSize = useContext(SudokuSizeContext);
-  const numbers = [...Array(sudokuSize).keys()].map((i) => i + 1);
+export default function NumberInputPanel({ sudoku, activeCell }) {
+  const numbers = [...Array(sudoku.size).keys()].map((i) => i + 1);
 
   return (
     <div className={"number-input-panel"}>
       {numbers.map((number) => {
-        return <NumberInput value={number} />;
+        return (
+          <NumberInput
+            key={number}
+            value={number}
+            sudoku={sudoku}
+            activeCell={activeCell}
+          />
+        );
       })}
     </div>
   );
