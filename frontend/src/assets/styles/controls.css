@@ -1,41 +1,41 @@
 .control-panel {
-    /* Display */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 250px;
-    padding: 10px;
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 250px;
+  padding: 10px;
 }
 
 .number-input-panel {
-    /* Display */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    min-width: 225px;
+  /* Display */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 225px;
 }
 
 .number-input {
-    /* Display */
-    display: flex;
-    flex-basis: 30%; /* Ensure each 3rd number causes a wrap */
-    align-items: center;
-    justify-content: center;
-    width: 75px;
-    height: 75px;
-    margin: 2px;
+  /* Display */
+  display: flex;
+  flex-basis: 30%; /* Ensure each 3rd number causes a wrap */
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin: 2px;
 
-    /* Background and border */
-    background-color: #e6ebf2;
-    border-radius: 10px;
+  /* Background and border */
+  background-color: #e6ebf2;
+  border-radius: 10px;
 
-    /* Typography */
-    font-size: 40px;
-    color: #387ae8;
+  /* Typography */
+  font-size: 40px;
+  color: #387ae8;
 }
 .number-input:hover {
-    cursor: pointer;
-    background-color: #d3dceb;
+  cursor: pointer;
+  background-color: #d3dceb;
 }

@@ -1,68 +1,67 @@
 :root {
-    --tile-border: 2px solid black;
+  --tile-border: 2px solid black;
 }
 
 .grid {
-    /* Display */
-    display: flex;
-    flex-direction: column;
+  /* Display */
+  display: flex;
+  flex-direction: column;
 
-    /* Border */
-    border: 1px solid black;
+  /* Border */
+  border: 1px solid black;
 }
 
 .cell-row {
-    /* Display */
-    display: flex;
-    flex-direction: row;
+  /* Display */
+  display: flex;
+  flex-direction: row;
 }
 /* Embolden the sudoku tile row borders */
 .cell-row:nth-child(3n) {
-    border-bottom: var(--tile-border);
+  border-bottom: var(--tile-border);
 }
 .cell-row:first-child {
-    border-top: var(--tile-border);
+  border-top: var(--tile-border);
 }
 
 .cell {
-    /* Display */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
 
-    /* Border */
-    border: 0.5px solid grey;
+  /* Border */
+  border: 0.5px solid grey;
 
-    /* Typography */
-    font-size: 35px;
+  /* Typography */
+  font-size: 35px;
 }
 /* Embolden the sudoku tile column borders */
 .cell:nth-child(3n) {
-    border-right: var(--tile-border);
+  border-right: var(--tile-border);
 }
 .cell:first-child {
-    border-left: var(--tile-border);
+  border-left: var(--tile-border);
 }
 
 .game-cell {
-    /* Typography */
-    color: #387ae8;
+  /* Typography */
+  color: #387ae8;
 }
 
 .active-cell {
-    /* Background */
-    background-color: #79b9c9;
+  /* Background */
+  background-color: #79b9c9;
 }
 
 .highlighted-cell {
-    /* Background */
-    background-color: #cfe1e6;
+  /* Background */
+  background-color: #cfe1e6;
 }
 
 .highlighted-cell-value {
-    /* Background */
-    background-color: #abc3c9;
-
+  /* Background */
+  background-color: #abc3c9;
 }

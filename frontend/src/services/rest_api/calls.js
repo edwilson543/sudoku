@@ -1,6 +1,6 @@
-import data from  '../tempData.json';
+import data from "../tempData.json";
 
 export default function getOrCreateActiveGame() {
-    console.log("Active game: ", data);
-    return data;
+  console.log("Active game: ", data);
+  return data;
 }
