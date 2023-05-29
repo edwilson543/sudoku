@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Grid from "./board/Grid";
-import NumberInputPanel from "./controls/NumberInputPanel";
+import ControlPanel from "./controls/ControlPanel";
 import { MovesProvider } from "../context/MovesContext";
 
 export default function Game({ sudoku, existingMoves }) {
@@ -24,9 +24,7 @@ export default function Game({ sudoku, existingMoves }) {
           activeCell={activeCell}
           setActiveCell={setActiveCell}
         />
-        <div className={"control-panel"}>
-          <NumberInputPanel sudoku={sudoku} activeCell={activeCell} />
-        </div>
+        <ControlPanel sudoku={sudoku} activeCell={activeCell} />
       </MovesProvider>
     </div>
   );

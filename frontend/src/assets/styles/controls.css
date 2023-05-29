@@ -2,11 +2,15 @@
   /* Display */
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   width: 250px;
   padding: 10px;
 }
 
+/* ----------------------------------------
+Number input panel and children
+---------------------------------------- */
 .number-input-panel {
   /* Display */
   display: flex;
@@ -38,4 +42,53 @@
 .number-input:hover {
   cursor: pointer;
   background-color: #d3dceb;
+}
+
+/* ----------------------------------------
+Action panel and children
+---------------------------------------- */
+.action-panel {
+  /* Display */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 200px;
+}
+
+.action-button {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-button-icon-wrapper {
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+
+  /* Background and border */
+  background-color: #e6ebf2;
+  border-radius: 50%;
+}
+.action-button-icon-wrapper:hover {
+  cursor: pointer;
+  background-color: #d3dceb;
+}
+
+.action-button-icon {
+  /* Display */
+  width: 50%;
+  height: 50%;
+
+  /* Typography */
+  color: #1a55ba;
+}
+
+.action-button-text {
+  /* Typography */
+  color: #1a55ba;
 }
