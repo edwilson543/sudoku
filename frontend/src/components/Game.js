@@ -8,9 +8,9 @@ export default function Game({ sudoku, existingMoves }) {
   /** A game of sudoku, including the grid and the controls. */
   // Set the initially active cell to a non-existent one
   const initialActiveCell = {
-    rowIndex: -1,
-    columnIndex: -1,
-    tileIndex: -1,
+    row: -1,
+    column: -1,
+    tile: -1,
     value: -1,
   };
   const [activeCell, setActiveCell] = useState(initialActiveCell);

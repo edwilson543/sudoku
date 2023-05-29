@@ -17,9 +17,9 @@ export default function Cell({
 
   function handleClick() {
     setActiveCell({
-      rowIndex: rowIndex,
-      columnIndex: columnIndex,
-      tileIndex: tileIndex,
+      row: rowIndex,
+      column: columnIndex,
+      tile: tileIndex,
       value: value,
     });
   }
@@ -29,14 +29,11 @@ export default function Cell({
     if (!isClueCell) {
       className += " game-cell";
     }
-    if (
-      activeCell.rowIndex === rowIndex &&
-      activeCell.columnIndex === columnIndex
-    ) {
+    if (activeCell.row === rowIndex && activeCell.column === columnIndex) {
       className += " active-cell";
     } else if (
-      activeCell.rowIndex === rowIndex ||
-      activeCell.columnIndex === columnIndex ||
+      activeCell.row === rowIndex ||
+      activeCell.column === columnIndex ||
       activeCell.tileIndex === tileIndex
     ) {
       className += " highlighted-cell";
