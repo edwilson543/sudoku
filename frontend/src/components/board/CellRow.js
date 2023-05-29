@@ -9,7 +9,7 @@ export default function CellRow(
         <div className={"cell-row"}>
             {solutionRow.map((solutionValue, colIndex) => {
                 const isClueCell = problemRow[colIndex] === solutionValue;
-                let value = null;
+                let value;
                 if (isClueCell) {
                     value = solutionValue;
                 } else {

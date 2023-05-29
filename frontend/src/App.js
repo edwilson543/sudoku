@@ -1,4 +1,5 @@
 import './assets/styles/board.css';
+import './assets/styles/controls.css';
 import './assets/styles/game.css';
 import './assets/styles/page.css';
 

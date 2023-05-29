@@ -27,8 +27,8 @@
 .cell {
     /* Display */
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 50px;
     height: 50px;
 
@@ -48,7 +48,7 @@
 
 .game-cell {
     /* Typography */
-    color: #3e569e;
+    color: #387ae8;
 }
 
 .active-cell {

@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 import Grid from "./board/Grid";
+import NumberInputPanel from "./controls/NumberInputPanel";
 import {SudokuSizeContext} from "./SudokuSizeConext";
 
 
@@ -25,6 +26,9 @@ export default function Game({sudoku, existingMoves}) {
                     setActiveCell={setActiveCell}
                 />
             </SudokuSizeContext.Provider>
+            <div className={"control-panel"}>
+                <NumberInputPanel />
+            </div>
         </div>
     );
 };
