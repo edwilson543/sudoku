@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  prettier:
+  react:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -19,7 +19,12 @@ jobs:
       run: |
         cd frontend
         npm install
-    - name: Prettier check
+    - name: Run react tests
+      run: |
+        cd frontend
+        npm test
+    - name: Check prettier conformance
+      if: success() || failure()
       run: |
         cd frontend
         npx prettier --check .
