@@ -10,10 +10,10 @@ function App() {
   const game = getOrCreateActiveGame();
   return (
     <>
-      <h1 className={"headstrap"}>Eduko</h1>
+      <h1 className={"headstrap"}>eduko</h1>
       <div className={"page-content"}>
         <MovesProvider>
-          <Game sudoku={game.sudoku} existingMoves={game.moves} />
+          <Game game={game} />
         </MovesProvider>
       </div>
     </>

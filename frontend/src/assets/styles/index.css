@@ -18,9 +18,7 @@ Page layout
   display: flex;
   justify-content: center;
   flex-direction: column;
-  min-width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  align-items: center;
 
   /* Typography */
   font-family: Monaco;
@@ -46,8 +44,23 @@ Page layout
 /* ----------------------------------------
 Game layout
 ---------------------------------------- */
+.game-container {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+}
+
 .game {
   /* Display */
   display: flex;
   justify-content: center;
+}
+
+.game-info {
+  /* Display */
+  float: left;
+  padding-bottom: 10px;
+
+  /* Typography */
+  font-size: 15px;
 }

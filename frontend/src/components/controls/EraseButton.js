@@ -30,7 +30,7 @@ export default function EraseButton({ activeCell }) {
       <div className={"action-button-icon-wrapper"} onClick={handleClick}>
         <FontAwesomeIcon icon={faEraser} className={"action-button-icon"} />
       </div>
-      <span className={"action-button-text"}>Erase</span>
+      <span className={"action-button-text"}>erase</span>
     </div>
   );
 }

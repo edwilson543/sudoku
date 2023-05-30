@@ -25,7 +25,7 @@ export default function UndoButton() {
           className={"action-button-icon"}
         />
       </div>
-      <span className={"action-button-text"}>Undo</span>
+      <span className={"action-button-text"}>undo</span>
     </div>
   );
 }

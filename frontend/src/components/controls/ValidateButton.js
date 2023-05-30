@@ -19,7 +19,7 @@ export default function ValidateButton({ validationIsOn, setValidationIsOn }) {
           className={"action-button-icon"}
         />
       </div>
-      <span className={"action-button-text"}>Check</span>
+      <span className={"action-button-text"}>check</span>
     </div>
   );
 }

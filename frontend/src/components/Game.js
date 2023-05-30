@@ -4,7 +4,7 @@ import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
 import { useMoves } from "../context/MovesContext";
 
-export default function Game({ sudoku, existingMoves }) {
+export default function Game({ game }) {
   /** A game of sudoku, including the grid and the controls. */
   // Set the initially active cell to a non-existent one
   const initialActiveCell = {
@@ -20,21 +20,26 @@ export default function Game({ sudoku, existingMoves }) {
   const [validationIsOn, setValidationIsOn] = useState(true);
 
   return (
-    <div className={"game"}>
-      <Grid
-        sudoku={sudoku}
-        moves={combineAllMoves(useMoves(), existingMoves, sudoku.size)}
-        activeCell={activeCell}
-        setActiveCell={setActiveCell}
-        validationIsOn={validationIsOn}
-      />
-      <ControlPanel
-        sudoku={sudoku}
-        activeCell={activeCell}
-        setActiveCell={setActiveCell}
-        validationIsOn={validationIsOn}
-        setValidationIsOn={setValidationIsOn}
-      />
+    <div className={"game-container"}>
+      <div className={"game-info"}>
+        difficulty: <b>{game.sudoku.difficulty.toLowerCase()}</b>
+      </div>
+      <div className={"game"}>
+        <Grid
+          sudoku={game.sudoku}
+          moves={combineAllMoves(useMoves(), game.moves, game.sudoku.size)}
+          activeCell={activeCell}
+          setActiveCell={setActiveCell}
+          validationIsOn={validationIsOn}
+        />
+        <ControlPanel
+          sudoku={game.sudoku}
+          activeCell={activeCell}
+          setActiveCell={setActiveCell}
+          validationIsOn={validationIsOn}
+          setValidationIsOn={setValidationIsOn}
+        />
+      </div>
     </div>
   );
 }
