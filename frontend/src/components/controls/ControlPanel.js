@@ -1,5 +1,6 @@
 import NumberInputPanel from "./NumberInputPanel";
 import ActionPanel from "./ActionPanel";
+import NewGame from "./NewGame";
 
 export default function ControlPanel({
   sudoku,
@@ -20,6 +21,7 @@ export default function ControlPanel({
         activeCell={activeCell}
         setActiveCell={setActiveCell}
       />
+      <NewGame />
     </div>
   );
 }
