@@ -144,6 +144,15 @@ Game continuation
   height: 0;
 }
 
+@keyframes new-game-menu-ease {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 .new-game-menu {
   /* Positioning */
   position: absolute;
@@ -161,6 +170,11 @@ Game continuation
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px grey;
+
+  /* Transition */
+  animation: new-game-menu-ease;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
 }
 
 .new-game-menu-item {
