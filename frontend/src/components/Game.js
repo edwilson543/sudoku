@@ -26,6 +26,7 @@ export default function Game({ sudoku, existingMoves }) {
         moves={combineAllMoves(useMoves(), existingMoves, sudoku.size)}
         activeCell={activeCell}
         setActiveCell={setActiveCell}
+        validationIsOn={validationIsOn}
       />
       <ControlPanel
         sudoku={sudoku}

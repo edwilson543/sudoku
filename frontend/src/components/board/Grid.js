@@ -1,6 +1,12 @@
 import CellRow from "./CellRow";
 
-export default function Grid({ sudoku, moves, activeCell, setActiveCell }) {
+export default function Grid({
+  sudoku,
+  moves,
+  activeCell,
+  setActiveCell,
+  validationIsOn,
+}) {
   /** The grid of cells in a game of sudoku. */
   return (
     <div className={"grid"}>
@@ -10,11 +16,10 @@ export default function Grid({ sudoku, moves, activeCell, setActiveCell }) {
             key={rowIndex}
             sudoku={sudoku}
             rowIndex={rowIndex}
-            problemRow={problemRow}
-            solutionRow={sudoku.solution[rowIndex]}
             rowMoves={moves[rowIndex]}
             activeCell={activeCell}
             setActiveCell={setActiveCell}
+            validationIsOn={validationIsOn}
           />
         );
       })}

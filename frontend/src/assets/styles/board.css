@@ -57,6 +57,11 @@
   color: var(--font-dark-blue);
 }
 
+.game-cell-invalid {
+  /* Background */
+  background-color: var(--background-cell-invalid) !important;
+}
+
 .active-cell {
   /* Background */
   background-color: var(--background-cell-active);

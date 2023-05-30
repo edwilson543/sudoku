@@ -1,23 +1,26 @@
 import { getTileIndex } from "../../utils/gemoetry";
 
 export default function Cell({
-  sudokuSize,
-  isClueCell,
-  value,
+  sudoku,
+  move,
   rowIndex,
   columnIndex,
   activeCell,
   setActiveCell,
+  validationIsOn,
 }) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
-  const tileIndex = getTileIndex(rowIndex, columnIndex, sudokuSize);
+  const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
+  const solutionValue = sudoku.solution[rowIndex][columnIndex];
+  const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
+  const displayValue = isClueCell ? solutionValue : move ? move.value : "";
 
   function handleClick() {
     setActiveCell({
       row: rowIndex,
       column: columnIndex,
       tile: tileIndex,
-      value: value,
+      value: displayValue,
       isClueCell: isClueCell,
     });
   }
@@ -27,6 +30,9 @@ export default function Cell({
     if (!isClueCell) {
       className += " game-cell";
     }
+    if (validationIsOn && displayValue && displayValue !== solutionValue) {
+      className += " game-cell-invalid";
+    }
     if (activeCell.row === rowIndex && activeCell.column === columnIndex) {
       className += " active-cell";
     } else if (
@@ -35,7 +41,7 @@ export default function Cell({
       activeCell.tileIndex === tileIndex
     ) {
       className += " highlighted-cell";
-    } else if (activeCell.value === value && value) {
+    } else if (activeCell.value === displayValue && displayValue) {
       className += " highlighted-cell-value";
     }
     return className;
@@ -43,7 +49,7 @@ export default function Cell({
 
   return (
     <div className={getClassName()} onClick={handleClick}>
-      {value ? value : ""}
+      {displayValue}
     </div>
   );
 }
