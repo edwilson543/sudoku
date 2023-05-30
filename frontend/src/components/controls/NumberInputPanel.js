@@ -4,6 +4,7 @@ export default function NumberInputPanel({
   sudoku,
   activeCell,
   setActiveCell,
+  isSolved,
 }) {
   const numbers = [...Array(sudoku.size).keys()].map((i) => i + 1);
 
@@ -17,6 +18,7 @@ export default function NumberInputPanel({
             sudoku={sudoku}
             activeCell={activeCell}
             setActiveCell={setActiveCell}
+            isSolved={isSolved}
           />
         );
       })}

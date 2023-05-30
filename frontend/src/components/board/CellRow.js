@@ -7,6 +7,7 @@ export default function CellRow({
   activeCell,
   setActiveCell,
   validationIsOn,
+  isSolved,
 }) {
   /** A row of cells in the sudoku board. */
   const solutionRow = sudoku.solution[rowIndex];
@@ -23,6 +24,7 @@ export default function CellRow({
             activeCell={activeCell}
             setActiveCell={setActiveCell}
             validationIsOn={validationIsOn}
+            isSolved={isSolved}
           />
         );
       })}

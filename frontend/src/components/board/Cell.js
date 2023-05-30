@@ -8,6 +8,7 @@ export default function Cell({
   activeCell,
   setActiveCell,
   validationIsOn,
+  isSolved,
 }) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
@@ -16,6 +17,9 @@ export default function Cell({
   const displayValue = isClueCell ? solutionValue : move ? move.value : "";
 
   function handleClick() {
+    if (isSolved) {
+      return null;
+    }
     setActiveCell({
       row: rowIndex,
       column: columnIndex,
@@ -27,6 +31,10 @@ export default function Cell({
 
   function getClassName() {
     let className = "cell";
+    if (isSolved) {
+      className += " cell-solved";
+      return className;
+    }
     if (!isClueCell) {
       className += " game-cell";
     }

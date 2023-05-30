@@ -5,12 +5,13 @@ export default function NumberInput({
   sudoku,
   activeCell,
   setActiveCell,
+  isSolved,
 }) {
   const movesDispatch = useMovesDispatch();
 
   function handleClick() {
-    if (activeCell.row === -1) {
-      // The player hasn't clicked on a cell yet, so just return
+    if (activeCell.row === -1 || isSolved) {
+      // The player hasn't clicked on a cell yet, or the game is over
       return null;
     }
 

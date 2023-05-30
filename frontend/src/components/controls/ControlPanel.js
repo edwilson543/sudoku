@@ -8,6 +8,7 @@ export default function ControlPanel({
   setActiveCell,
   validationIsOn,
   setValidationIsOn,
+  isSolved,
 }) {
   return (
     <div className={"control-panel"}>
@@ -15,13 +16,15 @@ export default function ControlPanel({
         activeCell={activeCell}
         validationIsOn={validationIsOn}
         setValidationIsOn={setValidationIsOn}
+        isSolved={isSolved}
       />
       <NumberInputPanel
         sudoku={sudoku}
         activeCell={activeCell}
         setActiveCell={setActiveCell}
+        isSolved={isSolved}
       />
-      <NewGame />
+      <NewGame isSolved={isSolved} />
     </div>
   );
 }

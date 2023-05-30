@@ -6,6 +6,7 @@ export default function Grid({
   activeCell,
   setActiveCell,
   validationIsOn,
+  isSolved,
 }) {
   /** The grid of cells in a game of sudoku. */
   return (
@@ -20,6 +21,7 @@ export default function Grid({
             activeCell={activeCell}
             setActiveCell={setActiveCell}
             validationIsOn={validationIsOn}
+            isSolved={isSolved}
           />
         );
       })}

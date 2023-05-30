@@ -6,11 +6,12 @@ export default function ActionPanel({
   activeCell,
   validationIsOn,
   setValidationIsOn,
+  isSolved,
 }) {
   return (
     <div className={"action-panel"}>
-      <UndoButton />
-      <EraseButton activeCell={activeCell} />
+      <UndoButton isSolved={isSolved} />
+      <EraseButton activeCell={activeCell} isSolved={isSolved} />
       <ValidateButton
         validationIsOn={validationIsOn}
         setValidationIsOn={setValidationIsOn}

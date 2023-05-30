@@ -19,6 +19,10 @@ export default function Game({ game }) {
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState(true);
 
+  // Combine the moves received from the API with the moves held in state
+  const moves = combineAllMoves(useMoves(), game.moves, game.sudoku.size);
+  const isSolved = sudokuIsSolved(moves, game.sudoku);
+
   return (
     <div className={"game-container"}>
       <div className={"game-info"}>
@@ -31,6 +35,7 @@ export default function Game({ game }) {
           activeCell={activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
+          isSolved={isSolved}
         />
         <ControlPanel
           sudoku={game.sudoku}
@@ -38,6 +43,7 @@ export default function Game({ game }) {
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
+          isSolved={isSolved}
         />
       </div>
     </div>
@@ -46,7 +52,7 @@ export default function Game({ game }) {
 
 function combineAllMoves(stateMoves, existingMoves, sudokuSize) {
   /** Combine the moves received from the API with the moves held in state */
-  // Create initial datastructure for moves (an array of rows, which are also arrays)
+  // Create initial data structure for moves (an array of rows, which are also arrays)
   let rows = [];
   for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
     rows.push(new Array(sudokuSize).fill(null));
@@ -72,4 +78,22 @@ function combineAllMoves(stateMoves, existingMoves, sudokuSize) {
     };
   }
   return rows;
+}
+
+function sudokuIsSolved(moves, sudoku) {
+  /** Check if the player has found the correct solution for the sudoku */
+  for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
+    for (let colIndex = 0; colIndex < sudoku.size; colIndex++) {
+      if (sudoku.problem[rowIndex][colIndex]) {
+        continue;
+      }
+      const move = moves[rowIndex][colIndex];
+      if (move === null) {
+        return false;
+      } else if (move.value !== sudoku.solution[rowIndex][colIndex]) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
