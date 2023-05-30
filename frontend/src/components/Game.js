@@ -16,6 +16,9 @@ export default function Game({ sudoku, existingMoves }) {
   };
   const [activeCell, setActiveCell] = useState(initialActiveCell);
 
+  // Set the initial game mode (validation is on)
+  const [validationIsOn, setValidationIsOn] = useState(true);
+
   return (
     <div className={"game"}>
       <Grid
@@ -28,6 +31,8 @@ export default function Game({ sudoku, existingMoves }) {
         sudoku={sudoku}
         activeCell={activeCell}
         setActiveCell={setActiveCell}
+        validationIsOn={validationIsOn}
+        setValidationIsOn={setValidationIsOn}
       />
     </div>
   );
