@@ -6,8 +6,9 @@ import Game from "./components/Game";
 
 import getOrCreateActiveGame from "./services/rest_api/calls";
 
+const game = getOrCreateActiveGame();
+
 function App() {
-  const game = getOrCreateActiveGame();
   return (
     <>
       <h1 className={"headstrap"}>eduko</h1>
