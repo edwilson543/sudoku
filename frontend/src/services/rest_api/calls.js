@@ -1,5 +1,9 @@
 import data from "../tempData.json";
 
-export default function getOrCreateActiveGame() {
-  return data;
+export default function restAPI() {
+  return {
+    getOrCreateActiveGame() {
+      return data;
+    },
+  };
 }

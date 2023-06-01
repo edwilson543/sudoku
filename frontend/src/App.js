@@ -4,9 +4,10 @@ import { MovesProvider } from "./context/MovesContext";
 
 import Game from "./components/Game";
 
-import getOrCreateActiveGame from "./services/rest_api/calls";
+import restAPI from "./services/rest_api/calls";
 
-const game = getOrCreateActiveGame();
+const restAPIClient = restAPI();
+const game = restAPIClient.getOrCreateActiveGame();
 
 function App() {
   return (
