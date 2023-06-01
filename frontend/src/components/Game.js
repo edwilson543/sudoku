@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
@@ -20,8 +20,15 @@ export default function Game({ game }) {
   const [validationIsOn, setValidationIsOn] = useState(true);
 
   // Combine the moves received from the API with the moves held in state
-  const moves = combineAllMoves(useMoves(), game.moves, game.sudoku.size);
-  const isSolved = sudokuIsSolved(moves, game.sudoku);
+  const stateMoves = useMoves();
+  const moves = useMemo(() => {
+    return combineAllMoves(stateMoves, game.moves, game.sudoku.size);
+  }, [stateMoves, game.moves, game.sudoku.size]);
+
+  // Check if the sudoku has been solved
+  const isSolved = useMemo(() => {
+    return sudokuIsSolved(moves, game.sudoku);
+  }, [moves, game.sudoku]);
 
   return (
     <div className={"game-container"}>
@@ -31,7 +38,7 @@ export default function Game({ game }) {
       <div className={"game"}>
         <Grid
           sudoku={game.sudoku}
-          moves={combineAllMoves(useMoves(), game.moves, game.sudoku.size)}
+          moves={moves}
           activeCell={activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
