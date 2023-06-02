@@ -23,6 +23,11 @@ jobs:
       run: |
         cd frontend
         npm test
+    - name: Lint with eslint
+      if: success() || failure()
+      run: |
+        cd frontend
+        npx eslint .
     - name: Check prettier conformance
       if: success() || failure()
       run: |

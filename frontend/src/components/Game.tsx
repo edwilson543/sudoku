@@ -68,13 +68,13 @@ function combineAllMoves(
 ) {
   /** Combine the moves received from the API with the moves held in state */
   // Create initial data structure for moves (an array of rows, which are also arrays)
-  let rows = [];
+  const rows = [];
   for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
     rows.push(new Array(sudokuSize).fill(null));
   }
 
   // Add the moves received over the API
-  for (let move of existingMoves) {
+  for (const move of existingMoves) {
     if (!move.is_erased) {
       rows[move.row][move.column] = {
         value: move.value,
@@ -86,7 +86,7 @@ function combineAllMoves(
   // Add the moves held in state
   // Note the last move for any index will overwrite all previous values,
   // including more recent moves with `isErased: true`
-  for (let move of stateMoves) {
+  for (const move of stateMoves) {
     rows[move.row][move.column] = {
       value: move.value,
       is_correct: move.isCorrect,

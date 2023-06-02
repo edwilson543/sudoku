@@ -2,15 +2,15 @@ import React, { createContext, useContext, useReducer } from "react";
 import { MoveType } from "../utils/constants";
 
 const MovesContext = createContext<Array<MoveDetail>>([]);
-const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(
-  () => {}
-);
+const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(() => {
+  return;
+});
 
 export function useMoves(): Array<MoveDetail> {
   return useContext(MovesContext);
 }
 
-export function useMovesDispatch(): Function {
+export function useMovesDispatch(): React.Dispatch<MoveAction> {
   return useContext(MovesDispatchContext);
 }
 

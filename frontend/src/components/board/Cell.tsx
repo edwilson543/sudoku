@@ -7,8 +7,8 @@ type CellProps = {
   columnIndex: number;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
-  validationIsOn: Boolean;
-  isSolved: Boolean;
+  validationIsOn: boolean;
+  isSolved: boolean;
 };
 
 export default function Cell({
