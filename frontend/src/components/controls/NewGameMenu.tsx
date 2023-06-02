@@ -1,5 +1,11 @@
-export default function NewGameMenu({ setShowNewGameMenu }) {
-  function handleMouseLeave() {
+import React, { SetStateAction } from "react";
+
+type NewGameMenuProps = {
+  setShowNewGameMenu: React.Dispatch<SetStateAction<boolean>>;
+};
+
+export default function NewGameMenu({ setShowNewGameMenu }: NewGameMenuProps) {
+  function handleMouseLeave(): void {
     setShowNewGameMenu(false);
   }
 

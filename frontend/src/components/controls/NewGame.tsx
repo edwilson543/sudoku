@@ -1,10 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
 import NewGameMenu from "./NewGameMenu";
 
-export default function NewGame({ isSolved }) {
-  const [showNewGameMenu, setShowNewGameMenu] = useState(false);
+type NewGameProps = {
+  isSolved: boolean;
+};
 
-  function handleClick() {
+export default function NewGame({ isSolved }: NewGameProps) {
+  const [showNewGameMenu, setShowNewGameMenu] = useState<boolean>(false);
+
+  function handleClick(): void {
     setShowNewGameMenu(!showNewGameMenu);
   }
 
