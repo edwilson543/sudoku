@@ -1,5 +1,6 @@
-import Cell from "./Cell";
 import React, { SetStateAction } from "react";
+
+import Cell from "./Cell";
 
 type CellRowProps = {
   sudoku: Sudoku;

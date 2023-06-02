@@ -1,4 +1,14 @@
+import React, { SetStateAction } from "react";
+
 import { useMovesDispatch } from "../../context/MovesContext";
+
+type NumberInputProps = {
+  value: number;
+  sudoku: Sudoku;
+  activeCell: ActiveCell;
+  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  isSolved: boolean;
+};
 
 export default function NumberInput({
   value,
@@ -6,13 +16,13 @@ export default function NumberInput({
   activeCell,
   setActiveCell,
   isSolved,
-}) {
+}: NumberInputProps) {
   const movesDispatch = useMovesDispatch();
 
-  function handleClick() {
+  function handleClick(): void {
     if (activeCell.row === -1 || isSolved) {
       // The player hasn't clicked on a cell yet, or the game is over
-      return null;
+      return;
     }
 
     const isCorrect =
