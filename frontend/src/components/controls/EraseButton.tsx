@@ -1,13 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 import { useMovesDispatch } from "../../context/MovesContext";
 
-export default function EraseButton({ activeCell, isSolved }) {
+type EraseButtonProps = {
+  activeCell: ActiveCell;
+  isSolved: boolean;
+};
+
+export default function EraseButton({
+  activeCell,
+  isSolved,
+}: EraseButtonProps) {
   /** Button to erase the move in the active cell */
   const movesDispatch = useMovesDispatch();
 
-  function handleClick() {
+  function handleClick(): void {
     if (
       // A clue cell is active (which cannot be erased)
       activeCell.isClueCell ||
@@ -18,7 +27,7 @@ export default function EraseButton({ activeCell, isSolved }) {
       // The game is over
       isSolved
     ) {
-      return null;
+      return;
     }
     movesDispatch({
       type: "erase-move",
