@@ -1,9 +1,9 @@
 import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/MovesContext";
+import React from "react";
 
 import Game from "./components/Game";
-
 import restAPI from "./services/rest_api/calls";
 
 const restAPIClient = restAPI();
