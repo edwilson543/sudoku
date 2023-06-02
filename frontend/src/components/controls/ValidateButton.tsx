@@ -1,7 +1,17 @@
+import React, { SetStateAction } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-export default function ValidateButton({ validationIsOn, setValidationIsOn }) {
+type ValidateButtonProps = {
+  validationIsOn: boolean;
+  setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
+};
+
+export default function ValidateButton({
+  validationIsOn,
+  setValidationIsOn,
+}: ValidateButtonProps) {
   /* Button to toggle validation on / off */
   function toggleValidation() {
     setValidationIsOn(!validationIsOn);
