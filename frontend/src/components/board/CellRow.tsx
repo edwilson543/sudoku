@@ -5,7 +5,7 @@ import Cell from "./Cell";
 type CellRowProps = {
   sudoku: Sudoku;
   rowIndex: number;
-  rowMoves: Array<Move>;
+  rowMoves: Array<number | null>;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   validationIsOn: boolean;

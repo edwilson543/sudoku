@@ -4,7 +4,7 @@ import CellRow from "./CellRow";
 
 type GridProps = {
   sudoku: Sudoku;
-  moves: Array<Array<Move>>;
+  moves: Array<Array<number | null>>;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   validationIsOn: boolean;

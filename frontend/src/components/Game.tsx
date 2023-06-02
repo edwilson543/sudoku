@@ -65,7 +65,7 @@ function combineAllMoves(
   stateMoves: Array<MoveDetail>,
   existingMoves: Array<APIMove>,
   sudokuSize: number
-): Array<Array<Move>> {
+): Array<Array<number | null>> {
   /** Combine the moves received from the API with the moves held in state */
   // Create initial data structure for moves (an array of rows, which are also arrays)
   const rows = [];
@@ -76,10 +76,7 @@ function combineAllMoves(
   // Add the moves received over the API
   for (const move of existingMoves) {
     if (!move.is_erased) {
-      rows[move.row][move.column] = {
-        value: move.value,
-        is_correct: move.is_correct,
-      };
+      rows[move.row][move.column] = move.value;
     }
   }
 
@@ -87,16 +84,13 @@ function combineAllMoves(
   // Note the last move for any index will overwrite all previous values,
   // including more recent moves with `isErased: true`
   for (const move of stateMoves) {
-    rows[move.row][move.column] = {
-      value: move.value,
-      is_correct: move.isCorrect,
-    };
+    rows[move.row][move.column] = move.value;
   }
   return rows;
 }
 
 function sudokuIsSolved(
-  moves: Array<Array<Move | null>>,
+  moves: Array<Array<number | null>>,
   sudoku: Sudoku
 ): boolean {
   /** Check if the player has found the correct solution for the sudoku */
@@ -108,7 +102,7 @@ function sudokuIsSolved(
       const move = moves[rowIndex][colIndex];
       if (move === null) {
         return false;
-      } else if (move.value !== sudoku.solution[rowIndex][colIndex]) {
+      } else if (move !== sudoku.solution[rowIndex][colIndex]) {
         return false;
       }
     }

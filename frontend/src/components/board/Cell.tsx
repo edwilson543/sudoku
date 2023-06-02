@@ -2,7 +2,7 @@ import React, { SetStateAction } from "react";
 
 type CellProps = {
   sudoku: Sudoku;
-  move: Move | null;
+  move: number | null;
   rowIndex: number;
   columnIndex: number;
   activeCell: ActiveCell;
@@ -25,7 +25,7 @@ export default function Cell({
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
   const solutionValue = sudoku.solution[rowIndex][columnIndex];
   const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
-  const cellValue = isClueCell ? solutionValue : move ? move.value : null;
+  const cellValue = isClueCell ? solutionValue : move;
 
   function handleClick(): void {
     if (isSolved) {

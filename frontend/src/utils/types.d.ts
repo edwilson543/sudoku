@@ -27,13 +27,6 @@ interface MoveDetail {
   isErased: boolean;
 }
 
-interface Move {
-  // A subset of move detail passed to individual cells
-  value: number;
-  // TODO -> probably delete isCorrect, and therefore this interface?
-  isCorrect: boolean;
-}
-
 interface CreateMoveAction {
   type: "create-move";
   row: number;
