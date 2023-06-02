@@ -1,8 +1,8 @@
 import React, { SetStateAction } from "react";
 
-import NumberInputPanel from "./NumberInputPanel";
-import ActionPanel from "./ActionPanel";
-import NewGame from "./NewGame";
+import NumberInputPanel from "./input/NumberInputPanel";
+import ActionPanel from "./actions/ActionPanel";
+import NewGame from "./new-game/NewGame";
 
 type ControlPanelProps = {
   sudoku: Sudoku;

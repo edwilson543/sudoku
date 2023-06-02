@@ -1,10 +1,10 @@
 import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
-import { MovesProvider } from "./context/MovesContext";
+import { MovesProvider } from "./context/movesContext";
 import React from "react";
 
 import Game from "./components/Game";
-import restAPI from "./services/rest_api/calls";
+import restAPI from "./services/restAPI";
 
 const restAPIClient = restAPI();
 const game = restAPIClient.getOrCreateActiveGame();

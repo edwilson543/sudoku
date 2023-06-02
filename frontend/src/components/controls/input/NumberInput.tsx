@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react";
 
-import { useMovesDispatch } from "../../context/MovesContext";
+import { useMovesDispatch } from "../../../context/movesContext";
 
 type NumberInputProps = {
   value: number;

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-import { useMovesDispatch } from "../../context/MovesContext";
+import { useMovesDispatch } from "../../../context/movesContext";
 
 type EraseButtonProps = {
   activeCell: ActiveCell;

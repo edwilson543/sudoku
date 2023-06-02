@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 
 import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
-import { useMoves } from "../context/MovesContext";
+import { useMoves } from "../context/movesContext";
 
 type GameProps = {
   game: Game;
