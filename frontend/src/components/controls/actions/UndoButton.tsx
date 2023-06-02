@@ -2,8 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { useMoves, useMovesDispatch } from "../../../context/movesContext";
 import { MoveType } from "../../../utils/constants";
+import { useMoves, useMovesDispatch } from "../../../context/movesContext";
 
 type UndoButtonProps = {
   isSolved: boolean;

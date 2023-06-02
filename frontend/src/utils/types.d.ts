@@ -30,18 +30,30 @@ interface MoveDetail {
 interface Move {
   // A subset of move detail passed to individual cells
   value: number;
-  // TODO -> maybe delete isCorrect, and therefore this interface?
+  // TODO -> probably delete isCorrect, and therefore this interface?
   isCorrect: boolean;
 }
 
-interface MoveAction {
-  // An action that may be dispatched to the movesReducer
-  type: MoveType;
+interface CreateMoveAction {
+  type: "create-move";
   row: number;
   column: number;
   value: number;
   isCorrect: boolean;
 }
+
+interface EraseMoveAction {
+  type: "erase-move";
+  row: number;
+  column: number;
+}
+
+interface UndoMoveAction {
+  type: "undo-move";
+}
+
+// An action that may be dispatched to the movesReducer
+type MoveAction = CreateMoveAction | EraseMoveAction | UndoMoveAction;
 
 // Types related to the API payloads
 

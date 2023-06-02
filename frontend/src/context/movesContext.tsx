@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { MoveType } from "../utils/constants";
 
 const MovesContext = createContext<Array<MoveDetail>>([]);
 const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(() => {
@@ -67,10 +66,6 @@ function movesReducer(
     case MoveType.UNDO: {
       // TODO -> fire an API call here depending on the move nature
       return moves.slice(0, -1);
-    }
-
-    default: {
-      throw Error("Unknown action " + action.type);
     }
   }
 }
