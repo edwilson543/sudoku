@@ -1,4 +1,15 @@
 import Cell from "./Cell";
+import React, { SetStateAction } from "react";
+
+type CellRowProps = {
+  sudoku: Sudoku;
+  rowIndex: number;
+  rowMoves: Array<Move>;
+  activeCell: ActiveCell;
+  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  validationIsOn: Boolean;
+  isSolved: Boolean;
+};
 
 export default function CellRow({
   sudoku,
@@ -8,12 +19,12 @@ export default function CellRow({
   setActiveCell,
   validationIsOn,
   isSolved,
-}) {
+}: CellRowProps) {
   /** A row of cells in the sudoku board. */
   const solutionRow = sudoku.solution[rowIndex];
   return (
     <div className={"cell-row"}>
-      {solutionRow.map((solutionValue, colIndex) => {
+      {solutionRow.map((solutionValue: number, colIndex: number) => {
         return (
           <Cell
             key={colIndex}
