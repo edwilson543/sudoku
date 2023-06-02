@@ -6,8 +6,8 @@ import React from "react";
 import Game from "./components/Game";
 import restAPI from "./services/restAPI";
 
-const restAPIClient = restAPI();
-const game = restAPIClient.getOrCreateActiveGame();
+const restClient = restAPI();
+const game = restClient.getOrCreateActiveGame();
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <h1 className={"headstrap"}>eduko</h1>
       <div className={"page-content"}>
         <MovesProvider>
-          <Game game={game} />
+          <Game sudoku={game.sudoku} initialMoves={game.moves} />
         </MovesProvider>
       </div>
     </>

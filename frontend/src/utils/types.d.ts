@@ -1,5 +1,11 @@
 // Types that are globally relevant
 
+interface Game {
+  sudoku: Sudoku;
+  moves: Array<Move>;
+  started_at: string;
+}
+
 interface Sudoku {
   problem: Array<Array<number | null>>;
   solution: Array<Array<number>>;
@@ -47,20 +53,3 @@ interface UndoMoveAction {
 
 // An action that may be dispatched to the movesReducer
 type MoveAction = CreateMoveAction | EraseMoveAction | UndoMoveAction;
-
-// Types related to the API payloads
-
-interface APIMove {
-  id: number;
-  row: number;
-  column: number;
-  value: number;
-  is_correct: boolean;
-  is_erased: boolean;
-}
-
-interface Game {
-  sudoku: Sudoku;
-  moves: Array<APIMove>;
-  started_at: string;
-}

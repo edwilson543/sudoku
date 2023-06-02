@@ -5,10 +5,11 @@ import ControlPanel from "./controls/ControlPanel";
 import { useMoves } from "../context/movesContext";
 
 type GameProps = {
-  game: Game;
+  sudoku: Sudoku;
+  initialMoves: Array<MoveDetail>;
 };
 
-export default function Game({ game }: GameProps) {
+export default function Game({ sudoku, initialMoves }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
   // Set the initially active cell to a non-existent one
   const initialActiveCell = {
@@ -26,22 +27,22 @@ export default function Game({ game }: GameProps) {
   // Combine the moves received from the API with the moves held in state
   const stateMoves = useMoves();
   const moves = useMemo(() => {
-    return combineAllMoves(stateMoves, game.moves, game.sudoku.size);
-  }, [stateMoves, game.moves, game.sudoku.size]);
+    return combineAllMoves(stateMoves, initialMoves, sudoku.size);
+  }, [stateMoves, initialMoves, sudoku]);
 
   // Check if the sudoku has been solved
   const isSolved = useMemo(() => {
-    return sudokuIsSolved(moves, game.sudoku);
-  }, [moves, game.sudoku]);
+    return sudokuIsSolved(moves, sudoku);
+  }, [moves, sudoku]);
 
   return (
     <div className={"game-container"}>
       <div className={"game-info"}>
-        difficulty: <b>{game.sudoku.difficulty.toLowerCase()}</b>
+        difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
       </div>
       <div className={"game"}>
         <Grid
-          sudoku={game.sudoku}
+          sudoku={sudoku}
           moves={moves}
           activeCell={activeCell}
           setActiveCell={setActiveCell}
@@ -49,7 +50,7 @@ export default function Game({ game }: GameProps) {
           isSolved={isSolved}
         />
         <ControlPanel
-          sudoku={game.sudoku}
+          sudoku={sudoku}
           activeCell={activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
@@ -63,7 +64,7 @@ export default function Game({ game }: GameProps) {
 
 function combineAllMoves(
   stateMoves: Array<MoveDetail>,
-  existingMoves: Array<APIMove>,
+  initialMoves: Array<MoveDetail>,
   sudokuSize: number
 ): Array<Array<number | null>> {
   /** Combine the moves received from the API with the moves held in state */
@@ -74,8 +75,8 @@ function combineAllMoves(
   }
 
   // Add the moves received over the API
-  for (const move of existingMoves) {
-    if (!move.is_erased) {
+  for (const move of initialMoves) {
+    if (!move.isErased) {
       rows[move.row][move.column] = move.value;
     }
   }
