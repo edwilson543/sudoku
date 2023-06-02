@@ -1,19 +1,21 @@
 import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/MovesContext";
+import React from "react";
 
 import Game from "./components/Game";
+import restAPI from "./services/rest_api/calls";
 
-import getOrCreateActiveGame from "./services/rest_api/calls";
+const restAPIClient = restAPI();
+const game = restAPIClient.getOrCreateActiveGame();
 
 function App() {
-  const game = getOrCreateActiveGame();
   return (
     <>
-      <h1 className={"headstrap"}>Eduko</h1>
+      <h1 className={"headstrap"}>eduko</h1>
       <div className={"page-content"}>
         <MovesProvider>
-          <Game sudoku={game.sudoku} existingMoves={game.moves} />
+          <Game game={game} />
         </MovesProvider>
       </div>
     </>

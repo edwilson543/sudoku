@@ -1,18 +1,26 @@
-import { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
+import { MoveType } from "../utils/constants";
 
-const MovesContext = createContext([]);
-const MovesDispatchContext = createContext(null);
+const MovesContext = createContext<Array<MoveDetail>>([]);
+const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(
+  () => {}
+);
 
-export function useMoves() {
+export function useMoves(): Array<MoveDetail> {
   return useContext(MovesContext);
 }
 
-export function useMovesDispatch() {
+export function useMovesDispatch(): Function {
   return useContext(MovesDispatchContext);
 }
 
-export function MovesProvider({ children }) {
-  const [moves, dispatch] = useReducer(movesReducer, []);
+type MovesProviderProps = {
+  children?: React.ReactNode;
+};
+
+export function MovesProvider({ children }: MovesProviderProps) {
+  const initialMoves: Array<MoveDetail> = [];
+  const [moves, dispatch] = useReducer(movesReducer, initialMoves);
   return (
     <MovesContext.Provider value={moves}>
       <MovesDispatchContext.Provider value={dispatch}>
@@ -22,10 +30,13 @@ export function MovesProvider({ children }) {
   );
 }
 
-function movesReducer(moves, action) {
+function movesReducer(
+  moves: Array<MoveDetail>,
+  action: MoveAction
+): Array<MoveDetail> {
   switch (action.type) {
     // Create a new move and add it to the end of the array
-    case "create-move": {
+    case MoveType.CREATE: {
       // TODO -> fire a create move API call
       const newMove = {
         row: action.row,
@@ -40,7 +51,7 @@ function movesReducer(moves, action) {
     // Create an erased move and add it to the end of the array.
     // Rather than find the original move and erase it, it's much
     // cleaner and more useful to create an 'overwriting' effect
-    case "erase-move": {
+    case MoveType.ERASE: {
       // TODO -> fire an erase move API call
       const erasedMove = {
         row: action.row,
@@ -53,7 +64,7 @@ function movesReducer(moves, action) {
     }
 
     // Undo the previous move (be it an entry or an erasing) */
-    case "undo-move": {
+    case MoveType.UNDO: {
       // TODO -> fire an API call here depending on the move nature
       return moves.slice(0, -1);
     }

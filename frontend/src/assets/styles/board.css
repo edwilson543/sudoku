@@ -31,8 +31,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 
   /* Border */
   border: 0.5px solid var(--border-grey);
@@ -52,9 +52,36 @@
   border-left: var(--tile-border);
 }
 
+@keyframes solved-throb {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cell-solved {
+  /* Background */
+  background-color: var(--background-cell-solved) !important;
+
+  /* Animation */
+  animation-name: solved-throb;
+  animation-duration: 0.25s;
+  animation-iteration-count: 5;
+}
+
 .game-cell {
   /* Typography */
   color: var(--font-dark-blue);
+}
+
+.game-cell-invalid {
+  /* Background */
+  background-color: var(--background-cell-invalid) !important;
 }
 
 .active-cell {

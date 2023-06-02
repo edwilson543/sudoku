@@ -1,5 +1,10 @@
 @import "./colour-scheme.css";
 
+:root {
+  --number-input-width: 75px;
+  --number-input-margin: 2px;
+}
+
 .control-panel {
   /* Display */
   display: flex;
@@ -29,9 +34,9 @@ Number input panel and children
   flex-basis: 30%; /* Ensure each 3rd number causes a wrap */
   align-items: center;
   justify-content: center;
-  width: 75px;
-  height: 75px;
-  margin: 2px;
+  width: var(--number-input-width);
+  height: var(--number-input-width);
+  margin: var(--number-input-margin);
 
   /* Background and border */
   background-color: var(--background-control);
@@ -41,6 +46,7 @@ Number input panel and children
   font-size: 40px;
   color: var(--font-dark-blue);
 }
+
 .number-input:hover {
   cursor: pointer;
   background-color: var(--background-control-hover);
@@ -53,6 +59,7 @@ Action panel and children
   /* Display */
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   width: 200px;
 }
@@ -61,6 +68,7 @@ Action panel and children
   /* Display */
   display: flex;
   flex-direction: column;
+  flex-basis: 40%;
   align-items: center;
 }
 
@@ -76,6 +84,7 @@ Action panel and children
   background-color: var(--background-control);
   border-radius: 50%;
 }
+
 .action-button-icon-wrapper:hover {
   cursor: pointer;
   background-color: var(--background-control-hover);
@@ -93,4 +102,115 @@ Action panel and children
 .action-button-text {
   /* Typography */
   color: var(--font-dark-blue);
+}
+
+.validation-toggle-on {
+  /* Background and border */
+  background-color: var(--background-control-hover);
+  box-sizing: border-box;
+  border: 3px solid var(--border-grey);
+}
+
+/* ----------------------------------------
+Game continuation
+---------------------------------------- */
+.new-game-button {
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--number-input-width) * 3 + var(--number-input-margin) * 4);
+  height: 50px;
+  margin-top: 10px;
+
+  /* Background and border */
+  background-color: var(--background-new-game);
+  border-radius: 10px;
+
+  /* Typography */
+  color: white;
+  font-size: 25px;
+}
+
+.new-game-button:hover {
+  background-color: var(--background-new-game-hover);
+  cursor: pointer;
+}
+
+.new-game-menu-wrapper {
+  /* Positioning */
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+@keyframes new-game-menu-ease {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.new-game-menu {
+  /* Positioning */
+  position: absolute;
+  bottom: 100%;
+  left: 5px;
+
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  padding: 10px;
+
+  /* Background and border */
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px grey;
+
+  /* Transition */
+  animation: new-game-menu-ease;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+}
+
+.new-game-menu-item {
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 40px;
+  margin: 2px;
+
+  /* Background and border */
+  background-color: var(--background-control);
+  border-radius: 5px;
+
+  /* Typography */
+  color: var(--font-dark-blue);
+  font-size: 20px;
+}
+
+.new-game-menu-item:hover {
+  cursor: pointer;
+  background-color: var(--background-control-hover);
+}
+
+.select-difficulty {
+  /* Display */
+  padding: 10px;
+  margin-bottom: 10px;
+
+  /* Border */
+  border-bottom: 1px solid var(--border-black);
+
+  /* Typography */
+  color: var(--font-black);
+  font-size: 15px;
+  font-weight: bold;
+  font-style: italic;
 }

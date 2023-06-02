@@ -3,15 +3,20 @@
   --background-cell-active: #79b9c9;
   --background-cell-highlighted: #cfe1e6;
   --background-cell-value-highlighted: #abc3c9;
+  --background-cell-invalid: #db9194;
+  --background-cell-solved: #bcebc8;
 
   --background-control: #e6ebf2;
   --background-control-hover: #d3dceb;
+  --background-new-game: #1a55ba;
+  --background-new-game-hover: #154596;
 
   /* Border colours */
   --border-black: black;
   --border-grey: grey;
 
   /* Font colours */
+  --font-black: black;
   --font-dark-blue: #1a55ba;
   --font-grey-blue: #29354a;
 }

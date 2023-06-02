@@ -1,19 +1,25 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useMoves, useMovesDispatch } from "../../context/MovesContext";
+import { MoveType } from "../../utils/constants";
 
-export default function UndoButton() {
+type UndoButtonProps = {
+  isSolved: boolean;
+};
+
+export default function UndoButton({ isSolved }: UndoButtonProps) {
   /** Button to undo the previous move (be it an entry or an erasing) */
   const moves = useMoves();
   const movesDispatch = useMovesDispatch();
 
-  function handleClick() {
-    if (moves.length === 0) {
-      return null;
+  function handleClick(): void {
+    if (moves.length === 0 || isSolved) {
+      return;
     }
     movesDispatch({
-      type: "undo-move",
+      type: MoveType.UNDO,
     });
   }
 
@@ -25,7 +31,7 @@ export default function UndoButton() {
           className={"action-button-icon"}
         />
       </div>
-      <span className={"action-button-text"}>Undo</span>
+      <span className={"action-button-text"}>undo</span>
     </div>
   );
 }
