@@ -27,9 +27,9 @@ export default function Cell({
   const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
   const cellValue = isClueCell ? solutionValue : move ? move.value : null;
 
-  function handleClick() {
+  function handleClick(): void {
     if (isSolved) {
-      return null;
+      return;
     }
     setActiveCell({
       row: rowIndex,
@@ -40,7 +40,7 @@ export default function Cell({
     });
   }
 
-  function getClassName() {
+  function getClassName(): string {
     let className = "cell";
     if (isSolved) {
       className += " cell-solved";
@@ -77,7 +77,7 @@ function getTileIndex(
   rowIndex: number,
   columnIndex: number,
   sudokuSize: number
-) {
+): number {
   const sudokuRank = Math.sqrt(sudokuSize);
   return (
     Math.floor(rowIndex / sudokuRank) * sudokuRank +

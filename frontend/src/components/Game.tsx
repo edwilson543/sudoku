@@ -65,7 +65,7 @@ function combineAllMoves(
   stateMoves: Array<MoveDetail>,
   existingMoves: Array<APIMove>,
   sudokuSize: number
-) {
+): Array<Array<Move>> {
   /** Combine the moves received from the API with the moves held in state */
   // Create initial data structure for moves (an array of rows, which are also arrays)
   const rows = [];
@@ -95,7 +95,10 @@ function combineAllMoves(
   return rows;
 }
 
-function sudokuIsSolved(moves: Array<Array<Move | null>>, sudoku: Sudoku) {
+function sudokuIsSolved(
+  moves: Array<Array<Move | null>>,
+  sudoku: Sudoku
+): boolean {
   /** Check if the player has found the correct solution for the sudoku */
   for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
     for (let colIndex = 0; colIndex < sudoku.size; colIndex++) {
