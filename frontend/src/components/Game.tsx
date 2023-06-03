@@ -1,7 +1,7 @@
 import React, { useState, useMemo, SetStateAction } from "react";
 
 import Grid from "./board/Grid";
-import restAPI from "../services/restAPI";
+import RestAPIClient from "../services/restAPIClient";
 import ControlPanel from "./controls/ControlPanel";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty } from "../utils/constants";

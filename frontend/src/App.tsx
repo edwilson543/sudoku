@@ -4,10 +4,10 @@ import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
-import restAPI from "./services/restAPI";
+import RestAPIClient from "./services/restAPIClient";
 
 // Constants used for initialising the game
-const restClient = restAPI();
+const restClient = new RestAPIClient();
 const game = restClient.getOrCreateActiveGame();
 
 export default function App() {
