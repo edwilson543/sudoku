@@ -14,8 +14,8 @@ function App() {
     <>
       <h1 className={"headstrap"}>eduko</h1>
       <div className={"page-content"}>
-        <MovesProvider>
-          <Game sudoku={game.sudoku} initialMoves={game.moves} />
+        <MovesProvider initialMoves={game.moves}>
+          <Game sudoku={game.sudoku} />
         </MovesProvider>
       </div>
     </>

@@ -15,11 +15,12 @@ export function useMovesDispatch(): React.Dispatch<MoveAction> {
 }
 
 type MovesProviderProps = {
+  initialMoves: Array<MoveDetail>;
   children?: React.ReactNode;
 };
 
-export function MovesProvider({ children }: MovesProviderProps) {
-  const initialMoves: Array<MoveDetail> = [];
+export function MovesProvider({ initialMoves, children }: MovesProviderProps) {
+  /** Wrapper for the active game, providing access to the move history and dispatch */
   const [moves, dispatch] = useReducer(movesReducer, initialMoves);
   return (
     <MovesContext.Provider value={moves}>
