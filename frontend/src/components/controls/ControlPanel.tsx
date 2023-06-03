@@ -3,9 +3,11 @@ import React, { SetStateAction } from "react";
 import NumberInputPanel from "./input/NumberInputPanel";
 import ActionPanel from "./actions/ActionPanel";
 import NewGame from "./new/NewGame";
+import { SudokuDifficulty } from "../../utils/constants";
 
 type ControlPanelProps = {
   sudoku: Sudoku;
+  startNewGame: (difficulty: SudokuDifficulty) => void;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   validationIsOn: boolean;
@@ -15,6 +17,7 @@ type ControlPanelProps = {
 
 export default function ControlPanel({
   sudoku,
+  startNewGame,
   activeCell,
   setActiveCell,
   validationIsOn,
@@ -35,7 +38,7 @@ export default function ControlPanel({
         setActiveCell={setActiveCell}
         isSolved={isSolved}
       />
-      <NewGame isSolved={isSolved} />
+      <NewGame isSolved={isSolved} startNewGame={startNewGame} />
     </div>
   );
 }

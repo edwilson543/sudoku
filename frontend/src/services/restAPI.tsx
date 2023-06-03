@@ -1,11 +1,23 @@
 import data from "./tempData.json";
+import newGame from "./newGameData.json";
+import { SudokuDifficulty } from "../utils/constants";
 
 export default function restAPI() {
-  // API client
+  /** REST API client used to persist game actions and for game continuation */
   return {
     getOrCreateActiveGame(): Game {
+      /** Get the currently active game for some player */
       return {
         sudoku: data.sudoku,
+        moves: normalizeAPIMoves(data.moves),
+        started_at: data.started_at,
+      };
+    },
+    createNextGame(difficulty: SudokuDifficulty): Game {
+      /** Get a new game for some player */
+      difficulty; // Todo -> remove once actually making an API call
+      return {
+        sudoku: newGame.sudoku,
         moves: normalizeAPIMoves(data.moves),
         started_at: data.started_at,
       };
@@ -24,6 +36,7 @@ interface APIMove {
 }
 
 function normalizeAPIMoves(moves: Array<APIMove>): Array<MoveDetail> {
+  /** Convert moves from the type received by the API to the type used in the game */
   return moves.map((move) => {
     return {
       row: move.row,

@@ -1,25 +1,27 @@
+import React, { useState } from "react";
+
 import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/movesContext";
-import React from "react";
-
 import Game from "./components/Game";
 import restAPI from "./services/restAPI";
 
+// Constants used for initialising the game
 const restClient = restAPI();
 const game = restClient.getOrCreateActiveGame();
 
-function App() {
+export default function App() {
+  // Store the sudoku currently being played in state
+  const [sudoku, setSudoku] = useState<Sudoku>(game.sudoku);
+
   return (
     <>
       <h1 className={"headstrap"}>eduko</h1>
       <div className={"page-content"}>
         <MovesProvider initialMoves={game.moves}>
-          <Game sudoku={game.sudoku} />
+          <Game sudoku={sudoku} setSudoku={setSudoku} />
         </MovesProvider>
       </div>
     </>
   );
 }
-
-export default App;

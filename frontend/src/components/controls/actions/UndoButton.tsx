@@ -19,7 +19,7 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
       return;
     }
     movesDispatch({
-      type: MoveType.UNDO,
+      type: MoveType.Undo,
     });
   }
 

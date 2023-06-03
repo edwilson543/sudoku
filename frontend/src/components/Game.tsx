@@ -1,11 +1,14 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, SetStateAction } from "react";
 
 import Grid from "./board/Grid";
+import restAPI from "../services/restAPI";
 import ControlPanel from "./controls/ControlPanel";
-import { useMoves } from "../context/movesContext";
+import { useMoves, useMovesDispatch } from "../context/movesContext";
+import { MoveType, SudokuDifficulty } from "../utils/constants";
 
 type GameProps = {
   sudoku: Sudoku;
+  setSudoku: React.Dispatch<SetStateAction<Sudoku>>;
 };
 
 const initialActiveCell = {
@@ -17,9 +20,9 @@ const initialActiveCell = {
   isClueCell: null,
 };
 
-export default function Game({ sudoku }: GameProps) {
+export default function Game({ sudoku, setSudoku }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
-  // Store the active cell in state
+  // Store the active cell (i.e. the cell the user most recently clicked)
   const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
 
   // Set the initial game mode (validation is on)
@@ -35,6 +38,22 @@ export default function Game({ sudoku }: GameProps) {
   const isSolved = useMemo(() => {
     return sudokuIsSolved(movesGrid, sudoku);
   }, [movesGrid, sudoku]);
+
+  const movesDispatch = useMovesDispatch();
+  function startNewGame(difficulty: SudokuDifficulty): void {
+    /** Start a new game, at the player's discretion */
+    // Ask for a new game from the API, and set the sudoku as this
+    movesDispatch({
+      type: MoveType.ClearAll,
+    });
+
+    const restClient = restAPI();
+    const newGame = restClient.createNextGame(difficulty);
+    setSudoku(newGame.sudoku);
+
+    // Clear the currently active cell
+    setActiveCell(initialActiveCell);
+  }
 
   return (
     <div className={"game-container"}>
@@ -52,6 +71,7 @@ export default function Game({ sudoku }: GameProps) {
         />
         <ControlPanel
           sudoku={sudoku}
+          startNewGame={startNewGame}
           activeCell={activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}

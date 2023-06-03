@@ -29,7 +29,7 @@ export default function NumberInput({
     const isCorrect =
       sudoku.solution[activeCell.row][activeCell.column] === value;
     movesDispatch({
-      type: MoveType.CREATE,
+      type: MoveType.Create,
       row: activeCell.row,
       column: activeCell.column,
       value: value,

@@ -1,10 +1,17 @@
 import React, { SetStateAction } from "react";
 
+import { SudokuDifficulty } from "../../../utils/constants";
+import NewGameMenuItem from "./NewGameMenuItem";
+
 type NewGameMenuProps = {
+  startNewGame: (difficulty: SudokuDifficulty) => void;
   setShowNewGameMenu: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export default function NewGameMenu({ setShowNewGameMenu }: NewGameMenuProps) {
+export default function NewGameMenu({
+  startNewGame,
+  setShowNewGameMenu,
+}: NewGameMenuProps) {
   function handleMouseLeave(): void {
     setShowNewGameMenu(false);
   }
@@ -13,9 +20,18 @@ export default function NewGameMenu({ setShowNewGameMenu }: NewGameMenuProps) {
     <div className={"new-game-menu-wrapper"}>
       <div className={"new-game-menu"} onMouseLeave={handleMouseLeave}>
         <div className={"select-difficulty"}>select difficulty:</div>
-        <div className={"new-game-menu-item"}>easy</div>
-        <div className={"new-game-menu-item"}>medium</div>
-        <div className={"new-game-menu-item"}>hard</div>
+        <NewGameMenuItem
+          startNewGame={startNewGame}
+          difficulty={SudokuDifficulty.EASY}
+        />
+        <NewGameMenuItem
+          startNewGame={startNewGame}
+          difficulty={SudokuDifficulty.MEDIUM}
+        />
+        <NewGameMenuItem
+          startNewGame={startNewGame}
+          difficulty={SudokuDifficulty.HARD}
+        />
       </div>
     </div>
   );

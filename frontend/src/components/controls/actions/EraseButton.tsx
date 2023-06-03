@@ -31,7 +31,7 @@ export default function EraseButton({
       return;
     }
     movesDispatch({
-      type: MoveType.ERASE,
+      type: MoveType.Erase,
       row: activeCell.row,
       column: activeCell.column,
     });

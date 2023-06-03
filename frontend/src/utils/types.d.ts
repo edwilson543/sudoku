@@ -33,6 +33,10 @@ interface MoveDetail {
   isErased: boolean;
 }
 
+interface ClearAllMovesAction {
+  type: "clear-all-moves";
+}
+
 interface CreateMoveAction {
   type: "create-move";
   row: number;
@@ -52,4 +56,8 @@ interface UndoMoveAction {
 }
 
 // An action that may be dispatched to the movesReducer
-type MoveAction = CreateMoveAction | EraseMoveAction | UndoMoveAction;
+type MoveAction =
+  | ClearAllMovesAction
+  | CreateMoveAction
+  | EraseMoveAction
+  | UndoMoveAction;
