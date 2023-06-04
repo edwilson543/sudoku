@@ -1,6 +1,7 @@
 import React, { SetStateAction } from "react";
 
-import { useMovesDispatch } from "../../context/MovesContext";
+import { MoveType } from "../../../utils/constants";
+import { useMovesDispatch } from "../../../context/movesContext";
 
 type NumberInputProps = {
   value: number;
@@ -28,7 +29,7 @@ export default function NumberInput({
     const isCorrect =
       sudoku.solution[activeCell.row][activeCell.column] === value;
     movesDispatch({
-      type: "create-move",
+      type: MoveType.Create,
       row: activeCell.row,
       column: activeCell.column,
       value: value,

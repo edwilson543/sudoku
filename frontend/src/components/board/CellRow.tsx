@@ -5,11 +5,11 @@ import Cell from "./Cell";
 type CellRowProps = {
   sudoku: Sudoku;
   rowIndex: number;
-  rowMoves: Array<Move>;
+  rowMoves: Array<number | null>;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
-  validationIsOn: Boolean;
-  isSolved: Boolean;
+  validationIsOn: boolean;
+  isSolved: boolean;
 };
 
 export default function CellRow({

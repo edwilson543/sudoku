@@ -13,7 +13,7 @@ export default function ValidateButton({
   setValidationIsOn,
 }: ValidateButtonProps) {
   /* Button to toggle validation on / off */
-  function toggleValidation() {
+  function toggleValidation(): void {
     setValidationIsOn(!validationIsOn);
   }
 

@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-import { useMovesDispatch } from "../../context/MovesContext";
+import { MoveType } from "../../../utils/constants";
+import { useMovesDispatch } from "../../../context/movesContext";
 
 type EraseButtonProps = {
   activeCell: ActiveCell;
@@ -30,7 +31,7 @@ export default function EraseButton({
       return;
     }
     movesDispatch({
-      type: "erase-move",
+      type: MoveType.Erase,
       row: activeCell.row,
       column: activeCell.column,
     });

@@ -2,13 +2,13 @@ import React, { SetStateAction } from "react";
 
 type CellProps = {
   sudoku: Sudoku;
-  move: Move | null;
+  move: number | null;
   rowIndex: number;
   columnIndex: number;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
-  validationIsOn: Boolean;
-  isSolved: Boolean;
+  validationIsOn: boolean;
+  isSolved: boolean;
 };
 
 export default function Cell({
@@ -25,11 +25,11 @@ export default function Cell({
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
   const solutionValue = sudoku.solution[rowIndex][columnIndex];
   const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
-  const cellValue = isClueCell ? solutionValue : move ? move.value : null;
+  const cellValue = isClueCell ? solutionValue : move;
 
-  function handleClick() {
+  function handleClick(): void {
     if (isSolved) {
-      return null;
+      return;
     }
     setActiveCell({
       row: rowIndex,
@@ -40,7 +40,7 @@ export default function Cell({
     });
   }
 
-  function getClassName() {
+  function getClassName(): string {
     let className = "cell";
     if (isSolved) {
       className += " cell-solved";
@@ -77,7 +77,7 @@ function getTileIndex(
   rowIndex: number,
   columnIndex: number,
   sudokuSize: number
-) {
+): number {
   const sudokuRank = Math.sqrt(sudokuSize);
   return (
     Math.floor(rowIndex / sudokuRank) * sudokuRank +

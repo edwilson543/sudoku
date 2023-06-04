@@ -1,5 +1,11 @@
 // Types that are globally relevant
 
+interface Game {
+  sudoku: Sudoku;
+  moves: Array<Move>;
+  started_at: string;
+}
+
 interface Sudoku {
   problem: Array<Array<number | null>>;
   solution: Array<Array<number>>;
@@ -27,35 +33,31 @@ interface MoveDetail {
   isErased: boolean;
 }
 
-interface Move {
-  // A subset of move detail passed to individual cells
-  value: number;
-  // TODO -> maybe delete isCorrect, and therefore this interface?
-  isCorrect: boolean;
+interface ClearAllMovesAction {
+  type: "clear-all-moves";
 }
 
-interface MoveAction {
-  // An action that may be dispatched to the movesReducer
-  type: MoveType;
+interface CreateMoveAction {
+  type: "create-move";
   row: number;
   column: number;
   value: number;
   isCorrect: boolean;
 }
 
-// Types related to the API payloads
-
-interface APIMove {
-  id: number;
+interface EraseMoveAction {
+  type: "erase-move";
   row: number;
   column: number;
-  value: number;
-  is_correct: boolean;
-  is_erased: boolean;
 }
 
-interface Game {
-  sudoku: Sudoku;
-  moves: Array<APIMove>;
-  started_at: string;
+interface UndoMoveAction {
+  type: "undo-move";
 }
+
+// An action that may be dispatched to the movesReducer
+type MoveAction =
+  | ClearAllMovesAction
+  | CreateMoveAction
+  | EraseMoveAction
+  | UndoMoveAction;
