@@ -101,6 +101,7 @@ class Migration(migrations.Migration):
                 ("column", models.PositiveIntegerField()),
                 ("value", models.PositiveIntegerField(null=True)),
                 ("is_correct", models.BooleanField()),
+                ("is_undone", models.BooleanField(default=False)),
                 ("is_erased", models.BooleanField(default=False)),
                 ("made_at", models.DateTimeField(auto_now_add=True)),
                 (

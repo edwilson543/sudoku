@@ -40,6 +40,13 @@ class Move(django_models.Model):
     This is derivable, but is added for convenience.
     """
 
+    is_undone = django_models.BooleanField(default=False)
+    """
+    Whether the move has been `undone` from the game.
+
+    Note we can undo moves with and without a value.
+    """
+
     is_erased = django_models.BooleanField(default=False)
     """
     Whether this move has been erased by the user since it was made.
