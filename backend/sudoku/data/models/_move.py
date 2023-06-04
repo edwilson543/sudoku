@@ -61,6 +61,6 @@ class Move(django_models.Model):
     # Mutators
     # ----------
 
-    def erase(self) -> None:
-        self.is_erased = True
-        self.save(update_fields=["is_erased"])
+    def undo(self) -> None:
+        self.is_undone = True
+        self.save(update_fields=["is_undone"])
