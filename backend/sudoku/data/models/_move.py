@@ -26,9 +26,11 @@ class Move(django_models.Model):
     The column of the sudoku the move was made in.
     """
 
-    value = django_models.PositiveIntegerField()
+    value = django_models.PositiveIntegerField(null=True)
     """
     The value of the sudoku move.
+
+    When value is `null`, this represents clearing any existing value in that cell.
     """
 
     is_correct = django_models.BooleanField()
