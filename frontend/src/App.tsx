@@ -4,12 +4,12 @@ import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
-import { MockAPIClient } from "./services/apiClient/mockAPIClient";
+import RestAPIClient from "./services/apiClient/RestAPIClient";
 import { APIClient, APIClientContext } from "./services/apiClient/useAPI";
 
 export default function App() {
   /** Initialise the application */
-  const apiClientRef = useRef<APIClient>(new MockAPIClient());
+  const apiClientRef = useRef<APIClient>(new RestAPIClient());
   const [activeGame, setActiveGame] = useState<Game | null>(null);
 
   // Instantiate the rest client using the player's IP address

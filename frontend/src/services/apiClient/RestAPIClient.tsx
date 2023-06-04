@@ -9,7 +9,7 @@ import getPlayerIpAddress from "../profile";
  - Enum for the endpoints
  */
 
-export class RestAPIClient implements APIClient {
+export default class RestAPIClient implements APIClient {
   /** API client for the backend REST API. */
   private playerIpAddress: string;
   private gameId: number | null;
@@ -31,7 +31,7 @@ export class RestAPIClient implements APIClient {
     /** Get the currently active game for some player */
     const game = {
       sudoku: activeGameData.sudoku,
-      moves: [],
+      moves: normalizeAPIMoves([]),
       started_at: activeGameData.started_at,
     };
     this.gameId = activeGameData.id;

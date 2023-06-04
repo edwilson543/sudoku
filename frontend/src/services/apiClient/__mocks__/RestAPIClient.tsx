@@ -1,9 +1,9 @@
-import activeGameData from "../data/activeGameData.json";
-import { SudokuDifficulty } from "../../utils/constants";
-import newGameData from "../data/newGameData.json";
-import { APIClient } from "./useAPI";
+import activeGameData from "../../data/activeGameData.json";
+import { SudokuDifficulty } from "../../../utils/constants";
+import newGameData from "../../data/newGameData.json";
+import { APIClient } from "../useAPI";
 
-export class MockAPIClient implements APIClient {
+export default class RestAPIClient implements APIClient {
   /** Mock API client used for testing. */
 
   // API calls
