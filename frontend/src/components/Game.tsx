@@ -1,14 +1,14 @@
 import React, { useState, useMemo, SetStateAction } from "react";
 
 import Grid from "./board/Grid";
-import RestAPIClient from "../services/restAPIClient";
+import { useRestAPI } from "../services/apiClient/restAPIClient";
 import ControlPanel from "./controls/ControlPanel";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty } from "../utils/constants";
 
 type GameProps = {
-  sudoku: Sudoku;
-  setSudoku: React.Dispatch<SetStateAction<Sudoku>>;
+  activeGame: Game;
+  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
 };
 
 const initialActiveCell = {
@@ -20,13 +20,15 @@ const initialActiveCell = {
   isClueCell: null,
 };
 
-export default function Game({ sudoku, setSudoku }: GameProps) {
+export default function Game({ activeGame, setActiveGame }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
   // Store the active cell (i.e. the cell the user most recently clicked)
   const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
 
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState<boolean>(true);
+
+  const sudoku = activeGame.sudoku;
 
   // Transform the moves array into a grid only showing the currently active moves
   const movesHistory = useMoves();
@@ -40,6 +42,7 @@ export default function Game({ sudoku, setSudoku }: GameProps) {
   }, [movesGrid, sudoku]);
 
   const movesDispatch = useMovesDispatch();
+  const restClient = useRestAPI();
   function startNewGame(difficulty: SudokuDifficulty): void {
     /** Start a new game, at the player's discretion */
     // Ask for a new game from the API, and set the sudoku as this
@@ -47,9 +50,9 @@ export default function Game({ sudoku, setSudoku }: GameProps) {
       type: MoveType.ClearAll,
     });
 
-    const restClient = restAPI();
+    // const restClient = useRestAPI();
     const newGame = restClient.createNextGame(difficulty);
-    setSudoku(newGame.sudoku);
+    setActiveGame(newGame);
 
     // Clear the currently active cell
     setActiveCell(initialActiveCell);
