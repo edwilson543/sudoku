@@ -33,7 +33,6 @@ class TestMakeMove:
         assert move.column == 0
         assert move.value == 1
         assert move.is_correct
-        assert not move.is_erased
 
     def test_raises_bad_request_for_invalid_move(self, rest_api_client):
         game = factories.Game()

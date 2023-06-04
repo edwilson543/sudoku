@@ -91,7 +91,6 @@ class TestMove:
                     ("column", move_a.column),
                     ("value", move_a.value),
                     ("is_correct", move_a.is_correct),
-                    ("is_erased", move_a.is_erased),
                 ]
             ),
             OrderedDict(
@@ -101,7 +100,6 @@ class TestMove:
                     ("column", move_b.column),
                     ("value", None),
                     ("is_correct", move_b.is_correct),
-                    ("is_erased", move_b.is_erased),
                 ]
             ),
         ]

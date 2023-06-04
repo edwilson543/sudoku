@@ -74,7 +74,6 @@ class Move(factory_django.DjangoModelFactory):
     value = factory.Sequence(lambda n: n)
     is_correct = False
     is_undone = False
-    is_erased = False
 
     class Meta:
         model = models.Move
