@@ -43,7 +43,7 @@ class Move(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     row = serializers.IntegerField(min_value=0)
     column = serializers.IntegerField(min_value=0)
-    value = serializers.IntegerField(required=False, min_value=1)
+    value = serializers.IntegerField(required=False, min_value=1, allow_null=True)
     is_correct = serializers.BooleanField(read_only=True)
     is_erased = serializers.BooleanField(read_only=True)
 

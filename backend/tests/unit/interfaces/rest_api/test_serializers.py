@@ -78,7 +78,7 @@ class TestSudoku:
 class TestMove:
     def test_serializes_queryset_of_moves(self):
         move_a = factories.Move()
-        move_b = factories.Move()
+        move_b = factories.Move(value=None)
         moves = models.Move.objects.order_by("made_at")
 
         serialized_moves = serializers.Move(instance=moves, many=True).data
@@ -99,7 +99,7 @@ class TestMove:
                     ("id", move_b.id),
                     ("row", move_b.row),
                     ("column", move_b.column),
-                    ("value", move_b.value),
+                    ("value", None),
                     ("is_correct", move_b.is_correct),
                     ("is_erased", move_b.is_erased),
                 ]
@@ -115,13 +115,13 @@ class TestMove:
 
         assert serializer.validated_data == data
 
-    def test_validation_fails_when_move_value_is_missing(self):
-        data = {"row": 4, "column": 6, "value": None}
+    def test_validation_fails_when_column_value_is_missing(self):
+        data = {"row": 4, "column": None, "value": 6}
 
         serializer = serializers.Move(data=data)
 
         assert not serializer.is_valid()
-        assert str(serializer.errors["value"][0]) == "This field may not be null."
+        assert str(serializer.errors["column"][0]) == "This field may not be null."
 
 
 @pytest.mark.django_db

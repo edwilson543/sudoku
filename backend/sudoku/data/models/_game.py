@@ -68,7 +68,7 @@ class Game(django_models.Model):
     # ----------
 
     def make_move(
-        self, *, row: int, column: int, value: int, is_correct: bool
+        self, *, row: int, column: int, value: int | None, is_correct: bool
     ) -> _move.Move:
         return self.moves.create(
             row=row, column=column, value=value, is_correct=is_correct
