@@ -1,9 +1,7 @@
-import { useContext, createContext } from "react";
-
 import activeGameData from "../data/activeGameData.json";
 import newGameData from "../data/newGameData.json";
 import { SudokuDifficulty } from "../../utils/constants";
-import { APIInterface, normalizeAPIMoves } from "./utils";
+import { APIClient } from "./useAPI";
 import getPlayerIpAddress from "../profile";
 
 /**
@@ -11,18 +9,7 @@ import getPlayerIpAddress from "../profile";
  - Enum for the endpoints
  */
 
-export const RestAPIClientContext = createContext<RestAPIClient | null>(null);
-
-export function useRestAPI(): RestAPIClient {
-  /** Helper to access the rest API client when one is available in context */
-  const restClient = useContext(RestAPIClientContext);
-  if (!restClient) {
-    throw Error("Rest client can only be used within a context provider.");
-  }
-  return restClient;
-}
-
-export class RestAPIClient implements APIInterface {
+export class RestAPIClient implements APIClient {
   /** API client for the backend REST API. */
   private playerIpAddress: string;
   private gameId: number | null;
@@ -44,7 +31,7 @@ export class RestAPIClient implements APIInterface {
     /** Get the currently active game for some player */
     const game = {
       sudoku: activeGameData.sudoku,
-      moves: normalizeAPIMoves(activeGameData.moves),
+      moves: [],
       started_at: activeGameData.started_at,
     };
     this.gameId = activeGameData.id;
@@ -56,10 +43,37 @@ export class RestAPIClient implements APIInterface {
     difficulty; // Todo -> remove once actually making an API call
     const newGame = {
       sudoku: newGameData.sudoku,
-      moves: normalizeAPIMoves(activeGameData.moves),
+      moves: [],
       started_at: activeGameData.started_at,
     };
     this.gameId = newGameData.id;
     return newGame;
   }
+}
+
+// Utility functions
+
+function normalizeAPIMoves(moves: Array<RestAPIMove>): Array<MoveDetail> {
+  /** Convert moves from the type received by the API to the type used in the game. */
+  return moves.map((move) => {
+    return {
+      row: move.row,
+      column: move.column,
+      value: move.value,
+      isCorrect: move.is_correct,
+      isErased: move.is_erased,
+    };
+  });
+}
+
+// Private interfaces
+
+interface RestAPIMove {
+  /** Moves in the structure received from the REST API. */
+  id: number;
+  row: number;
+  column: number;
+  value: number;
+  is_correct: boolean;
+  is_erased: boolean;
 }

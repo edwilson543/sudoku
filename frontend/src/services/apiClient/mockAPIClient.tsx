@@ -1,9 +1,9 @@
 import activeGameData from "../data/activeGameData.json";
 import { SudokuDifficulty } from "../../utils/constants";
 import newGameData from "../data/newGameData.json";
-import { APIInterface, normalizeAPIMoves } from "./utils";
+import { APIClient } from "./useAPI";
 
-class MockRestAPIClient implements APIInterface {
+export class MockAPIClient implements APIClient {
   /** Mock API client used for testing. */
 
   // API calls
@@ -11,7 +11,7 @@ class MockRestAPIClient implements APIInterface {
     /** Get the currently active game for some player. */
     return {
       sudoku: activeGameData.sudoku,
-      moves: normalizeAPIMoves(activeGameData.moves),
+      moves: activeGameData.moves,
       started_at: activeGameData.started_at,
     };
   }
@@ -21,7 +21,7 @@ class MockRestAPIClient implements APIInterface {
     difficulty; // Do nothing with the difficulty.
     return {
       sudoku: newGameData.sudoku,
-      moves: normalizeAPIMoves(activeGameData.moves),
+      moves: activeGameData.moves,
       started_at: activeGameData.started_at,
     };
   }

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, SetStateAction } from "react";
 
 import Grid from "./board/Grid";
-import { useRestAPI } from "../services/apiClient/restAPIClient";
+import useAPI from "../services/apiClient/useAPI";
 import ControlPanel from "./controls/ControlPanel";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty } from "../utils/constants";
@@ -42,7 +42,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
   }, [movesGrid, sudoku]);
 
   const movesDispatch = useMovesDispatch();
-  const restClient = useRestAPI();
+  const restClient = useAPI();
   function startNewGame(difficulty: SudokuDifficulty): void {
     /** Start a new game, at the player's discretion */
     // Ask for a new game from the API, and set the sudoku as this

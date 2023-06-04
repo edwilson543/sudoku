@@ -4,19 +4,17 @@ import "./assets/styles/board.css";
 import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
-import {
-  RestAPIClient,
-  RestAPIClientContext,
-} from "./services/apiClient/restAPIClient";
+import { MockAPIClient } from "./services/apiClient/mockAPIClient";
+import { APIClient, APIClientContext } from "./services/apiClient/useAPI";
 
 export default function App() {
   /** Initialise the application */
-  const restClientRef = useRef<RestAPIClient>(new RestAPIClient());
+  const apiClientRef = useRef<APIClient>(new MockAPIClient());
   const [activeGame, setActiveGame] = useState<Game | null>(null);
 
   // Instantiate the rest client using the player's IP address
   if (!activeGame) {
-    const game = restClientRef.current.getOrCreateActiveGame();
+    const game = apiClientRef.current.getOrCreateActiveGame();
     setActiveGame(game);
   }
 
@@ -25,11 +23,11 @@ export default function App() {
       <h1 className={"headstrap"}>eduko</h1>
       {activeGame && (
         <div className={"page-content"}>
-          <RestAPIClientContext.Provider value={restClientRef.current}>
+          <APIClientContext.Provider value={apiClientRef.current}>
             <MovesProvider initialMoves={activeGame.moves}>
               <Game activeGame={activeGame} setActiveGame={setActiveGame} />
             </MovesProvider>
-          </RestAPIClientContext.Provider>
+          </APIClientContext.Provider>
         </div>
       )}
     </>
