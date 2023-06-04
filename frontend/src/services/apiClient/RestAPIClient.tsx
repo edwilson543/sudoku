@@ -31,7 +31,7 @@ export default class RestAPIClient implements APIClient {
     /** Get the currently active game for some player */
     const game = {
       sudoku: activeGameData.sudoku,
-      moves: normalizeAPIMoves([]),
+      moves: activeGameData.moves,
       started_at: activeGameData.started_at,
     };
     this.gameId = activeGameData.id;
@@ -49,31 +49,4 @@ export default class RestAPIClient implements APIClient {
     this.gameId = newGameData.id;
     return newGame;
   }
-}
-
-// Utility functions
-
-function normalizeAPIMoves(moves: Array<RestAPIMove>): Array<MoveDetail> {
-  /** Convert moves from the type received by the API to the type used in the game. */
-  return moves.map((move) => {
-    return {
-      row: move.row,
-      column: move.column,
-      value: move.value,
-      isCorrect: move.is_correct,
-      isErased: move.is_erased,
-    };
-  });
-}
-
-// Private interfaces
-
-interface RestAPIMove {
-  /** Moves in the structure received from the REST API. */
-  id: number;
-  row: number;
-  column: number;
-  value: number;
-  is_correct: boolean;
-  is_erased: boolean;
 }

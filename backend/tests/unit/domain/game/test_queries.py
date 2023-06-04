@@ -46,32 +46,51 @@ class TestGetActiveGameForPlayer:
 
 
 @pytest.mark.django_db
-class TestGetNonErasedMove:
-    def test_returns_move_when_there_a_non_erased_move_in_cell(self):
-        player = factories.Player()
-        game = factories.Game(player=player)
-        move = factories.Move(game=game)
+class TestGetBoardState:
+    @pytest.mark.parametrize("value", [1, None])
+    def test_gets_board_with_active_move(self, value: int | None):
+        problem = [[None]]
+        sudoku = factories.Sudoku(problem=problem)
+        game = factories.Game(sudoku=sudoku)
+        # Make a move in the only empty cell
+        factories.Move(game=game, row=0, column=0, value=value)
 
-        # Create an erased move in the same cell
-        factories.Move(game=game, row=move.row, column=move.column, is_erased=True)
-        # Create a non-erased move in a different cell
-        factories.Move(game=game, row=move.row + 1, column=move.column, is_erased=False)
+        board_state = queries.get_board_state(game=game)
 
-        non_erased_move = queries.get_non_erased_move(
-            game, row=move.row, column=move.column
-        )
+        assert board_state == [[value]]
 
-        assert non_erased_move == move
+    def test_gets_board_with_erased_move(self):
+        problem = [[None]]
+        sudoku = factories.Sudoku(problem=problem)
+        game = factories.Game(sudoku=sudoku)
+        # Make a move in the only empty cell, then erase it
+        factories.Move(game=game, row=0, column=0, value=1)
+        factories.Move(game=game, row=0, column=0, value=None)
 
-    def test_returns_none_when_there_is_no_non_erased_move_in_cell(self):
-        player = factories.Player()
-        game = factories.Game(player=player)
+        board_state = queries.get_board_state(game=game)
 
-        # Create an erased move in the same cell
-        factories.Move(game=game, row=0, column=0, is_erased=True)
-        # Create a non-erased move in a different cell
-        factories.Move(game=game, row=1, column=1, is_erased=False)
+        assert board_state == [[None]]
 
-        non_erased_move = queries.get_non_erased_move(game, row=0, column=0)
+    def test_gets_board_with_corrected_move(self):
+        problem = [[None]]
+        sudoku = factories.Sudoku(problem=problem)
+        game = factories.Game(sudoku=sudoku)
+        # Make a move in the only empty cell, then erase it, then overwrite it
+        factories.Move(game=game, row=0, column=0, value=1)
+        factories.Move(game=game, row=0, column=0, value=2)
 
-        assert non_erased_move is None
+        board_state = queries.get_board_state(game=game)
+
+        assert board_state == [[2]]
+
+    def test_ignores_undone_move(self):
+        problem = [[None]]
+        sudoku = factories.Sudoku(problem=problem)
+        game = factories.Game(sudoku=sudoku)
+        # Make a move in the only empty cell, then erase it, then overwrite it
+        factories.Move(game=game, row=0, column=0, value=2, is_undone=False)
+        factories.Move(game=game, row=0, column=0, value=1, is_undone=True)
+
+        board_state = queries.get_board_state(game=game)
+
+        assert board_state == [[2]]

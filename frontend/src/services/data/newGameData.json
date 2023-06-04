@@ -23,7 +23,7 @@
       [4, 7, 9, 6, 8, 5, 3, 2, 1],
       [5, 3, 8, 2, 1, 9, 6, 4, 7]
     ],
-    "difficulty": "MEDIUM",
+    "difficulty": "HARD",
     "size": 9,
     "number_of_missing_values": 36
   },

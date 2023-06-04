@@ -10,12 +10,11 @@ from django import shortcuts
 # Local application imports
 from app import game
 from data import models
-from interfaces.rest_api import serializers
 from interfaces.rest_api.views import _decorators as decorators
 
 
 @decorators.frontend_only
-class EraseMove(views.APIView):
+class UndoLastMove(views.APIView):
     """
     Erase a single move from a game.
     """
@@ -32,19 +31,12 @@ class EraseMove(views.APIView):
     def post(
         self, request: drf_request.Request, *args: object, **kwargs: object
     ) -> drf_response.Response:
-        serializer = serializers.Move(data=request.data)
-        if serializer.is_valid():
-            try:
-                game.erase_move(
-                    game=self.game,
-                    row=serializer.validated_data["row"],
-                    column=serializer.validated_data["column"],
-                )
-            except game.MoveDoesNotExist:
-                return drf_response.Response(status=drf_status.HTTP_400_BAD_REQUEST)
+        status = drf_status.HTTP_200_OK
+        try:
+            game.undo_last_move(
+                game=self.game,
+            )
+        except game.MoveDoesNotExist:
+            status = drf_status.HTTP_400_BAD_REQUEST
 
-            return drf_response.Response(status=drf_status.HTTP_200_OK)
-
-        return drf_response.Response(
-            serializer.errors, status=drf_status.HTTP_400_BAD_REQUEST
-        )
+        return drf_response.Response(status=status)

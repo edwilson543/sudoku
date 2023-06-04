@@ -1,3 +1,6 @@
+# Standard library imports
+import copy
+
 # Local application imports
 from data import constants, models
 
@@ -14,13 +17,11 @@ def get_active_game_for_player(*, player: models.Player) -> models.Game | None:
         return None
 
 
-def get_non_erased_move(
-    game: models.Game, *, row: int, column: int
-) -> models.Move | None:
+def get_board_state(*, game: models.Game) -> list[list[int | None]]:
     """
-    Get the move in the game in the given cell which has not been erased.
+    Construct the current board state based on the player's moves and the sudoku problem.
     """
-    try:
-        return game.moves.get(row=row, column=column, is_erased=False)
-    except models.Move.DoesNotExist:
-        return None
+    board = copy.deepcopy(game.sudoku.problem)
+    for move in game.moves.filter(is_undone=False).order_by("made_at"):
+        board[move.row][move.column] = move.value
+    return board

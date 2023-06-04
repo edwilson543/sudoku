@@ -5,7 +5,6 @@ import { useMovesDispatch } from "../../../context/movesContext";
 
 type NumberInputProps = {
   value: number;
-  sudoku: Sudoku;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   isSolved: boolean;
@@ -13,7 +12,6 @@ type NumberInputProps = {
 
 export default function NumberInput({
   value,
-  sudoku,
   activeCell,
   setActiveCell,
   isSolved,
@@ -26,14 +24,11 @@ export default function NumberInput({
       return;
     }
 
-    const isCorrect =
-      sudoku.solution[activeCell.row][activeCell.column] === value;
     movesDispatch({
       type: MoveType.Create,
       row: activeCell.row,
       column: activeCell.column,
       value: value,
-      isCorrect: isCorrect,
     });
 
     // Need to update the value stored in the activeCell state

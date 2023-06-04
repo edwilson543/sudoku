@@ -29,8 +29,6 @@ interface MoveDetail {
   row: number;
   column: number;
   value: number | null;
-  isCorrect: boolean | null;
-  isErased: boolean;
 }
 
 interface ClearAllMovesAction {
@@ -42,7 +40,6 @@ interface CreateMoveAction {
   row: number;
   column: number;
   value: number;
-  isCorrect: boolean;
 }
 
 interface EraseMoveAction {

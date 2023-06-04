@@ -99,9 +99,8 @@ class Migration(migrations.Migration):
                 ),
                 ("row", models.PositiveIntegerField()),
                 ("column", models.PositiveIntegerField()),
-                ("value", models.PositiveIntegerField()),
-                ("is_correct", models.BooleanField()),
-                ("is_erased", models.BooleanField(default=False)),
+                ("value", models.PositiveIntegerField(null=True)),
+                ("is_undone", models.BooleanField(default=False)),
                 ("made_at", models.DateTimeField(auto_now_add=True)),
                 (
                     "game",

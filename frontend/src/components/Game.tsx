@@ -43,6 +43,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 
   const movesDispatch = useMovesDispatch();
   const restClient = useAPI();
+
   function startNewGame(difficulty: SudokuDifficulty): void {
     /** Start a new game, at the player's discretion */
     // Ask for a new game from the API, and set the sudoku as this
@@ -73,7 +74,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
           isSolved={isSolved}
         />
         <ControlPanel
-          sudoku={sudoku}
+          sudokuSize={sudoku.size}
           startNewGame={startNewGame}
           activeCell={activeCell}
           setActiveCell={setActiveCell}
@@ -93,9 +94,9 @@ function structureMovesAsGrid(
   /** Convert the move history held as an array into the current board state
    *
    * Note the most recent move for any cell will be the one that gets rendered.
-   * For example, if the most recent move for a cell has `isErased: true`,
-   * then that cell will appear empty.
-   * */
+   * If the most recent move for a cell has `value: null`, then that cell will
+   * appear empty.
+   */
   // Create empty grid (an array of arrays representing the rows)
   const rows = [];
   for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {

@@ -17,7 +17,7 @@ from interfaces.rest_api.views import _decorators as decorators
 @decorators.frontend_only
 class MakeMove(views.APIView):
     """
-    Record an attempt at inserting the correct value in a game of sudoku.
+    Record a new move in a game of sudoku.
     """
 
     # Instance vars

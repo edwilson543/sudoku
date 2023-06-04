@@ -26,21 +26,18 @@ class Move(django_models.Model):
     The column of the sudoku the move was made in.
     """
 
-    value = django_models.PositiveIntegerField()
+    value = django_models.PositiveIntegerField(null=True)
     """
     The value of the sudoku move.
+
+    When value is `null`, this represents clearing any existing value in that cell.
     """
 
-    is_correct = django_models.BooleanField()
+    is_undone = django_models.BooleanField(default=False)
     """
-    Whether the move is correct or incorrect.
+    Whether the move has been `undone` from the game.
 
-    This is derivable, but is added for convenience.
-    """
-
-    is_erased = django_models.BooleanField(default=False)
-    """
-    Whether this move has been erased by the user since it was made.
+    Note we can undo moves with and without a value.
     """
 
     made_at = django_models.DateTimeField(auto_now_add=True)
@@ -52,6 +49,6 @@ class Move(django_models.Model):
     # Mutators
     # ----------
 
-    def erase(self) -> None:
-        self.is_erased = True
-        self.save(update_fields=["is_erased"])
+    def undo(self) -> None:
+        self.is_undone = True
+        self.save(update_fields=["is_undone"])
