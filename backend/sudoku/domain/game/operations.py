@@ -1,16 +1,15 @@
 # Local application imports
 from data import constants, models
+from domain.game import queries
 
 
 def terminate_game(*, game: models.Game) -> None:
     """
     Mark a game as terminated, and set the appropriate status.
     """
-    is_correct = (
-        game.moves.filter(is_correct=True).count()
-        == game.sudoku.number_of_missing_values
-    )
-    at_least_one_error = game.moves.filter(is_correct=False).count() > 0
+    current_board_state = queries.get_board_state(game=game)
+    is_correct = current_board_state == game.sudoku.solution
+    at_least_one_error = game.moves.count() > game.sudoku.number_of_missing_values
 
     if is_correct and not at_least_one_error:
         status = constants.GameStatus.COMPLETE_NO_ERRORS
