@@ -14,10 +14,5 @@ urlpatterns = [
         view=views.UndoLastMove.as_view(),
         name="undo-last-move",
     ),
-    urls.path(
-        "game/<int:game_id>/erase-all-incorect-moves/",
-        view=views.EraseAllIncorrectMoves.as_view(),
-        name="erase-all-incorrect-moves",
-    ),
     urls.path("game/next/", view=views.CreateNextGame.as_view(), name="next-game"),
 ]
