@@ -33,13 +33,6 @@ class Move(django_models.Model):
     When value is `null`, this represents clearing any existing value in that cell.
     """
 
-    is_correct = django_models.BooleanField()
-    """
-    Whether the move is correct or incorrect.
-
-    This is derivable, but is added for convenience.
-    """
-
     is_undone = django_models.BooleanField(default=False)
     """
     Whether the move has been `undone` from the game.

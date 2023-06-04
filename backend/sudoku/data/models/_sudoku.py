@@ -75,10 +75,3 @@ class Sudoku(django_models.Model):
             size=size,
             number_of_missing_values=number_of_missing_values,
         )
-
-    # ----------
-    # Queries
-    # ----------
-
-    def move_is_correct(self, *, row: int, column: int, value: int) -> bool:
-        return self.solution[row][column] == value

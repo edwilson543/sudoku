@@ -67,12 +67,8 @@ class Game(django_models.Model):
     # Mutators
     # ----------
 
-    def make_move(
-        self, *, row: int, column: int, value: int | None, is_correct: bool
-    ) -> _move.Move:
-        return self.moves.create(
-            row=row, column=column, value=value, is_correct=is_correct
-        )
+    def make_move(self, *, row: int, column: int, value: int | None) -> _move.Move:
+        return self.moves.create(row=row, column=column, value=value)
 
     def update_status(self, status: constants.GameStatus) -> None:
         self.status = status

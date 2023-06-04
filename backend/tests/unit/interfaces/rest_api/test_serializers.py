@@ -90,7 +90,6 @@ class TestMove:
                     ("row", move_a.row),
                     ("column", move_a.column),
                     ("value", move_a.value),
-                    ("is_correct", move_a.is_correct),
                 ]
             ),
             OrderedDict(
@@ -99,7 +98,6 @@ class TestMove:
                     ("row", move_b.row),
                     ("column", move_b.column),
                     ("value", None),
-                    ("is_correct", move_b.is_correct),
                 ]
             ),
         ]

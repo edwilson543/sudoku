@@ -16,6 +16,4 @@ def make_move(
     * Writing an integer value into a cell
     * Clearing the value in a cell by recording the value as `None`
     """
-    is_correct = game.sudoku.move_is_correct(row=row, column=column, value=value)
-
-    return game.make_move(row=row, column=column, value=value, is_correct=is_correct)
+    return game.make_move(row=row, column=column, value=value)
