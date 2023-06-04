@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
 
-import "./assets/styles/board.css";
-import "./assets/styles/controls.css";
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
 import RestAPIClient from "./services/apiClient/RestAPIClient";
