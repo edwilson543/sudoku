@@ -48,8 +48,6 @@ function movesReducer(
         row: action.row,
         column: action.column,
         value: action.value,
-        isCorrect: action.isCorrect,
-        isErased: false,
       };
       return [...moves, newMove];
     }
@@ -63,8 +61,6 @@ function movesReducer(
         row: action.row,
         column: action.column,
         value: null,
-        isCorrect: null,
-        isErased: true,
       };
       return [...moves, erasedMove];
     }

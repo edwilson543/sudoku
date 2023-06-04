@@ -6,7 +6,7 @@ import NewGame from "./new/NewGame";
 import { SudokuDifficulty } from "../../utils/constants";
 
 type ControlPanelProps = {
-  sudoku: Sudoku;
+  sudokuSize: number;
   startNewGame: (difficulty: SudokuDifficulty) => void;
   activeCell: ActiveCell;
   setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
@@ -16,7 +16,7 @@ type ControlPanelProps = {
 };
 
 export default function ControlPanel({
-  sudoku,
+  sudokuSize,
   startNewGame,
   activeCell,
   setActiveCell,
@@ -33,7 +33,7 @@ export default function ControlPanel({
         isSolved={isSolved}
       />
       <NumberInputPanel
-        sudoku={sudoku}
+        sudokuSize={sudokuSize}
         activeCell={activeCell}
         setActiveCell={setActiveCell}
         isSolved={isSolved}
