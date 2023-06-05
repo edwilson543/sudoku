@@ -130,6 +130,7 @@ class TestGame:
         assert serialized_game == OrderedDict(
             # Sudoku serializer directly above
             [
+                ("id", game.id),
                 ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
                 ("moves", []),
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
@@ -145,6 +146,7 @@ class TestGame:
         assert serialized_game == OrderedDict(
             # Sudoku serializer directly above
             [
+                ("id", game.id),
                 ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
                 ("moves", [serializers.Move(instance=move).data]),
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),

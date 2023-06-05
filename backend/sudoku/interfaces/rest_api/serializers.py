@@ -51,6 +51,7 @@ class Game(serializers.Serializer):
     Serializer for a game of sudoku, including historic moves.
     """
 
+    id = serializers.IntegerField(read_only=True)
     sudoku = serializers.SerializerMethodField()
     moves = serializers.SerializerMethodField()
     started_at = serializers.DateTimeField(format="YYYY-MM-DDTHH:MM:SS")
