@@ -22,19 +22,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-h&!9=4=^-4lce7g*$!w9d@9!6wy!0_k*cj2fg_kwzt2!i4lfbv"
-FRONTEND_API_KEY = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
+# Frontend integration config
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_HEADERS = ["content-type", "frontend-api-key"]
+FRONTEND_API_KEY = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%"
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    # Local
-    "data.apps.DataConfig",
+    # Third party
+    "corsheaders",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,9 +46,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Local
+    "data.apps.DataConfig",
 ]
 
 MIDDLEWARE = [
+    # Third party
+    "corsheaders.middleware.CorsMiddleware",
+    # Django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
