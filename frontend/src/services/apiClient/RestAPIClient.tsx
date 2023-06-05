@@ -33,15 +33,21 @@ export default class RestAPIClient implements APIClient {
 
   // API calls
 
-  getOrCreateActiveGame(): Game {
+  async getOrCreateActiveGame(): Promise<Game> {
     /** Get the currently active game for some player */
-    const game = {
-      sudoku: activeGameData.sudoku,
-      moves: activeGameData.moves,
-      started_at: activeGameData.started_at,
+    const payload = {
+      ip_address: this.playerIpAddress,
     };
-    this.gameId = activeGameData.id;
-    return game;
+    return this.postRequest(RestAPIEndpoint.ActiveGame, payload)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.gameId = data.game_id;
+      })
+      .then((data) => {
+        return data as unknown as Game;
+      });
   }
 
   createNextGame(difficulty: SudokuDifficulty): Game {
@@ -61,19 +67,19 @@ export default class RestAPIClient implements APIClient {
   private async postRequest(
     endpoint: RestAPIEndpoint,
     payload: object
-  ): Promise<JSON> {
+  ): Promise<Response> {
+    /** Send a POST request to the backend with the payload as JSON. */
     const absoluteUrl = this.getAbsoluteUrl(endpoint);
     const request = {
       method: "POST",
       headers: {
-        "Frontend-Api-Key": frontendAPIKey,
         "Content-type": "application/json",
+        Authorization: frontendAPIKey,
+        "Frontend-Api-Key": frontendAPIKey,
       },
       body: JSON.stringify(payload),
     };
-    return fetch(absoluteUrl, request).then((response) => {
-      return response.json();
-    });
+    return fetch(absoluteUrl, request);
   }
 
   private getAbsoluteUrl(name: RestAPIEndpoint): string {

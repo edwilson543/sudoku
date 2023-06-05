@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
@@ -10,10 +10,11 @@ export default function App() {
   const apiClientRef = useRef<APIClient>(new RestAPIClient());
   const [activeGame, setActiveGame] = useState<Game | null>(null);
 
-  // Instantiate the rest client using the player's IP address
+  // Retrieve the active game from the API (only if we haven't already)
   if (!activeGame) {
-    const game = apiClientRef.current.getOrCreateActiveGame();
-    setActiveGame(game);
+    apiClientRef.current.getOrCreateActiveGame().then((game) => {
+      setActiveGame(game);
+    });
   }
 
   return (

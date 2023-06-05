@@ -7,13 +7,16 @@ export default class RestAPIClient implements APIClient {
   /** Mock API client used for testing. */
 
   // API calls
-  getOrCreateActiveGame(): Game {
+  async getOrCreateActiveGame(): Promise<Game> {
     /** Get the currently active game for some player. */
-    return {
-      sudoku: activeGameData.sudoku,
-      moves: activeGameData.moves,
-      started_at: activeGameData.started_at,
-    };
+    return new Promise(function (resolve, reject) {
+      resolve({
+        sudoku: activeGameData.sudoku,
+        moves: activeGameData.moves,
+        started_at: activeGameData.started_at,
+      });
+      reject();
+    });
   }
 
   createNextGame(difficulty: SudokuDifficulty): Game {
