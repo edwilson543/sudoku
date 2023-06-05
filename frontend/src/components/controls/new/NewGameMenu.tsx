@@ -22,15 +22,15 @@ export default function NewGameMenu({
         <div className={"select-difficulty"}>select difficulty:</div>
         <NewGameMenuItem
           startNewGame={startNewGame}
-          difficulty={SudokuDifficulty.EASY}
+          difficulty={SudokuDifficulty.Easy}
         />
         <NewGameMenuItem
           startNewGame={startNewGame}
-          difficulty={SudokuDifficulty.MEDIUM}
+          difficulty={SudokuDifficulty.Medium}
         />
         <NewGameMenuItem
           startNewGame={startNewGame}
-          difficulty={SudokuDifficulty.HARD}
+          difficulty={SudokuDifficulty.Hard}
         />
       </div>
     </div>

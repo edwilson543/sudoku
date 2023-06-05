@@ -6,7 +6,7 @@ export enum MoveType {
 }
 
 export enum SudokuDifficulty {
-  EASY = "easy",
-  MEDIUM = "medium",
-  HARD = "hard",
+  Easy = "EASY",
+  Medium = "MEDIUM",
+  Hard = "HARD",
 }

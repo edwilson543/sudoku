@@ -1,5 +1,3 @@
-import activeGameData from "../data/activeGameData.json";
-import newGameData from "../data/newGameData.json";
 import { SudokuDifficulty } from "../../utils/constants";
 import { APIClient } from "./useAPI";
 
@@ -35,15 +33,11 @@ export default class RestAPIClient implements APIClient {
       ip_address: this.playerIpAddress,
     };
     return this.postRequest(RestAPIEndpoint.ActiveGame, payload)
-
       .then((response) => {
         return response.json() as unknown as APIGame;
       })
       .then((data) => {
-        this.gameId = data.game_id;
-        return data;
-      })
-      .then((data) => {
+        this.gameId = data.id;
         return {
           sudoku: data.sudoku,
           moves: data.moves,
@@ -52,16 +46,24 @@ export default class RestAPIClient implements APIClient {
       });
   }
 
-  createNextGame(difficulty: SudokuDifficulty): Game {
-    /** Get a new game for some player */
-    difficulty; // Todo -> remove once actually making an API call
-    const newGame = {
-      sudoku: newGameData.sudoku,
-      moves: [],
-      started_at: activeGameData.started_at,
+  async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
+    /** Get a new game for the active player. */
+    const payload = {
+      ip_address: this.playerIpAddress,
+      difficulty: difficulty,
     };
-    this.gameId = newGameData.id;
-    return newGame;
+    return this.postRequest(RestAPIEndpoint.NextGame, payload)
+      .then((response) => {
+        return response.json() as unknown as APIGame;
+      })
+      .then((data) => {
+        this.gameId = data.id;
+        return {
+          sudoku: data.sudoku,
+          moves: data.moves,
+          started_at: data.started_at,
+        };
+      });
   }
 
   // Helpers
@@ -99,7 +101,7 @@ export default class RestAPIClient implements APIClient {
 }
 
 interface APIGame {
-  game_id: number;
+  id: number;
   sudoku: Sudoku;
   moves: Array<MoveDetail>;
   started_at: string;

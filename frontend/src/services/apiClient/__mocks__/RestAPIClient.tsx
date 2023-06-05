@@ -19,13 +19,16 @@ export default class RestAPIClient implements APIClient {
     });
   }
 
-  createNextGame(difficulty: SudokuDifficulty): Game {
-    /** Get a new game for some player. */
+  async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
+    /** Get a new game for the active player. */
     difficulty; // Do nothing with the difficulty.
-    return {
-      sudoku: newGameData.sudoku,
-      moves: activeGameData.moves,
-      started_at: activeGameData.started_at,
-    };
+    return new Promise(function (resolve, reject) {
+      resolve({
+        sudoku: newGameData.sudoku,
+        moves: newGameData.moves,
+        started_at: newGameData.started_at,
+      });
+      reject();
+    });
   }
 }

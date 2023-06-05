@@ -20,5 +20,5 @@ export interface APIClient {
   /** API client used to persist game actions and for game continuation. */
   getOrCreateActiveGame(): Promise<Game>;
 
-  createNextGame(difficulty: SudokuDifficulty): Game;
+  createNextGame(difficulty: SudokuDifficulty): Promise<Game>;
 }
