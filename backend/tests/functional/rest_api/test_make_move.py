@@ -17,7 +17,7 @@ class TestMakeMove:
         game = factories.Game(sudoku=sudoku)
 
         # Create a payload containing a valid move in this game
-        payload = {"row": 0, "column": 0, "value": 1}
+        payload = {"number_in_game": 1, "row": 0, "column": 0, "value": 1}
 
         # Send the move to the move endpoint
         endpoint = django_urls.reverse("make-move", kwargs={"game_id": game.id})
@@ -25,19 +25,21 @@ class TestMakeMove:
 
         # Check the response
         assert response.status_code == drf_status.HTTP_201_CREATED
-        assert response.data == {"row": 0, "column": 0, "value": 1}
+        assert response.data == {"number_in_game": 1, "row": 0, "column": 0, "value": 1}
 
         # Check the relevant move was created
         move = game.moves.get()
+        assert move.number_in_game == 1
         assert move.row == 0
         assert move.column == 0
         assert move.value == 1
 
     def test_raises_bad_request_for_invalid_move(self, rest_api_client):
         game = factories.Game()
+        factories.Move(game=game, number_in_game=1)
 
         # Create a payload missing a row
-        payload = {"column": 0, "value": 1}
+        payload = {"number_in_game": 1, "row": 0, "column": 0, "value": 1}
 
         # Send the move to the move endpoint
         endpoint = django_urls.reverse("make-move", kwargs={"game_id": game.id})

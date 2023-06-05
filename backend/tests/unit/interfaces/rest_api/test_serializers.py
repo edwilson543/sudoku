@@ -87,6 +87,7 @@ class TestMove:
             OrderedDict(
                 [
                     ("id", move_a.id),
+                    ("number_in_game", move_a.number_in_game),
                     ("row", move_a.row),
                     ("column", move_a.column),
                     ("value", move_a.value),
@@ -95,6 +96,7 @@ class TestMove:
             OrderedDict(
                 [
                     ("id", move_b.id),
+                    ("number_in_game", move_b.number_in_game),
                     ("row", move_b.row),
                     ("column", move_b.column),
                     ("value", None),
@@ -103,7 +105,7 @@ class TestMove:
         ]
 
     def test_deserializes_and_validates_move_defined_by_position(self):
-        data = {"row": 4, "column": 6, "value": 7}
+        data = {"number_in_game": 1, "row": 4, "column": 6, "value": 7}
 
         serializer = serializers.Move(data=data)
 
@@ -111,13 +113,14 @@ class TestMove:
 
         assert serializer.validated_data == data
 
-    def test_validation_fails_when_column_value_is_missing(self):
+    def test_validation_fails_when_number_in_game_and_column_value_is_missing(self):
         data = {"row": 4, "column": None, "value": 6}
 
         serializer = serializers.Move(data=data)
 
         assert not serializer.is_valid()
         assert str(serializer.errors["column"][0]) == "This field may not be null."
+        assert str(serializer.errors["number_in_game"][0]) == "This field is required."
 
 
 @pytest.mark.django_db

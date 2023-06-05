@@ -41,6 +41,7 @@ class Move(serializers.Serializer):
     """
 
     id = serializers.IntegerField(read_only=True)
+    number_in_game = serializers.IntegerField(min_value=0)
     row = serializers.IntegerField(min_value=0)
     column = serializers.IntegerField(min_value=0)
     value = serializers.IntegerField(required=False, min_value=1, allow_null=True)

@@ -33,9 +33,15 @@ class MakeMove(views.APIView):
         self, request: drf_request.Request, *args: object, **kwargs: object
     ) -> drf_response.Response:
         serializer = serializers.Move(data=request.data)
-        if serializer.is_valid():
+        if not serializer.is_valid():
+            return drf_response.Response(
+                serializer.errors, status=drf_status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
             game.make_move(
                 game=self.game,
+                number_in_game=serializer.validated_data["number_in_game"],
                 row=serializer.validated_data["row"],
                 column=serializer.validated_data["column"],
                 value=serializer.validated_data["value"],
@@ -43,7 +49,6 @@ class MakeMove(views.APIView):
             return drf_response.Response(
                 serializer.data, status=drf_status.HTTP_201_CREATED
             )
-
-        return drf_response.Response(
-            serializer.errors, status=drf_status.HTTP_400_BAD_REQUEST
-        )
+        except game.MoveNumberAlreadyExists:
+            errors = {"number_in_game": "Move has already been recorded"}
+            return drf_response.Response(errors, status=drf_status.HTTP_400_BAD_REQUEST)
