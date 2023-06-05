@@ -2,7 +2,6 @@ import activeGameData from "../data/activeGameData.json";
 import newGameData from "../data/newGameData.json";
 import { SudokuDifficulty } from "../../utils/constants";
 import { APIClient } from "./useAPI";
-import getPlayerIpAddress from "../profile";
 
 const frontendAPIKey = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%";
 
@@ -20,14 +19,11 @@ export default class RestAPIClient implements APIClient {
   private playerIpAddress: string;
   private gameId: number | null;
 
-  constructor() {
+  constructor(playerIpAddress: string) {
     /** Store the player's IP address and the game ID
      * These are used for player & game identification when communicating with the REST API.
      * */
-    this.playerIpAddress = "";
-    getPlayerIpAddress().then((playerIpAddress) => {
-      this.playerIpAddress = playerIpAddress;
-    });
+    this.playerIpAddress = playerIpAddress;
     this.gameId = null;
   }
 
@@ -39,14 +35,20 @@ export default class RestAPIClient implements APIClient {
       ip_address: this.playerIpAddress,
     };
     return this.postRequest(RestAPIEndpoint.ActiveGame, payload)
+
       .then((response) => {
-        return response.json();
+        return response.json() as unknown as APIGame;
       })
       .then((data) => {
         this.gameId = data.game_id;
+        return data;
       })
       .then((data) => {
-        return data as unknown as Game;
+        return {
+          sudoku: data.sudoku,
+          moves: data.moves,
+          started_at: data.started_at,
+        };
       });
   }
 
@@ -74,7 +76,6 @@ export default class RestAPIClient implements APIClient {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: frontendAPIKey,
         "Frontend-Api-Key": frontendAPIKey,
       },
       body: JSON.stringify(payload),
@@ -95,4 +96,11 @@ export default class RestAPIClient implements APIClient {
       }
     }
   }
+}
+
+interface APIGame {
+  game_id: number;
+  sudoku: Sudoku;
+  moves: Array<MoveDetail>;
+  started_at: string;
 }

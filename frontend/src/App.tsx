@@ -1,20 +1,33 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
 import RestAPIClient from "./services/apiClient/RestAPIClient";
 import { APIClient, APIClientContext } from "./services/apiClient/useAPI";
+import getPlayerIpAddress from "./services/__mocks__/profile";
 
 export default function App() {
-  /** Initialise the application */
-  const apiClientRef = useRef<APIClient>(new RestAPIClient());
+  /** Root application. */
+  const apiClientRef = useRef<APIClient | null>(null);
   const [activeGame, setActiveGame] = useState<Game | null>(null);
 
-  // Retrieve the active game from the API (only if we haven't already)
-  if (!activeGame) {
-    apiClientRef.current.getOrCreateActiveGame().then((game) => {
-      setActiveGame(game);
-    });
+  // Initialize the application
+  if (!apiClientRef.current) {
+    // Identify the player using their IP address
+    getPlayerIpAddress()
+      .then((playerIpAddress) => {
+        const restClient = new RestAPIClient(playerIpAddress);
+        apiClientRef.current = restClient;
+        return restClient;
+      })
+      // Retrieve the player's active game from the backend API
+      .then((restClient) => {
+        if (!activeGame) {
+          restClient.getOrCreateActiveGame().then((game) => {
+            setActiveGame(game);
+          });
+        }
+      });
   }
 
   return (
