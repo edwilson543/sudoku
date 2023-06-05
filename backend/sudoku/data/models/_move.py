@@ -55,6 +55,13 @@ class Move(django_models.Model):
     When the move was made.
     """
 
+    class Meta:
+        constraints = [
+            django_models.UniqueConstraint(
+                "game", "number_in_game", name="move_number_in_game_unique"
+            )
+        ]
+
     # ----------
     # Mutators
     # ----------
