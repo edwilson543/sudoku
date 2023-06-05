@@ -34,18 +34,29 @@ class TestGenerate:
         assert sudoku.difficulty == difficulty
         assert sudoku.size == size
 
+        problem = sudoku.problem
+
+        # Check the problem and solution are consistent
+        solution = sudoku.solution
+        actual_missing_values = 0
+        for row_index, row in enumerate(problem):
+            for col_index, cell_value in enumerate(row):
+                solution_value = solution[row_index][col_index]
+                assert 1 <= solution_value <= size
+                if cell_value is not None:
+                    assert solution_value == cell_value
+                else:
+                    actual_missing_values += 1
+
+        # Check the correct number of missing values have been set to `None`
         expected_missing_values = (
             size**2 - sudoku_constants.NUMBER_OF_CLUES_FOR_SIZE[size][difficulty]
         )
-        actual_missing_values = sum(
-            1 if value is None else 0 for row in sudoku.problem for value in row
-        )
         assert (
-            sudoku.number_of_missing_values
-            == expected_missing_values
+            expected_missing_values
             == actual_missing_values
+            == sudoku.number_of_missing_values
         )
-        assert not any(None in row for row in sudoku.solution)
 
     def test_timeout_raised_when_sudoku_not_found(self):
         # Set the random seed such that the first generation attempt is invalid

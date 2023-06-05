@@ -70,7 +70,7 @@ def generate_sudoku(
 
     return Sudoku(
         problem=problem,
-        solution=solution,
+        solution=shuffled_solution,
         size=size,
         difficulty=difficulty,
         number_of_missing_values=number_of_values_to_remove,
