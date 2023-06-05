@@ -97,6 +97,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("number_in_game", models.PositiveIntegerField()),
                 ("row", models.PositiveIntegerField()),
                 ("column", models.PositiveIntegerField()),
                 ("value", models.PositiveIntegerField(null=True)),

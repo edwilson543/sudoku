@@ -69,6 +69,7 @@ class Game(factory_django.DjangoModelFactory):
 
 class Move(factory_django.DjangoModelFactory):
     game = factory.SubFactory(Game)
+    number_in_game = factory.Sequence(lambda n: n)
     row = factory.Sequence(lambda n: n)
     column = factory.Sequence(lambda n: n)
     value = factory.Sequence(lambda n: n)
