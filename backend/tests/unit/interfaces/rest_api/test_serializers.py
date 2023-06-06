@@ -86,24 +86,26 @@ class TestMove:
         assert serialized_moves == [
             OrderedDict(
                 [
-                    ("id", move_a.id),
+                    ("number_in_game", move_a.number_in_game),
                     ("row", move_a.row),
                     ("column", move_a.column),
                     ("value", move_a.value),
+                    ("is_undone", move_a.is_undone),
                 ]
             ),
             OrderedDict(
                 [
-                    ("id", move_b.id),
+                    ("number_in_game", move_b.number_in_game),
                     ("row", move_b.row),
                     ("column", move_b.column),
                     ("value", None),
+                    ("is_undone", move_b.is_undone),
                 ]
             ),
         ]
 
     def test_deserializes_and_validates_move_defined_by_position(self):
-        data = {"row": 4, "column": 6, "value": 7}
+        data = {"number_in_game": 1, "row": 4, "column": 6, "value": 7}
 
         serializer = serializers.Move(data=data)
 
@@ -111,13 +113,14 @@ class TestMove:
 
         assert serializer.validated_data == data
 
-    def test_validation_fails_when_column_value_is_missing(self):
+    def test_validation_fails_when_number_in_game_and_column_value_is_missing(self):
         data = {"row": 4, "column": None, "value": 6}
 
         serializer = serializers.Move(data=data)
 
         assert not serializer.is_valid()
         assert str(serializer.errors["column"][0]) == "This field may not be null."
+        assert str(serializer.errors["number_in_game"][0]) == "This field is required."
 
 
 @pytest.mark.django_db
@@ -130,6 +133,7 @@ class TestGame:
         assert serialized_game == OrderedDict(
             # Sudoku serializer directly above
             [
+                ("id", game.id),
                 ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
                 ("moves", []),
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
@@ -138,15 +142,23 @@ class TestGame:
 
     def test_serializes_game_with_move(self):
         game = factories.Game()
-        move = factories.Move(game=game)
+        first_move = factories.Move(game=game, number_in_game=1)
+        second_move = factories.Move(game=game, number_in_game=2)
 
         serialized_game = serializers.Game(instance=game).data
 
         assert serialized_game == OrderedDict(
             # Sudoku serializer directly above
             [
+                ("id", game.id),
                 ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
-                ("moves", [serializers.Move(instance=move).data]),
+                (
+                    "moves",
+                    [
+                        serializers.Move(instance=first_move).data,
+                        serializers.Move(instance=second_move).data,
+                    ],
+                ),
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
             ]
         )

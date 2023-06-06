@@ -46,14 +46,15 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 
   function startNewGame(difficulty: SudokuDifficulty): void {
     /** Start a new game, at the player's discretion */
-    // Ask for a new game from the API, and set the sudoku as this
+    // Clear all moves held in state since they were for the old game
     movesDispatch({
       type: MoveType.ClearAll,
     });
 
-    // const restClient = useRestAPI();
-    const newGame = restClient.createNextGame(difficulty);
-    setActiveGame(newGame);
+    // Ask for a new game from the API, and set the active game as this
+    restClient
+      .createNextGame(difficulty)
+      .then((newGame) => setActiveGame(newGame));
 
     // Clear the currently active cell
     setActiveCell(initialActiveCell);
@@ -105,7 +106,9 @@ function structureMovesAsGrid(
 
   // Insert each move into the grid
   for (const move of movesHistory) {
-    rows[move.row][move.column] = move.value;
+    if (!move.isUndone) {
+      rows[move.row][move.column] = move.value;
+    }
   }
   return rows;
 }

@@ -3,7 +3,8 @@ import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 import { MoveType } from "../../../utils/constants";
-import { useMovesDispatch } from "../../../context/movesContext";
+import { useMoves, useMovesDispatch } from "../../../context/movesContext";
+import useAPI from "../../../services/apiClient/useAPI";
 
 type EraseButtonProps = {
   activeCell: ActiveCell;
@@ -16,6 +17,8 @@ export default function EraseButton({
 }: EraseButtonProps) {
   /** Button to erase the move in the active cell */
   const movesDispatch = useMovesDispatch();
+  const moves = useMoves();
+  const restClient = useAPI();
 
   function handleClick(): void {
     if (
@@ -35,6 +38,9 @@ export default function EraseButton({
       row: activeCell.row,
       column: activeCell.column,
     });
+
+    // Record the move in the backend
+    restClient.makeMove(moves.length, activeCell.row, activeCell.column, null);
   }
 
   return (

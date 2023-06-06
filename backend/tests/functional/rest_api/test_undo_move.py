@@ -8,14 +8,17 @@ from django import urls as django_urls
 from tests import factories
 
 
-class TestUndoLastMove:
+class TestUndoMove:
     def test_erases_last_move(self, rest_api_client):
         # Create a sudoku game, with some moves
         game = factories.Game()
         move = factories.Move(game=game, is_undone=False)
 
         # Send the move to the move endpoint
-        endpoint = django_urls.reverse("undo-last-move", kwargs={"game_id": game.id})
+        endpoint = django_urls.reverse(
+            "undo-move",
+            kwargs={"game_id": game.id, "number_in_game": move.number_in_game},
+        )
         response = rest_api_client.post(endpoint)
 
         # Check the response
@@ -30,8 +33,11 @@ class TestUndoLastMove:
         game = factories.Game()
 
         # Send the move to the move endpoint
-        endpoint = django_urls.reverse("undo-last-move", kwargs={"game_id": game.id})
+        endpoint = django_urls.reverse(
+            "undo-move",
+            kwargs={"game_id": game.id, "number_in_game": 1},
+        )
         response = rest_api_client.post(endpoint)
 
         # Check the response
-        assert response.status_code == drf_status.HTTP_400_BAD_REQUEST
+        assert response.status_code == drf_status.HTTP_404_NOT_FOUND

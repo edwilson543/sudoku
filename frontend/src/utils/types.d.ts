@@ -2,7 +2,7 @@
 
 interface Game {
   sudoku: Sudoku;
-  moves: Array<Move>;
+  moves: Array<MoveDetail>;
   started_at: string;
 }
 
@@ -29,6 +29,7 @@ interface MoveDetail {
   row: number;
   column: number;
   value: number | null;
+  isUndone: boolean;
 }
 
 interface ClearAllMovesAction {
@@ -50,6 +51,7 @@ interface EraseMoveAction {
 
 interface UndoMoveAction {
   type: "undo-move";
+  moveNumberToUndo: number;
 }
 
 // An action that may be dispatched to the movesReducer

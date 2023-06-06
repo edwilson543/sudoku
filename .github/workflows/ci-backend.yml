@@ -36,6 +36,7 @@ jobs:
     # We only want to have to install the dev requirements once
     - name: Install dev requirements
       run: |
+        pip install -r backend/requirements/app-requirements.txt
         pip install -r backend/requirements/dev-requirements.txt
     - name: Run mypy
       run: |

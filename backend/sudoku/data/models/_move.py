@@ -16,6 +16,16 @@ class Move(django_models.Model):
     The game this move was made as part of.
     """
 
+    number_in_game = django_models.PositiveIntegerField()
+    """
+    Official record of the order of moves in the game.
+
+    This is to:
+    - Maintain an ordered game history. `created_at` may not be accurate, for
+      example if requests get delayed
+    - Act as an idempotency key when recording moves posted from the frontend
+    """
+
     row = django_models.PositiveIntegerField()
     """
     The row of the sudoku the move was made in.
@@ -44,6 +54,16 @@ class Move(django_models.Model):
     """
     When the move was made.
     """
+
+    class Meta:
+        constraints = [
+            django_models.UniqueConstraint(
+                "game", "number_in_game", name="move_number_in_game_unique"
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"Move #{self.number_in_game} in game #{self.game.id}"
 
     # ----------
     # Mutators

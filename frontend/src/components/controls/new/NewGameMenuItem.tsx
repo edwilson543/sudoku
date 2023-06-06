@@ -18,7 +18,7 @@ export default function NewGameMenuItem({
 
   return (
     <div className={"new-game-menu-item"} onClick={handleClick}>
-      {difficulty}
+      {difficulty.toLowerCase()}
     </div>
   );
 }

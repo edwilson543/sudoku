@@ -10,9 +10,9 @@ urlpatterns = [
         "game/<int:game_id>/make-move/", view=views.MakeMove.as_view(), name="make-move"
     ),
     urls.path(
-        "game/<int:game_id>/undo-last-move/",
-        view=views.UndoLastMove.as_view(),
-        name="undo-last-move",
+        "game/<int:game_id>/undo-move/<int:number_in_game>/",
+        view=views.UndoMove.as_view(),
+        name="undo-move",
     ),
     urls.path("game/next/", view=views.CreateNextGame.as_view(), name="next-game"),
 ]

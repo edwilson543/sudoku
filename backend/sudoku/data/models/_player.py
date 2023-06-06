@@ -21,6 +21,9 @@ class Player(django_models.Model):
     When the player first visited the site.
     """
 
+    def __str__(self) -> str:
+        return f"Player #{self.id}"
+
     # ----------
     # Factories
     # ----------

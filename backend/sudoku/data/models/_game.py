@@ -53,6 +53,9 @@ class Game(django_models.Model):
 
     moves: django_models.QuerySet[_move.Move]
 
+    def __str__(self) -> str:
+        return f"Game #{self.id}"
+
     # ----------
     # Factories
     # ----------
@@ -67,8 +70,12 @@ class Game(django_models.Model):
     # Mutators
     # ----------
 
-    def make_move(self, *, row: int, column: int, value: int | None) -> _move.Move:
-        return self.moves.create(row=row, column=column, value=value)
+    def make_move(
+        self, *, number_in_game: int, row: int, column: int, value: int | None
+    ) -> _move.Move:
+        return self.moves.create(
+            number_in_game=number_in_game, row=row, column=column, value=value
+        )
 
     def update_status(self, status: constants.GameStatus) -> None:
         self.status = status

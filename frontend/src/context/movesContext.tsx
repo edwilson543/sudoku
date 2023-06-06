@@ -7,7 +7,8 @@ const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(() => {
 });
 
 export function useMoves(): Array<MoveDetail> {
-  return useContext(MovesContext);
+  /** Slice the moves so the moves in state can't be mutated directly */
+  return useContext(MovesContext).slice();
 }
 
 export function useMovesDispatch(): React.Dispatch<MoveAction> {
@@ -41,34 +42,39 @@ function movesReducer(
       return [];
     }
 
-    // Create a new move and add it to the end of the array
+    // Create a new move and add it to the end of the move history.
     case MoveType.Create: {
-      // TODO -> fire a create move API call (in the event handle, not here)
       const newMove = {
         row: action.row,
         column: action.column,
         value: action.value,
+        isUndone: false,
       };
       return [...moves, newMove];
     }
 
-    // Create an erased move and add it to the end of the array.
-    // Rather than find the original move and erase it, it's much
-    // cleaner and more useful to create an 'overwriting' effect
+    // Create an "erasing" move and add it to the end of the array.
+    // An "erasing" move just has `value: null`, overwriting any
+    // previous value in that cell.
     case MoveType.Erase: {
-      // TODO -> fire an erase move API call
       const erasedMove = {
         row: action.row,
         column: action.column,
         value: null,
+        isUndone: false,
       };
       return [...moves, erasedMove];
     }
 
-    // Undo the previous move (be it an entry or an erasing) */
+    // Undo the most recent move that has not already been undone.
+    // Special care is taken to ensure the order is preserved.
     case MoveType.Undo: {
-      // TODO -> fire an API call here depending on the move nature
-      return moves.slice(0, -1);
+      const moveToUndo = moves[action.moveNumberToUndo];
+      return [
+        ...moves.slice(0, action.moveNumberToUndo),
+        { ...moveToUndo, isUndone: true },
+        ...moves.slice(action.moveNumberToUndo + 1, moves.length),
+      ];
     }
 
     default:

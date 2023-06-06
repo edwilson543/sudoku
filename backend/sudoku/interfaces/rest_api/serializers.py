@@ -40,10 +40,11 @@ class Move(serializers.Serializer):
     Serializer for an existing move in a game of sudoku.
     """
 
-    id = serializers.IntegerField(read_only=True)
+    number_in_game = serializers.IntegerField(min_value=0)
     row = serializers.IntegerField(min_value=0)
     column = serializers.IntegerField(min_value=0)
     value = serializers.IntegerField(required=False, min_value=1, allow_null=True)
+    is_undone = serializers.BooleanField(read_only=True)
 
 
 class Game(serializers.Serializer):
@@ -51,6 +52,7 @@ class Game(serializers.Serializer):
     Serializer for a game of sudoku, including historic moves.
     """
 
+    id = serializers.IntegerField(read_only=True)
     sudoku = serializers.SerializerMethodField()
     moves = serializers.SerializerMethodField()
     started_at = serializers.DateTimeField(format="YYYY-MM-DDTHH:MM:SS")
@@ -59,4 +61,4 @@ class Game(serializers.Serializer):
         return Sudoku(instance=game.sudoku).data
 
     def get_moves(self, game: models.Game) -> list[OrderedDict]:
-        return Move(instance=game.moves.all(), many=True).data
+        return Move(instance=game.moves.order_by("number_in_game"), many=True).data

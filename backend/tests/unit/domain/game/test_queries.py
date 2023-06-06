@@ -64,8 +64,8 @@ class TestGetBoardState:
         sudoku = factories.Sudoku(problem=problem)
         game = factories.Game(sudoku=sudoku)
         # Make a move in the only empty cell, then erase it
-        factories.Move(game=game, row=0, column=0, value=1)
-        factories.Move(game=game, row=0, column=0, value=None)
+        factories.Move(game=game, row=0, column=0, value=1, number_in_game=1)
+        factories.Move(game=game, row=0, column=0, value=None, number_in_game=2)
 
         board_state = queries.get_board_state(game=game)
 
@@ -76,8 +76,8 @@ class TestGetBoardState:
         sudoku = factories.Sudoku(problem=problem)
         game = factories.Game(sudoku=sudoku)
         # Make a move in the only empty cell, then erase it, then overwrite it
-        factories.Move(game=game, row=0, column=0, value=1)
-        factories.Move(game=game, row=0, column=0, value=2)
+        factories.Move(game=game, row=0, column=0, value=1, number_in_game=1)
+        factories.Move(game=game, row=0, column=0, value=2, number_in_game=2)
 
         board_state = queries.get_board_state(game=game)
 
@@ -88,8 +88,12 @@ class TestGetBoardState:
         sudoku = factories.Sudoku(problem=problem)
         game = factories.Game(sudoku=sudoku)
         # Make a move in the only empty cell, then erase it, then overwrite it
-        factories.Move(game=game, row=0, column=0, value=2, is_undone=False)
-        factories.Move(game=game, row=0, column=0, value=1, is_undone=True)
+        factories.Move(
+            game=game, row=0, column=0, value=2, is_undone=False, number_in_game=1
+        )
+        factories.Move(
+            game=game, row=0, column=0, value=1, is_undone=True, number_in_game=2
+        )
 
         board_state = queries.get_board_state(game=game)
 
