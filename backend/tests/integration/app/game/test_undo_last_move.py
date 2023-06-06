@@ -10,8 +10,8 @@ from tests import factories
 class TestUndoLastMove:
     def test_undoes_last_move(self):
         game_ = factories.Game()
-        move = factories.Move(game=game_, is_undone=False)
-        last_move = factories.Move(game=game_, is_undone=False)
+        move = factories.Move(game=game_, is_undone=False, number_in_game=1)
+        last_move = factories.Move(game=game_, is_undone=False, number_in_game=2)
 
         game.undo_last_move(game=game_)
 
@@ -22,9 +22,9 @@ class TestUndoLastMove:
 
     def test_undoes_second_last_move_when_last_move_already_undone(self):
         game_ = factories.Game()
-        second_last_move = factories.Move(game=game_, is_undone=False)
+        second_last_move = factories.Move(game=game_, is_undone=False, number_in_game=1)
         # Make an undone move since the second last move
-        factories.Move(game=game_, is_undone=True)
+        factories.Move(game=game_, is_undone=True, number_in_game=2)
 
         game.undo_last_move(game=game_)
 

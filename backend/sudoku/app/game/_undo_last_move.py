@@ -12,7 +12,7 @@ def undo_last_move(*, game: models.Game) -> None:
 
     Note this will undo the most recent move that hasn't already been undone.
     """
-    last_move = game.moves.filter(is_undone=False).order_by("made_at").last()
+    last_move = game.moves.filter(is_undone=False).order_by("number_in_game").last()
     if last_move:
         last_move.undo()
     else:
