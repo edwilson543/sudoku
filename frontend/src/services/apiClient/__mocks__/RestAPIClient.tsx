@@ -8,7 +8,7 @@ export default class RestAPIClient implements APIClient {
 
   // API calls
   async getOrCreateActiveGame(): Promise<Game> {
-    /** Get the currently active game for some player. */
+    /** Load a dummy active game from the filesystem. */
     return new Promise(function (resolve, reject) {
       resolve({
         sudoku: activeGameData.sudoku,
@@ -20,8 +20,8 @@ export default class RestAPIClient implements APIClient {
   }
 
   async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
-    /** Get a new game for the active player. */
-    difficulty; // Do nothing with the difficulty.
+    /** Load a dummy next game from the filesystem. */
+    difficulty; // To appease ESLint.
     return new Promise(function (resolve, reject) {
       resolve({
         sudoku: newGameData.sudoku,
@@ -30,5 +30,20 @@ export default class RestAPIClient implements APIClient {
       });
       reject();
     });
+  }
+
+  async makeMove(
+    numberInGame: number,
+    row: number,
+    column: number,
+    value: number | null
+  ): Promise<void> {
+    numberInGame && row && column && value; // To appease ESLint.
+    return;
+  }
+
+  async undoMove(numberInGame: number): Promise<void> {
+    numberInGame; // To appease ESLint.
+    return;
   }
 }

@@ -32,7 +32,8 @@ export default class RestAPIClient implements APIClient {
     const payload = {
       ip_address: this.playerIpAddress,
     };
-    return this.postRequest(RestAPIEndpoint.ActiveGame, payload)
+    const absoluteUrl = baseUrl + RestAPIEndpoint.ActiveGame;
+    return this.postRequest(absoluteUrl, payload)
       .then((response) => {
         return response.json() as unknown as APIGame;
       })
@@ -52,7 +53,8 @@ export default class RestAPIClient implements APIClient {
       ip_address: this.playerIpAddress,
       difficulty: difficulty,
     };
-    return this.postRequest(RestAPIEndpoint.NextGame, payload)
+    const absoluteUrl = baseUrl + RestAPIEndpoint.NextGame;
+    return this.postRequest(absoluteUrl, payload)
       .then((response) => {
         return response.json() as unknown as APIGame;
       })
@@ -66,14 +68,39 @@ export default class RestAPIClient implements APIClient {
       });
   }
 
+  async makeMove(
+    numberInGame: number,
+    row: number,
+    column: number,
+    value: number | null
+  ): Promise<void> {
+    const payload = {
+      number_in_game: numberInGame,
+      row: row,
+      column: column,
+      value: value,
+    };
+    const absoluteUrl = baseUrl + `${this.gameId}/` + RestAPIEndpoint.MakeMove;
+    this.postRequest(absoluteUrl, payload);
+  }
+
+  async undoMove(numberInGame: number): Promise<void> {
+    const payload = {};
+    const absoluteUrl =
+      baseUrl +
+      `${this.gameId}/` +
+      RestAPIEndpoint.UndoLastMove +
+      `${numberInGame}/`;
+    this.postRequest(absoluteUrl, payload);
+  }
+
   // Helpers
 
   private async postRequest(
-    endpoint: RestAPIEndpoint,
+    absoluteUrl: string,
     payload: object
   ): Promise<Response> {
     /** Send a POST request to the backend with the payload as JSON. */
-    const absoluteUrl = this.getAbsoluteUrl(endpoint);
     const request = {
       method: "POST",
       headers: {
@@ -83,20 +110,6 @@ export default class RestAPIClient implements APIClient {
       body: JSON.stringify(payload),
     };
     return fetch(absoluteUrl, request);
-  }
-
-  private getAbsoluteUrl(name: RestAPIEndpoint): string {
-    /** Get the url to which the REST client should send its request */
-    switch (name) {
-      case RestAPIEndpoint.ActiveGame:
-      case RestAPIEndpoint.NextGame: {
-        return baseUrl + name;
-      }
-      case RestAPIEndpoint.MakeMove:
-      case RestAPIEndpoint.UndoLastMove: {
-        return baseUrl + `${this.gameId}/` + name;
-      }
-    }
   }
 }
 

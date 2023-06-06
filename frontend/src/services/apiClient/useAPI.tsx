@@ -21,4 +21,13 @@ export interface APIClient {
   getOrCreateActiveGame(): Promise<Game>;
 
   createNextGame(difficulty: SudokuDifficulty): Promise<Game>;
+
+  makeMove(
+    numberInGame: number,
+    row: number,
+    column: number,
+    value: number | null
+  ): Promise<void>;
+
+  undoMove(numberInGame: number): Promise<void>;
 }
