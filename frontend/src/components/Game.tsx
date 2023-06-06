@@ -106,7 +106,9 @@ function structureMovesAsGrid(
 
   // Insert each move into the grid
   for (const move of movesHistory) {
-    rows[move.row][move.column] = move.value;
+    if (!move.isUndone) {
+      rows[move.row][move.column] = move.value;
+    }
   }
   return rows;
 }

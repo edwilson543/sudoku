@@ -29,6 +29,7 @@ interface MoveDetail {
   row: number;
   column: number;
   value: number | null;
+  isUndone: boolean;
 }
 
 interface ClearAllMovesAction {

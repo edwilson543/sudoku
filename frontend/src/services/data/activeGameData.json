@@ -31,7 +31,8 @@
     {
       "row": 0,
       "column": 1,
-      "value": 1
+      "value": 1,
+      "isUndone": false
     }
   ],
   "started_at": "2023-05-27T07:15:31"

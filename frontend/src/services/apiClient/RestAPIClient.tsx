@@ -40,7 +40,7 @@ export default class RestAPIClient implements APIClient {
         this.gameId = data.id;
         return {
           sudoku: data.sudoku,
-          moves: data.moves,
+          moves: normalizeAPIMoves(data.moves),
           started_at: data.started_at,
         };
       });
@@ -60,7 +60,7 @@ export default class RestAPIClient implements APIClient {
         this.gameId = data.id;
         return {
           sudoku: data.sudoku,
-          moves: data.moves,
+          moves: normalizeAPIMoves(data.moves),
           started_at: data.started_at,
         };
       });
@@ -100,9 +100,32 @@ export default class RestAPIClient implements APIClient {
   }
 }
 
+// Interfaces for the payloads received from the REST API
+
 interface APIGame {
   id: number;
   sudoku: Sudoku;
-  moves: Array<MoveDetail>;
+  moves: Array<APIMove>;
   started_at: string;
+}
+
+interface APIMove {
+  row: number;
+  column: number;
+  value: number | null;
+  is_undone: boolean;
+}
+
+// Helpers
+
+function normalizeAPIMoves(moves: Array<APIMove>): Array<MoveDetail> {
+  /** Convert moves received form the REST api into the type used in the frontend. */
+  return moves.map((move) => {
+    return {
+      row: move.row,
+      column: move.column,
+      value: move.value,
+      isUndone: move.is_undone,
+    };
+  });
 }
