@@ -4,6 +4,7 @@ import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { MoveType } from "../../../utils/constants";
 import { useMoves, useMovesDispatch } from "../../../context/movesContext";
+import useAPI from "../../../services/apiClient/useAPI";
 
 type UndoButtonProps = {
   isSolved: boolean;
@@ -13,6 +14,7 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
   /** Button to undo the previous move (be it an entry or an erasing) */
   const moves = useMoves();
   const movesDispatch = useMovesDispatch();
+  const restClient = useAPI();
 
   function handleClick(): void {
     if (moves.length === 0 || isSolved) {
@@ -21,6 +23,8 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
     movesDispatch({
       type: MoveType.Undo,
     });
+    // Record the undo in the backend
+    restClient.undoMove(moves.length - 1);
   }
 
   return (

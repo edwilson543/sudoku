@@ -9,7 +9,7 @@ enum RestAPIEndpoint {
   ActiveGame = "active/",
   NextGame = "next/",
   MakeMove = "make-move/",
-  UndoLastMove = "undo-last-move/",
+  UndoLastMove = "undo-move/",
 }
 
 export default class RestAPIClient implements APIClient {

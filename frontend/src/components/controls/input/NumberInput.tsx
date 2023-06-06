@@ -1,7 +1,8 @@
 import React, { SetStateAction } from "react";
 
 import { MoveType } from "../../../utils/constants";
-import { useMovesDispatch } from "../../../context/movesContext";
+import { useMovesDispatch, useMoves } from "../../../context/movesContext";
+import useAPI from "../../../services/apiClient/useAPI";
 
 type NumberInputProps = {
   value: number;
@@ -17,6 +18,8 @@ export default function NumberInput({
   isSolved,
 }: NumberInputProps) {
   const movesDispatch = useMovesDispatch();
+  const moves = useMoves();
+  const restClient = useAPI();
 
   function handleClick(): void {
     if (activeCell.row === -1 || isSolved) {
@@ -39,6 +42,9 @@ export default function NumberInput({
       value: value,
       isClueCell: activeCell.isClueCell,
     });
+
+    // Record the move in the backend
+    restClient.makeMove(moves.length, activeCell.row, activeCell.column, value);
   }
 
   return (
