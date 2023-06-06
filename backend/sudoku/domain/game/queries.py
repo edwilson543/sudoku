@@ -22,6 +22,6 @@ def get_board_state(*, game: models.Game) -> list[list[int | None]]:
     Construct the current board state based on the player's moves and the sudoku problem.
     """
     board = copy.deepcopy(game.sudoku.problem)
-    for move in game.moves.filter(is_undone=False).order_by("made_at"):
+    for move in game.moves.filter(is_undone=False).order_by("number_in_game"):
         board[move.row][move.column] = move.value
     return board
