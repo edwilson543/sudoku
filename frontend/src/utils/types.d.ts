@@ -2,7 +2,7 @@
 
 interface Game {
   sudoku: Sudoku;
-  moves: Array<Move>;
+  moves: Array<MoveDetail>;
   started_at: string;
 }
 
