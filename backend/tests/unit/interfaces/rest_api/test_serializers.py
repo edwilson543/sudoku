@@ -142,7 +142,8 @@ class TestGame:
 
     def test_serializes_game_with_move(self):
         game = factories.Game()
-        move = factories.Move(game=game)
+        first_move = factories.Move(game=game, number_in_game=1)
+        second_move = factories.Move(game=game, number_in_game=2)
 
         serialized_game = serializers.Game(instance=game).data
 
@@ -151,7 +152,13 @@ class TestGame:
             [
                 ("id", game.id),
                 ("sudoku", serializers.Sudoku(instance=game.sudoku).data),
-                ("moves", [serializers.Move(instance=move).data]),
+                (
+                    "moves",
+                    [
+                        serializers.Move(instance=first_move).data,
+                        serializers.Move(instance=second_move).data,
+                    ],
+                ),
                 ("started_at", game.started_at.strftime("YYYY-MM-DDTHH:MM:SS")),
             ]
         )

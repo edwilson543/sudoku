@@ -61,4 +61,4 @@ class Game(serializers.Serializer):
         return Sudoku(instance=game.sudoku).data
 
     def get_moves(self, game: models.Game) -> list[OrderedDict]:
-        return Move(instance=game.moves.all(), many=True).data
+        return Move(instance=game.moves.order_by("number_in_game"), many=True).data
