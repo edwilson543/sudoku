@@ -53,6 +53,9 @@ class Game(django_models.Model):
 
     moves: django_models.QuerySet[_move.Move]
 
+    def __str__(self) -> str:
+        return f"Game #{self.id}"
+
     # ----------
     # Factories
     # ----------

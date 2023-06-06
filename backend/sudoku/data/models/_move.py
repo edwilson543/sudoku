@@ -62,6 +62,9 @@ class Move(django_models.Model):
             )
         ]
 
+    def __str__(self) -> str:
+        return f"Move #{self.number_in_game} in game #{self.game.id}"
+
     # ----------
     # Mutators
     # ----------

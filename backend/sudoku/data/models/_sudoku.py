@@ -54,6 +54,9 @@ class Sudoku(django_models.Model):
     When the sudoku was first created.
     """
 
+    def __str__(self) -> str:
+        return f"Sudoku #{self.id}"
+
     # ----------
     # Factories
     # ----------

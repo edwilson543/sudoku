@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Local
     "data.apps.DataConfig",
+    "interfaces.admin.apps.AdminConfig",
 ]
 
 MIDDLEWARE = [
