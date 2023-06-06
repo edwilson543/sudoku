@@ -7,7 +7,8 @@ const MovesDispatchContext = createContext<React.Dispatch<MoveAction>>(() => {
 });
 
 export function useMoves(): Array<MoveDetail> {
-  return useContext(MovesContext);
+  /** Slice the moves so the moves in state can't be mutated directly */
+  return useContext(MovesContext).slice();
 }
 
 export function useMovesDispatch(): React.Dispatch<MoveAction> {
@@ -68,17 +69,12 @@ function movesReducer(
     // Undo the most recent move that has not already been undone.
     // Special care is taken to ensure the order is preserved.
     case MoveType.Undo: {
-      let undoComplete = false;
-      const reversedMoves = moves.slice().reverse();
-      const undoneMoves = reversedMoves.map((move) => {
-        if (move.isUndone || undoComplete) {
-          return move;
-        } else {
-          undoComplete = true;
-          return { ...move, isUndone: true };
-        }
-      });
-      return undoneMoves.reverse();
+      const moveToUndo = moves[action.moveNumberToUndo];
+      return [
+        ...moves.slice(0, action.moveNumberToUndo),
+        { ...moveToUndo, isUndone: true },
+        ...moves.slice(action.moveNumberToUndo + 1, moves.length),
+      ];
     }
 
     default:

@@ -17,14 +17,18 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
   const restClient = useAPI();
 
   function handleClick(): void {
-    if (moves.length === 0 || isSolved) {
+    if (isSolved) {
       return;
     }
-    movesDispatch({
-      type: MoveType.Undo,
-    });
-    // Record the undo in the backend
-    restClient.undoMove(moves.length - 1);
+    const moveNumberToUndo = getMoveNumberToUndo(moves);
+    if (moveNumberToUndo !== null) {
+      movesDispatch({
+        type: MoveType.Undo,
+        moveNumberToUndo: moveNumberToUndo,
+      });
+      // Record the undo in the backend
+      restClient.undoMove(moveNumberToUndo);
+    }
   }
 
   return (
@@ -38,4 +42,18 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
       <span className={"action-button-text"}>undo</span>
     </div>
   );
+}
+
+function getMoveNumberToUndo(moves: Array<MoveDetail>): number | null {
+  /** Loop through the reversed move history, to get the most recent not-undone move */
+  // Start at length minus one since the move count starts at 0
+  let moveNumber = moves.length - 1;
+  for (const move of moves.reverse()) {
+    if (!move.isUndone) {
+      return moveNumber;
+    } else {
+      moveNumber -= 1;
+    }
+  }
+  return null;
 }
