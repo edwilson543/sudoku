@@ -13,26 +13,27 @@ class TestUndoLastMove:
         move = factories.Move(game=game_, is_undone=False, number_in_game=1)
         last_move = factories.Move(game=game_, is_undone=False, number_in_game=2)
 
-        game.undo_last_move(game=game_)
+        game.undo_move(game=game_, number_in_game=2)
 
         last_move.refresh_from_db()
         assert last_move.is_undone
         move.refresh_from_db()
         assert not move.is_undone
 
-    def test_undoes_second_last_move_when_last_move_already_undone(self):
+    def test_undoes_second_last_move_when_specified(self):
         game_ = factories.Game()
-        second_last_move = factories.Move(game=game_, is_undone=False, number_in_game=1)
-        # Make an undone move since the second last move
-        factories.Move(game=game_, is_undone=True, number_in_game=2)
+        move = factories.Move(game=game_, is_undone=False, number_in_game=1)
+        last_move = factories.Move(game=game_, is_undone=False, number_in_game=2)
 
-        game.undo_last_move(game=game_)
+        game.undo_move(game=game_, number_in_game=1)
 
-        second_last_move.refresh_from_db()
-        assert second_last_move.is_undone
+        last_move.refresh_from_db()
+        assert not last_move.is_undone
+        move.refresh_from_db()
+        assert move.is_undone
 
-    def test_raises_when_game_has_no_moves(self):
+    def test_raises_when_move_does_not_exist(self):
         game_ = factories.Game()
 
         with pytest.raises(game.MoveDoesNotExist):
-            game.undo_last_move(game=game_)
+            game.undo_move(game=game_, number_in_game=1)

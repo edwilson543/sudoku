@@ -86,7 +86,6 @@ class TestMove:
         assert serialized_moves == [
             OrderedDict(
                 [
-                    ("id", move_a.id),
                     ("number_in_game", move_a.number_in_game),
                     ("row", move_a.row),
                     ("column", move_a.column),
@@ -95,7 +94,6 @@ class TestMove:
             ),
             OrderedDict(
                 [
-                    ("id", move_b.id),
                     ("number_in_game", move_b.number_in_game),
                     ("row", move_b.row),
                     ("column", move_b.column),

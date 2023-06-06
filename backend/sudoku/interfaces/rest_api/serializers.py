@@ -40,7 +40,6 @@ class Move(serializers.Serializer):
     Serializer for an existing move in a game of sudoku.
     """
 
-    id = serializers.IntegerField(read_only=True)
     number_in_game = serializers.IntegerField(min_value=0)
     row = serializers.IntegerField(min_value=0)
     column = serializers.IntegerField(min_value=0)
