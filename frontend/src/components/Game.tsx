@@ -33,7 +33,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
   // Transform the moves array into a grid only showing the currently active moves
   const movesHistory = useMoves();
   const movesGrid = useMemo(() => {
-    return structureMovesAsGrid(sudoku, movesHistory);
+    return structureMovesAsGrid(sudoku.size, movesHistory);
   }, [movesHistory, sudoku]);
 
   // Check if the sudoku has been solved
@@ -89,7 +89,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 }
 
 function structureMovesAsGrid(
-  sudoku: Sudoku,
+  sudokuSize: number,
   movesHistory: Array<MoveDetail>
 ): Array<Array<number | null>> {
   /** Convert the move history held as an array into the current board state
@@ -100,8 +100,8 @@ function structureMovesAsGrid(
    */
   // Create empty grid (an array of arrays representing the rows)
   const rows = [];
-  for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
-    rows.push(new Array(sudoku.size).fill(null));
+  for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
+    rows.push(new Array(sudokuSize).fill(null));
   }
 
   // Insert each move into the grid
