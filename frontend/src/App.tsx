@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { MovesProvider } from "./context/movesContext";
 import Game from "./components/Game";
@@ -12,23 +12,25 @@ export default function App() {
   const [activeGame, setActiveGame] = useState<Game | null>(null);
 
   // Initialize the application
-  if (!apiClientRef.current) {
-    // Identify the player using their IP address
-    getPlayerIpAddress()
-      .then((playerIpAddress) => {
-        const restClient = new RestAPIClient(playerIpAddress);
-        apiClientRef.current = restClient;
-        return restClient;
-      })
-      // Retrieve the player's active game from the backend API
-      .then((restClient) => {
-        if (!activeGame) {
-          restClient.getOrCreateActiveGame().then((game) => {
-            setActiveGame(game);
-          });
-        }
-      });
-  }
+  useEffect(() => {
+    if (!apiClientRef.current) {
+      // Identify the player using their IP address
+      getPlayerIpAddress()
+        .then((playerIpAddress) => {
+          const restClient = new RestAPIClient(playerIpAddress);
+          apiClientRef.current = restClient;
+          return restClient;
+        })
+        // Retrieve the player's active game from the backend API
+        .then((restClient) => {
+          if (!activeGame) {
+            restClient.getOrCreateActiveGame().then((game) => {
+              setActiveGame(game);
+            });
+          }
+        });
+    }
+  }, []);
 
   return (
     <>
