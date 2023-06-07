@@ -18,7 +18,7 @@ export default function NumberInputPanel({
   const numbers = [...Array(sudokuSize).keys()].map((i) => i + 1);
 
   return (
-    <div className={"number-input-panel"}>
+    <div className={"number-input-panel"} data-testid={"number-input-panel"}>
       {numbers.map((number) => {
         return (
           <NumberInput

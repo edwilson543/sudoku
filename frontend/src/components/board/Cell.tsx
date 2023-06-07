@@ -67,7 +67,11 @@ export default function Cell({
   }
 
   return (
-    <div className={getClassName()} onClick={handleClick}>
+    <div
+      className={getClassName()}
+      onClick={handleClick}
+      data-testid={"row-" + rowIndex + "-column-" + columnIndex}
+    >
       {cellValue ?? ""}
     </div>
   );

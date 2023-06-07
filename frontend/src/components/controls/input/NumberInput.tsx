@@ -48,7 +48,11 @@ export default function NumberInput({
   }
 
   return (
-    <div className={"number-input"} onClick={handleClick}>
+    <div
+      className={"number-input"}
+      onClick={handleClick}
+      data-testid={"number-input-" + value}
+    >
       {value}
     </div>
   );

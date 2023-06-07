@@ -21,7 +21,7 @@ export default function Grid({
 }: GridProps) {
   /** The grid of cells in a game of sudoku. */
   return (
-    <div className={"grid"}>
+    <div className={"grid"} data-testid={"grid"}>
       {sudoku.problem.map(
         (problemRow: Array<number | null>, rowIndex: number) => {
           return (
