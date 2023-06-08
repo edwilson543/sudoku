@@ -33,7 +33,11 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
 
   return (
     <div className={"action-button"}>
-      <div className={"action-button-icon-wrapper"} onClick={handleClick}>
+      <div
+        className={"action-button-icon-wrapper"}
+        onClick={handleClick}
+        data-testid={"undo-button"}
+      >
         <FontAwesomeIcon
           icon={faArrowRotateLeft}
           className={"action-button-icon"}

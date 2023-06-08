@@ -45,7 +45,11 @@ export default function EraseButton({
 
   return (
     <div className={"action-button"}>
-      <div className={"action-button-icon-wrapper"} onClick={handleClick}>
+      <div
+        className={"action-button-icon-wrapper"}
+        onClick={handleClick}
+        data-testid={"erase-button"}
+      >
         <FontAwesomeIcon icon={faEraser} className={"action-button-icon"} />
       </div>
       <span className={"action-button-text"}>erase</span>
