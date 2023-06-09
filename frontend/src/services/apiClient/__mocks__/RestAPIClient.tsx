@@ -6,6 +6,13 @@ import { APIClient } from "../useAPI";
 export default class RestAPIClient implements APIClient {
   /** Mock API client used for testing. */
 
+  private playerIpAddress: string;
+
+  constructor(playerIpAddress: string) {
+    // Match the signature of the actual REST client
+    this.playerIpAddress = playerIpAddress;
+  }
+
   // API calls
   async getOrCreateActiveGame(): Promise<Game> {
     /** Load a dummy active game from the filesystem. */
