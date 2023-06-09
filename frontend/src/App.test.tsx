@@ -25,7 +25,7 @@ const emptyCellRow = 0;
 const emptyCellCol = 2;
 const emptyCellSolution = 3;
 
-/** Tests for the game completion and the new game loop */
+/** Tests for game completion and the new game loop */
 
 test("completes game by entering missing value", async () => {
   await act(() => render(<App />));
@@ -58,6 +58,12 @@ test("completes game by entering missing value", async () => {
     fireEvent.click(threeInputKey);
   });
   expect(emptyCell.className).toContain("cell-solved");
+
+  // Check the buttons are now disabled
+  for (const buttonId of ["undo-button", "erase-button"]) {
+    const button = screen.getByTestId(buttonId);
+    expect(button).toBeDisabled();
+  }
 
   // Check the new game menu has automatically been displayed, and start a new game
   expect(screen.getByText("select difficulty:")).toBeVisible();

@@ -83,6 +83,7 @@ Action panel and children
   /* Background and border */
   background-color: var(--background-control);
   border-radius: 50%;
+  border-width: 0;
 }
 
 .action-button-icon-wrapper:hover {

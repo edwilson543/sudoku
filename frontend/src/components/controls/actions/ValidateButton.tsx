@@ -23,7 +23,7 @@ export default function ValidateButton({
 
   return (
     <div className={"action-button"}>
-      <div
+      <button
         className={toggleClassName}
         onClick={toggleValidation}
         data-testid={"validate-button"}
@@ -32,7 +32,7 @@ export default function ValidateButton({
           icon={faCheckCircle}
           className={"action-button-icon"}
         />
-      </div>
+      </button>
       <span className={"action-button-text"}>check</span>
     </div>
   );
