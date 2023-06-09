@@ -4,63 +4,74 @@
 Global settings
 ---------------------------------------- */
 body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  justify-content: center;
+    /* Display */
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    justify-content: center;
 }
 
 /* ----------------------------------------
 Page layout
 ---------------------------------------- */
-.page-content {
-  /* Display */
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+.page-wrapper {
+    /* Display */
+    height: 100vh;
+    width: 100vw;
 
-  /* Typography */
-  font-family: Monaco;
+    /* Background */
+    background-color: var(--background-primary);
+}
+
+.page-content {
+    /* Display */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+
+    /* Typography */
+    font-family: Monaco;
 }
 
 .headstrap {
-  /* Display */
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  margin-top: 0;
+    /* Display */
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 0;
 
-  /* Border */
-  background-color: var(--background-control);
-  border-bottom: 1px solid var(--border-secondary);
+    /* Border */
+    background-color: var(--background-headstrap);
+    border-bottom: 1px solid var(--border-secondary);
 
-  /* Typography */
-  color: var(--font-headstrap);
-  font-weight: bold;
-  font-family: Arial;
+    /* Typography */
+    color: var(--font-headstrap);
+    font-weight: bold;
+    font-family: Arial;
 }
 
 /* ----------------------------------------
 Game layout
 ---------------------------------------- */
 .game-container {
-  /* Display */
-  display: flex;
-  flex-direction: column;
+    /* Display */
+    display: flex;
+    flex-direction: column;
 }
 
 .game {
-  /* Display */
-  display: flex;
-  justify-content: center;
+    /* Display */
+    display: flex;
+    justify-content: center;
 }
 
 .game-info {
-  /* Display */
-  float: left;
-  padding-bottom: 10px;
+    /* Display */
+    float: left;
+    padding-bottom: 10px;
 
-  /* Typography */
-  font-size: 15px;
+    /* Typography */
+    font-size: 15px;
 }

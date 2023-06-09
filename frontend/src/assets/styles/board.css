@@ -34,10 +34,11 @@
   width: 60px;
   height: 60px;
 
-  /* Border */
+  /* Background and border */
   border: 0.5px solid var(--border-secondary);
 
   /* Typography */
+  color: var(--font-primary);
   font-size: 35px;
 }
 .cell:hover {

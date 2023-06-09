@@ -33,7 +33,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <div className={"page-wrapper"} data-theme={"dark"}>
       <h1 className={"headstrap"}>eduko</h1>
       {activeGame && (
         <div className={"page-content"}>
@@ -44,6 +44,6 @@ export default function App() {
           </APIClientContext.Provider>
         </div>
       )}
-    </>
+    </div>
   );
 }
