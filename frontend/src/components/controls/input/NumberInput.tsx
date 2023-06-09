@@ -20,13 +20,10 @@ export default function NumberInput({
   const movesDispatch = useMovesDispatch();
   const moves = useMoves();
   const restClient = useAPI();
+  // Disabled if the player hasn't clicked on a cell yet or the game is over
+  const isDisabled = activeCell.row === -1 || isSolved;
 
   function handleClick(): void {
-    if (activeCell.row === -1 || isSolved) {
-      // The player hasn't clicked on a cell yet, or the game is over
-      return;
-    }
-
     movesDispatch({
       type: MoveType.Create,
       row: activeCell.row,
@@ -48,12 +45,13 @@ export default function NumberInput({
   }
 
   return (
-    <div
+    <button
       className={"number-input"}
       onClick={handleClick}
+      disabled={isDisabled}
       data-testid={"number-input-" + value}
     >
       {value}
-    </div>
+    </button>
   );
 }

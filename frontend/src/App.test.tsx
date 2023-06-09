@@ -64,6 +64,10 @@ test("completes game by entering missing value", async () => {
     const button = screen.getByTestId(buttonId);
     expect(button).toBeDisabled();
   }
+  for (let value = 1; value <= testSudokuSize; value++) {
+    const numberInputButton = screen.getByTestId(`number-input-${value}`);
+    expect(numberInputButton).toBeDisabled();
+  }
 
   // Check the new game menu has automatically been displayed, and start a new game
   expect(screen.getByText("select difficulty:")).toBeVisible();
