@@ -25,16 +25,22 @@ const emptyCellRow = 0;
 const emptyCellCol = 2;
 const emptyCellSolution = 3;
 
+const clueCellRow = 7;
+const clueCellCol = 4;
+const clueCellVal = 8;
+
 /**
- * Tests for game completion and the new game loop
+ * Tests for game completion and the new game loop.
  * */
 
 test("completes game by entering missing value", async () => {
   await act(() => render(<App />));
 
   // Spot check that one of the clue cells is showing the correct clue
-  const someCell = screen.getByTestId("row-7-column-4");
-  expect(someCell).toHaveTextContent("8");
+  const clueCell = screen.getByTestId(
+    `row-${clueCellRow}-column-${clueCellCol}`
+  );
+  expect(clueCell).toHaveTextContent(`${clueCellVal}`);
 
   // Check the existing move received over the API is rendered in the correct cell
   const existingMove = screen.getByTestId(
@@ -105,7 +111,7 @@ test("starts new game before completing current", async () => {
 });
 
 /**
- * Tests for move sequencing
+ * Tests for different sequences of moves.
  * */
 
 test("can make then erase a move then undo both", async () => {
@@ -148,7 +154,7 @@ test("can make then erase a move then undo both", async () => {
 test("can make then undo a single move", async () => {
   await act(() => render(<App />));
 
-  // Get the empty cell.
+  // Get the empty cell
   const emptyCell = screen.getByTestId(
     `row-${emptyCellRow}-column-${emptyCellCol}`
   );
@@ -173,7 +179,7 @@ test("can make then undo a single move", async () => {
 test("can make then overwrite a move then undo both", async () => {
   await act(() => render(<App />));
 
-  // Get the empty cell.
+  // Get the empty cell
   const emptyCell = screen.getByTestId(
     `row-${emptyCellRow}-column-${emptyCellCol}`
   );
@@ -207,7 +213,48 @@ test("can make then overwrite a move then undo both", async () => {
   expect(emptyCell).toBeEmptyDOMElement();
 });
 
-// TODO -> double clicks on the buttons
+/**
+ * Tests for some specific button disabling behaviour.
+ * */
+
+test("test cannot input the same value in the same cell twice", async () => {
+  await act(() => render(<App />));
+
+  // Get the empty cell
+  const emptyCell = screen.getByTestId(
+    `row-${emptyCellRow}-column-${emptyCellCol}`
+  );
+  expect(emptyCell).toBeEmptyDOMElement();
+
+  // Set the empty cell as the active cell
+  fireEvent.click(emptyCell);
+  expect(emptyCell.className).toContain("active-cell");
+
+  // Enter some value in the empty cell
+  const incorrectVal = emptyCellSolution + 1;
+  const incorrectInputKey = screen.getByTestId(`number-input-${incorrectVal}`);
+  fireEvent.click(incorrectInputKey);
+  expect(emptyCell).toHaveTextContent(`${incorrectVal}`);
+
+  // Check the same number input key is now disabled
+  expect(incorrectInputKey).toBeDisabled();
+});
+
+test("number input buttons are disabled for clue ells", async () => {
+  await act(() => render(<App />));
+
+  // Get some clue cell
+  const clueCell = screen.getByTestId(
+    `row-${clueCellRow}-column-${clueCellCol}`
+  );
+  expect(clueCell).toHaveTextContent(`${clueCellVal}`);
+
+  // Check each number input key is diabled
+  for (let value = 1; value <= testSudokuSize; value++) {
+    const numberInputButton = screen.getByTestId(`number-input-${value}`);
+    expect(numberInputButton).toBeDisabled();
+  }
+});
 
 test("erase and number input buttons are initially disabled", async () => {
   await act(() => render(<App />));
@@ -224,7 +271,7 @@ test("erase and number input buttons are initially disabled", async () => {
 });
 
 /**
- * Tests for changing the active cell and cell highlighting
+ * Tests for changing the active cell and cell highlighting.
  * */
 
 test("can select and then change the active cell", async () => {
@@ -273,7 +320,7 @@ test("incorrect moves are highlighted when validation is on", async () => {
   const toggleValidationButton = screen.getByTestId("validate-button");
   expect(toggleValidationButton.className).toContain("validation-toggle-on");
 
-  // Get the empty cell.
+  // Get the empty cell
   const emptyCell = screen.getByTestId(
     `row-${emptyCellRow}-column-${emptyCellCol}`
   );
@@ -299,7 +346,7 @@ test("incorrect moves are highlighted when validation is on", async () => {
 });
 
 /**
- * Tests relating to interactions with the existing move received over the API
+ * Tests relating to interactions with existing moves received from the API.
  * */
 
 test("can undo existing move received over the API", async () => {
@@ -337,7 +384,7 @@ test("can erase existing move received over the API", async () => {
 });
 
 /**
- * Helpers
+ * Helpers.
  * */
 
 function checkCorrectCellsAreHighlighted(

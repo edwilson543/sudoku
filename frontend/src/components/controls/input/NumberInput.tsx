@@ -20,8 +20,15 @@ export default function NumberInput({
   const movesDispatch = useMovesDispatch();
   const moves = useMoves();
   const restClient = useAPI();
-  // Disabled if the player hasn't clicked on a cell yet or the game is over
-  const isDisabled = activeCell.row === -1 || isSolved;
+  const isDisabled =
+    // The player hasn't clicked on a cell yet
+    activeCell.row === -1 ||
+    // The active cell is a clue cell
+    activeCell.isClueCell ||
+    // The active cell already has this input value in it
+    activeCell.value === value ||
+    // The game is over
+    isSolved;
 
   function handleClick(): void {
     movesDispatch({
