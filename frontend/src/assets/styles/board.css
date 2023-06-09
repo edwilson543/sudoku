@@ -1,7 +1,7 @@
 @import "./colour-scheme.css";
 
 :root {
-  --tile-border: 2px solid var(--border-black);
+  --tile-border: 2px solid var(--border-primary);
 }
 
 .grid {
@@ -10,7 +10,7 @@
   flex-direction: column;
 
   /* Border */
-  border: 1px solid var(--border-black);
+  border: 1px solid var(--border-primary);
 }
 
 .cell-row {
@@ -35,7 +35,7 @@
   height: 60px;
 
   /* Border */
-  border: 0.5px solid var(--border-grey);
+  border: 0.5px solid var(--border-secondary);
 
   /* Typography */
   font-size: 35px;
@@ -76,7 +76,7 @@
 
 .game-cell {
   /* Typography */
-  color: var(--font-dark-blue);
+  color: var(--font-secondary);
 }
 
 .game-cell-incorrect {

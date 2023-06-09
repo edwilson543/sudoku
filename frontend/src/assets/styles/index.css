@@ -33,10 +33,10 @@ Page layout
 
   /* Border */
   background-color: var(--background-control);
-  border-bottom: 1px solid var(--border-grey);
+  border-bottom: 1px solid var(--border-secondary);
 
   /* Typography */
-  color: var(--font-grey-blue);
+  color: var(--font-headstrap);
   font-weight: bold;
   font-family: Arial;
 }

@@ -12,11 +12,11 @@
   --background-new-game-hover: #154596;
 
   /* Border colours */
-  --border-black: black;
-  --border-grey: grey;
+  --border-primary: black;
+  --border-secondary: grey;
 
   /* Font colours */
-  --font-black: black;
-  --font-dark-blue: #1a55ba;
-  --font-grey-blue: #29354a;
+  --font-primary: black;
+  --font-secondary: #1a55ba;
+  --font-headstrap: #29354a;
 }
