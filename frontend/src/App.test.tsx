@@ -25,7 +25,9 @@ const emptyCellRow = 0;
 const emptyCellCol = 2;
 const emptyCellSolution = 3;
 
-/** Tests for game completion and the new game loop */
+/**
+ * Tests for game completion and the new game loop
+ * */
 
 test("completes game by entering missing value", async () => {
   await act(() => render(<App />));
@@ -91,12 +93,22 @@ test("starts new game before completing current", async () => {
   const newGameButton = screen.getByText("easy");
   await act(() => fireEvent.click(newGameButton));
 
-  // TODO -> finish
+  // Spot check that one of the clue cells is showing the correct clue
+  const someCell = screen.getByTestId("row-0-column-8");
+  expect(someCell).toHaveTextContent("");
+
+  // Check the existing move for the previous game is no longer rendered
+  const existingMoveCell = screen.getByTestId(
+    `row-${existingMoveRow}-column-${existingMoveCol}`
+  );
+  expect(existingMoveCell).not.toHaveTextContent(`${existingMoveVal}`);
 });
 
-/** Tests for move sequencing */
+/**
+ * Tests for move sequencing
+ * */
 
-test("can make then erase a move then undo both while toggling validation mode", async () => {
+test("can make then erase a move then undo both", async () => {
   await act(() => render(<App />));
 
   // Get the empty cell
@@ -109,10 +121,6 @@ test("can make then erase a move then undo both while toggling validation mode",
   fireEvent.click(emptyCell);
   expect(emptyCell.className).toContain("active-cell");
 
-  // Check validation mode is initially on
-  const toggleValidationButton = screen.getByTestId("validate-button");
-  expect(toggleValidationButton.className).toContain("validation-toggle-on");
-
   // Enter some incorrect value in the empty cell
   const incorrectVal = emptyCellSolution + 1;
   const incorrectInputKey = screen.getByTestId(`number-input-${incorrectVal}`);
@@ -120,14 +128,7 @@ test("can make then erase a move then undo both while toggling validation mode",
 
   // Check the originally empty cell now has the value in it
   expect(emptyCell).toHaveTextContent(`${incorrectVal}`);
-  expect(emptyCell.className).toContain("game-cell-invalid");
-
-  // Turn off validation mode
-  fireEvent.click(toggleValidationButton);
-  expect(toggleValidationButton.className).not.toContain(
-    "validation-toggle-on"
-  );
-  expect(emptyCell.className).not.toContain("game-cell-invalid");
+  expect(emptyCell.className).toContain("game-cell-incorrect");
 
   // Erase the original move
   const eraseButton = screen.getByTestId("erase-button");
@@ -207,57 +208,27 @@ test("can make then overwrite a move then undo both", async () => {
 });
 
 // TODO -> double clicks on the buttons
-// TODO -> check nothing happens when you click inputs / erases before any active cell selected
 
-/** Tests for changing the active cell and cell highlighting */
+test("erase and number input buttons are initially disabled", async () => {
+  await act(() => render(<App />));
+
+  // Get the erase button and check its disabled
+  const eraseButton = screen.getByTestId("erase-button");
+  expect(eraseButton).toBeDisabled();
+
+  // Check each number input key is disabled
+  for (let value = 1; value <= testSudokuSize; value++) {
+    const numberInputButton = screen.getByTestId(`number-input-${value}`);
+    expect(numberInputButton).toBeDisabled();
+  }
+});
+
+/**
+ * Tests for changing the active cell and cell highlighting
+ * */
 
 test("can select and then change the active cell", async () => {
   await act(() => render(<App />));
-
-  function checkCorrectCellsAreHighlighted(
-    rowIndex: number,
-    colIndex: number,
-    cellValue: string
-  ) {
-    /** Helper to check that the relevant cells are highlighted. */
-    for (let index = 0; index < testSudokuSize; index++) {
-      // All other cell's in the active cell's column should be highlighted
-      if (index !== rowIndex) {
-        const rowCell = screen.getByTestId(`row-${index}-column-${colIndex}`);
-        expect(rowCell.className).toContain("highlighted-cell");
-      }
-
-      // All other cell's in the active cell's row should be highlighted
-      if (index !== colIndex) {
-        const columnCell = screen.getByTestId(
-          `row-${rowIndex}-column-${index}`
-        );
-        expect(columnCell.className).toContain("highlighted-cell");
-      }
-    }
-
-    // All other cell's in the active cell's tile should be highlighted
-    const rowTile = Math.floor(rowIndex / testSudokuRank) * testSudokuRank;
-    const colTile = Math.floor(colIndex / testSudokuRank) * testSudokuRank;
-    for (let row = rowTile; row < rowTile + testSudokuRank; row++) {
-      for (let col = colTile; col < colTile + testSudokuRank; col++) {
-        if (row !== rowIndex || col !== colIndex) {
-          const tileCell = screen.getByTestId(`row-${row}-column-${col}`);
-          expect(tileCell.className).toContain("highlighted-cell");
-        }
-      }
-    }
-
-    // All cell's with the same value should be highlighted
-    const cellsWithSameValue = within(
-      screen.getByTestId("grid")
-    ).queryAllByText(cellValue);
-    for (const cell of cellsWithSameValue) {
-      if (!cell.className.includes("active-cell")) {
-        expect(cell.className).toContain("highlighted-cell-value");
-      }
-    }
-  }
 
   // Select some cell as the active cell
   const someCellRow = 7;
@@ -295,9 +266,41 @@ test("can select and then change the active cell", async () => {
   expect(someCell.className).not.toContain("active-cell");
 });
 
-// TODO -> checks for highlighting mistakes when validation is on
+test("incorrect moves are highlighted when validation is on", async () => {
+  await act(() => render(<App />));
 
-/** Tests relating to interactions with the existing move received over the API */
+  // Check validation mode is initially on
+  const toggleValidationButton = screen.getByTestId("validate-button");
+  expect(toggleValidationButton.className).toContain("validation-toggle-on");
+
+  // Get the empty cell.
+  const emptyCell = screen.getByTestId(
+    `row-${emptyCellRow}-column-${emptyCellCol}`
+  );
+  expect(emptyCell).toBeEmptyDOMElement();
+
+  // Set the empty cell as the active cell
+  fireEvent.click(emptyCell);
+  expect(emptyCell.className).toContain("active-cell");
+
+  // Enter an incorrect value in the empty cell
+  const incorrectVal = emptyCellSolution + 1;
+  const incorrectInputKey = screen.getByTestId(`number-input-${incorrectVal}`);
+  fireEvent.click(incorrectInputKey);
+  expect(emptyCell).toHaveTextContent(`${incorrectVal}`);
+  expect(emptyCell.className).toContain("game-cell-incorrect");
+
+  // Turn off validation mode, which should remove the error highlighting
+  fireEvent.click(toggleValidationButton);
+  expect(toggleValidationButton.className).not.toContain(
+    "validation-toggle-on"
+  );
+  expect(emptyCell.className).not.toContain("game-cell-incorrect");
+});
+
+/**
+ * Tests relating to interactions with the existing move received over the API
+ * */
 
 test("can undo existing move received over the API", async () => {
   await act(() => render(<App />));
@@ -332,3 +335,50 @@ test("can erase existing move received over the API", async () => {
   fireEvent.click(eraseButton);
   expect(existingMove).toBeEmptyDOMElement();
 });
+
+/**
+ * Helpers
+ * */
+
+function checkCorrectCellsAreHighlighted(
+  rowIndex: number,
+  colIndex: number,
+  cellValue: string
+) {
+  /** Helper to check that the expected cells are highlighted for a given `activeCell`. */
+  for (let index = 0; index < testSudokuSize; index++) {
+    // All other cell's in the active cell's column should be highlighted
+    if (index !== rowIndex) {
+      const rowCell = screen.getByTestId(`row-${index}-column-${colIndex}`);
+      expect(rowCell.className).toContain("highlighted-cell");
+    }
+
+    // All other cell's in the active cell's row should be highlighted
+    if (index !== colIndex) {
+      const columnCell = screen.getByTestId(`row-${rowIndex}-column-${index}`);
+      expect(columnCell.className).toContain("highlighted-cell");
+    }
+  }
+
+  // All other cell's in the active cell's tile should be highlighted
+  const rowTile = Math.floor(rowIndex / testSudokuRank) * testSudokuRank;
+  const colTile = Math.floor(colIndex / testSudokuRank) * testSudokuRank;
+  for (let row = rowTile; row < rowTile + testSudokuRank; row++) {
+    for (let col = colTile; col < colTile + testSudokuRank; col++) {
+      if (row !== rowIndex || col !== colIndex) {
+        const tileCell = screen.getByTestId(`row-${row}-column-${col}`);
+        expect(tileCell.className).toContain("highlighted-cell");
+      }
+    }
+  }
+
+  // All cell's with the same value should be highlighted
+  const cellsWithSameValue = within(screen.getByTestId("grid")).queryAllByText(
+    cellValue
+  );
+  for (const cell of cellsWithSameValue) {
+    if (!cell.className.includes("active-cell")) {
+      expect(cell.className).toContain("highlighted-cell-value");
+    }
+  }
+}

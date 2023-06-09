@@ -50,7 +50,7 @@ export default function Cell({
       className += " game-cell";
     }
     if (validationIsOn && cellValue && cellValue !== solutionValue) {
-      className += " game-cell-invalid";
+      className += " game-cell-incorrect";
     }
     if (activeCell.row === rowIndex && activeCell.column === columnIndex) {
       className += " active-cell";
