@@ -21,6 +21,9 @@ Page layout
 
     /* Background */
     background-color: var(--background-primary);
+
+    /* Transition */
+    transition: all .5s;
 }
 
 .page-content {
@@ -67,11 +70,15 @@ Game layout
     justify-content: center;
 }
 
-.game-info {
+.game-info-container {
     /* Display */
-    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding-bottom: 10px;
+}
 
+.game-difficulty {
     /* Typography */
     color: var(--font-primary);
     font-size: 15px;

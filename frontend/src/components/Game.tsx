@@ -3,13 +3,9 @@ import React, { useState, useMemo, SetStateAction } from "react";
 import Grid from "./board/Grid";
 import useAPI from "../services/apiClient/useAPI";
 import ControlPanel from "./controls/ControlPanel";
+import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty } from "../utils/constants";
-
-type GameProps = {
-  activeGame: Game;
-  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
-};
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -20,7 +16,17 @@ const initialActiveCell = {
   isClueCell: null,
 };
 
-export default function Game({ activeGame, setActiveGame }: GameProps) {
+type GameProps = {
+  activeGame: Game;
+  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
+  toggleDarkMode: () => void;
+};
+
+export default function Game({
+  activeGame,
+  setActiveGame,
+  toggleDarkMode,
+}: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
   // Store the active cell (i.e. the cell the user most recently clicked)
   const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
@@ -62,8 +68,11 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 
   return (
     <div className={"game-container"}>
-      <div className={"game-info"}>
-        difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+      <div className={"game-info-container"}>
+        <div className={"game-difficulty"}>
+          difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+        </div>
+        <ColourThemeToggle toggleDarkMode={toggleDarkMode} />
       </div>
       <div className={"game"}>
         <Grid

@@ -10,3 +10,8 @@ export enum SudokuDifficulty {
   Medium = "MEDIUM",
   Hard = "HARD",
 }
+
+export enum ColourTheme {
+  Light = "light",
+  Dark = "dark",
+}

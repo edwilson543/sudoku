@@ -217,3 +217,47 @@ Game continuation
   font-weight: bold;
   font-style: italic;
 }
+
+/* ----------------------------------------
+Colour theme toggle
+---------------------------------------- */
+
+.slider-container {
+  /* Positioning */
+  position: relative;
+
+  /* Display */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+
+  /* Background and border */
+  background-color: var(--background-secondary);
+  border-radius: 20px;
+}
+
+/* Hide the default HTML checkbox */
+.slider-container input {
+  display: none;
+}
+
+.slider {
+  /* Display */
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 5px;
+
+  /* Background and border */
+  background-color: var(--button-secondary);
+  border-radius: 30px;
+  cursor: pointer;
+
+  /* Transition */
+  transition: .5s;
+}
+
+input:checked + .slider {
+  transform: translateX(30px);
+}
