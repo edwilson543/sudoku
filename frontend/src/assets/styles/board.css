@@ -1,9 +1,5 @@
 @import "./colour-scheme.css";
 
-:root {
-  --tile-border: 2px solid var(--border-primary);
-}
-
 .grid {
   /* Display */
   display: flex;
@@ -17,13 +13,16 @@
   /* Display */
   display: flex;
   flex-direction: row;
+
+  /* Border */
+  border: none;
 }
 /* Embolden the sudoku tile row borders */
 .cell-row:nth-child(3n) {
-  border-bottom: var(--tile-border);
+  border-bottom: 2px solid var(--border-primary);
 }
 .cell-row:first-child {
-  border-top: var(--tile-border);
+  border-top: 2px solid var(--border-primary);
 }
 
 .cell {
@@ -47,10 +46,10 @@
 }
 /* Embolden the sudoku tile column borders */
 .cell:nth-child(3n) {
-  border-right: var(--tile-border);
+  border-right:  2px solid var(--border-primary);
 }
 .cell:first-child {
-  border-left: var(--tile-border);
+  border-left:  2px solid var(--border-primary);
 }
 
 @keyframes solved-throb {
