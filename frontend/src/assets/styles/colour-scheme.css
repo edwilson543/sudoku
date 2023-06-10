@@ -1,7 +1,7 @@
 :root {
   /* Background colours */
   --background-primary: white;
-  --background-headstrap: #e6ebf2;
+  --background-secondary: #e6ebf2;
 
   --background-cell-active: #79b9c9;
   --background-cell-highlighted: #cfe1e6;
@@ -9,10 +9,10 @@
   --background-cell-incorrect: #db9194;
   --background-cell-solved: #bcebc8;
 
-  --background-control: #e6ebf2;
-  --background-control-hover: #d3dceb;
-  --background-new-game: #1a55ba;
-  --background-new-game-hover: #154596;
+  --button-primary: #e6ebf2;
+  --button-primary-hover: #d3dceb;
+  --button-secondary: #1a55ba;
+  --button-secondary-hover: #154596;
 
   /* Border colours */
   --border-primary: black;
@@ -21,31 +21,31 @@
   /* Font colours */
   --font-primary: black;
   --font-secondary: #1a55ba;
-  --font-headstrap: #29354a;
+  --font-tertiary: white;
 }
 
 [data-theme="dark"] {
   /* Background colours */
   --background-primary: #141414;
-  --background-headstrap: #353738;
+  --background-secondary: #2b2b2b;
 
-  --background-cell-active: #79b9c9; /* TODO */
-  --background-cell-highlighted: #cfe1e6; /* TODO */
-  --background-cell-value-highlighted: #abc3c9; /* TODO */
-  --background-cell-incorrect: #db9194; /* TODO */
-  --background-cell-solved: #bcebc8; /* TODO */
+  --background-cell-active: #6872a3;
+  --background-cell-highlighted: #343a59;
+  --background-cell-value-highlighted: #333b63;
+  --background-cell-incorrect: #8a4346;
+  --background-cell-solved: #465e4c;
 
-  --background-control: #7a7a7a;
-  --background-control-hover: #d3dceb; /* TODO */
-  --background-new-game: #1a55ba; /* TODO */
-  --background-new-game-hover: #154596; /* TODO */
+  --button-primary: #6b6b6b;
+  --button-primary-hover: #7a7a7a;
+  --button-secondary: var(--button-primary);
+  --button-secondary-hover: var(--button-primary-hover);
 
   /* Border colours */
   --border-primary: white; /* TODO */
-  --border-secondary: white; /* TODO */
+  --border-secondary: #c7c8c9;
 
   /* Font colours */
   --font-primary: white;
   --font-secondary: #f7f5d0;
-  --font-headstrap: #86b1ba;
+  --font-tertiary: var(--font-secondary);
 }

@@ -53,6 +53,7 @@
   border-left: var(--tile-border);
 }
 
+
 @keyframes solved-throb {
   0% {
     opacity: 1;

@@ -43,11 +43,11 @@ Page layout
     margin-top: 0;
 
     /* Border */
-    background-color: var(--background-headstrap);
+    background-color: var(--background-secondary);
     border-bottom: 1px solid var(--border-secondary);
 
     /* Typography */
-    color: var(--font-headstrap);
+    color: var(--font-secondary);
     font-weight: bold;
     font-family: Arial;
 }
@@ -73,5 +73,6 @@ Game layout
     padding-bottom: 10px;
 
     /* Typography */
+    color: var(--font-primary);
     font-size: 15px;
 }
