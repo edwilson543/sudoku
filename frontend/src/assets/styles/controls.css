@@ -42,15 +42,14 @@ Number input panel and children
   background-color: var(--button-primary);
   border-width: 0;
   border-radius: 10px;
+  cursor: pointer;
 
   /* Typography */
   font-family: Monaco;
   font-size: 40px;
   color: var(--font-secondary);
 }
-
 .number-input:hover {
-  cursor: pointer;
   background-color: var(--button-primary-hover);
 }
 
@@ -86,10 +85,10 @@ Action panel and children
   background-color: var(--button-primary);
   border-width: 0;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .action-button-icon-wrapper:hover {
-  cursor: pointer;
   background-color: var(--button-primary-hover);
 }
 
@@ -129,6 +128,7 @@ Game continuation
   /* Background and border */
   background-color: var(--button-secondary);
   border-radius: 10px;
+  cursor: pointer;
 
   /* Typography */
   color: var(--font-tertiary);
@@ -137,7 +137,6 @@ Game continuation
 
 .new-game-button:hover {
   background-color: var(--button-secondary-hover);
-  cursor: pointer;
 }
 
 .new-game-menu-wrapper {
@@ -192,6 +191,7 @@ Game continuation
   /* Background and border */
   background-color: var(--button-primary);
   border-radius: 5px;
+  cursor: pointer;
 
   /* Typography */
   color: var(--font-secondary);
@@ -199,7 +199,6 @@ Game continuation
 }
 
 .new-game-menu-item:hover {
-  cursor: pointer;
   background-color: var(--button-primary-hover);
 }
 
@@ -223,9 +222,6 @@ Colour theme toggle
 ---------------------------------------- */
 
 .slider-container {
-  /* Positioning */
-  position: relative;
-
   /* Display */
   display: flex;
   flex-direction: row;
@@ -255,9 +251,10 @@ Colour theme toggle
   cursor: pointer;
 
   /* Transition */
-  transition: .5s;
+  transition: 0.5s;
 }
 
+/* Translate the slider when the input is checked */
 input:checked + .slider {
   transform: translateX(30px);
 }
