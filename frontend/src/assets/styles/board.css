@@ -66,7 +66,7 @@
 
 .cell-solved {
   /* Background */
-  background-color: var(--background-cell-solved) !important;
+  background-color: var(--background-cell-solved);
 
   /* Animation */
   animation-name: solved-throb;
@@ -81,7 +81,7 @@
 
 .game-cell-incorrect {
   /* Background */
-  background-color: var(--background-cell-incorrect) !important;
+  background-color: var(--background-cell-incorrect);
 }
 
 .active-cell {
