@@ -4,9 +4,6 @@
   /* Display */
   display: flex;
   flex-direction: column;
-
-  /* Border */
-  border: 1px solid var(--border-primary);
 }
 
 .cell-row {
@@ -18,7 +15,13 @@
   border: none;
 }
 /* Embolden the sudoku tile row borders */
-.cell-row:nth-child(3n) {
+[data-sudoku-rank="2"] .cell-row:nth-child(2n) {
+  border-bottom: 2px solid var(--border-primary);
+}
+[data-sudoku-rank="3"] .cell-row:nth-child(3n) {
+  border-bottom: 2px solid var(--border-primary);
+}
+[data-sudoku-rank="4"] .cell-row:nth-child(4n) {
   border-bottom: 2px solid var(--border-primary);
 }
 .cell-row:first-child {
@@ -45,11 +48,17 @@
   background-color: var(--background-cell-active);
 }
 /* Embolden the sudoku tile column borders */
-.cell:nth-child(3n) {
-  border-right:  2px solid var(--border-primary);
+[data-sudoku-rank="2"] .cell:nth-child(2n) {
+  border-right: 2px solid var(--border-primary);
+}
+[data-sudoku-rank="3"] .cell:nth-child(3n) {
+  border-right: 2px solid var(--border-primary);
+}
+[data-sudoku-rank="4"] .cell:nth-child(4n) {
+  border-right: 2px solid var(--border-primary);
 }
 .cell:first-child {
-  border-left:  2px solid var(--border-primary);
+  border-left: 2px solid var(--border-primary);
 }
 
 @keyframes solved-throb {

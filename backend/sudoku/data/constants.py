@@ -12,6 +12,7 @@ class SudokuSize(django_models.IntegerChoices):
     ONE = 1
     FOUR = 4
     NINE = 9
+    SIXTEEN = 16
 
 
 class GameStatus(django_models.TextChoices):

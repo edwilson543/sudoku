@@ -49,6 +49,7 @@ export default function Game({
 
   const movesDispatch = useMovesDispatch();
   const restClient = useAPI();
+  const sudokuRank = activeGame ? `${Math.sqrt(activeGame.sudoku.size)}` : null;
 
   function startNewGame(difficulty: SudokuDifficulty): void {
     /** Start a new game, at the player's discretion */
@@ -67,7 +68,7 @@ export default function Game({
   }
 
   return (
-    <div className={"game-container"}>
+    <div className={"game-container"} data-sudoku-rank={sudokuRank}>
       <div className={"game-info-container"}>
         <div className={"game-difficulty"}>
           difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
