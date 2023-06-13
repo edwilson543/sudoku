@@ -5,7 +5,7 @@ import useAPI from "../services/apiClient/useAPI";
 import ControlPanel from "./controls/ControlPanel";
 import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
-import { MoveType, SudokuDifficulty } from "../utils/constants";
+import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -49,9 +49,10 @@ export default function Game({
 
   const movesDispatch = useMovesDispatch();
   const restClient = useAPI();
+
   const sudokuRank = activeGame ? `${Math.sqrt(activeGame.sudoku.size)}` : null;
 
-  function startNewGame(difficulty: SudokuDifficulty): void {
+  function startNewGame(difficulty: SudokuDifficulty, size: SudokuSize): void {
     /** Start a new game, at the player's discretion */
     // Clear all moves held in state since they were for the old game
     movesDispatch({
@@ -60,7 +61,7 @@ export default function Game({
 
     // Ask for a new game from the API, and set the active game as this
     restClient
-      .createNextGame(difficulty)
+      .createNextGame(difficulty, size)
       .then((newGame) => setActiveGame(newGame));
 
     // Clear the currently active cell

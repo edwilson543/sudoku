@@ -5,7 +5,7 @@ import NewGameDifficulty from "./NewGameDifficulty";
 import NewGameSizeRadio from "./NewGameSizeRadio";
 
 type NewGameMenuProps = {
-  startNewGame: (difficulty: SudokuDifficulty) => void;
+  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   setShowNewGameMenu: React.Dispatch<SetStateAction<boolean>>;
 };
 
@@ -19,7 +19,6 @@ export default function NewGameMenu({
   function handleMouseLeave(): void {
     setShowNewGameMenu(false);
   }
-
   return (
     <div className={"new-game-menu-wrapper"}>
       <div className={"new-game-menu"} onMouseLeave={handleMouseLeave}>
@@ -29,14 +28,17 @@ export default function NewGameMenu({
         <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Easy}
+          size={newGameSize}
         />
         <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Medium}
+          size={newGameSize}
         />
         <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Hard}
+          size={newGameSize}
         />
         <legend className={"select-text"}>size:</legend>
         <fieldset className={"new-game-size-radio"}>

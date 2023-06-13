@@ -1,19 +1,20 @@
-import { SudokuDifficulty } from "../../../utils/constants";
+import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
 import React from "react";
 
 type NewGameMenuItemProps = {
-  startNewGame: (difficulty: SudokuDifficulty) => void;
+  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   difficulty: SudokuDifficulty;
+  size: SudokuSize;
 };
 
 export default function NewGameDifficulty({
   startNewGame,
   difficulty,
+  size,
 }: NewGameMenuItemProps) {
   /** A button for starting a new game of a particular difficulty */
-
   function handleClick(): void {
-    startNewGame(difficulty);
+    startNewGame(difficulty, size);
   }
 
   return (

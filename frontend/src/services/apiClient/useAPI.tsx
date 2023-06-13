@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { SudokuDifficulty } from "../../utils/constants";
+import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
 
 // Context
 
@@ -20,7 +20,7 @@ export interface APIClient {
   /** API client used to persist game actions and for game continuation. */
   getOrCreateActiveGame(): Promise<Game>;
 
-  createNextGame(difficulty: SudokuDifficulty): Promise<Game>;
+  createNextGame(difficulty: SudokuDifficulty, size: SudokuSize): Promise<Game>;
 
   makeMove(
     numberInGame: number,

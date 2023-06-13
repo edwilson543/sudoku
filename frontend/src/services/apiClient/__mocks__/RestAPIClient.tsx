@@ -1,5 +1,5 @@
 import activeGameData from "../../data/activeGameData.json";
-import { SudokuDifficulty } from "../../../utils/constants";
+import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
 import newGameData from "../../data/newGameData.json";
 import { APIClient } from "../useAPI";
 
@@ -26,9 +26,13 @@ export default class RestAPIClient implements APIClient {
     });
   }
 
-  async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
+  async createNextGame(
+    difficulty: SudokuDifficulty,
+    size: SudokuSize
+  ): Promise<Game> {
     /** Load a dummy next game from the filesystem. */
     difficulty; // To appease ESLint.
+    size; // To appease ESLint.
     return new Promise(function (resolve, reject) {
       resolve({
         sudoku: newGameData.sudoku,
