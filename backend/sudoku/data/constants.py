@@ -9,7 +9,6 @@ class SudokuDifficulty(django_models.TextChoices):
 
 
 class SudokuSize(django_models.IntegerChoices):
-    ONE = 1
     FOUR = 4
     NINE = 9
     SIXTEEN = 16

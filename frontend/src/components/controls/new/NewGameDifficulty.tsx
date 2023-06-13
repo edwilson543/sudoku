@@ -6,7 +6,7 @@ type NewGameMenuItemProps = {
   difficulty: SudokuDifficulty;
 };
 
-export default function NewGameMenuItem({
+export default function NewGameDifficulty({
   startNewGame,
   difficulty,
 }: NewGameMenuItemProps) {
@@ -17,7 +17,7 @@ export default function NewGameMenuItem({
   }
 
   return (
-    <div className={"new-game-menu-item"} onClick={handleClick}>
+    <div className={"new-game-difficulty-button"} onClick={handleClick}>
       {difficulty.toLowerCase()}
     </div>
   );

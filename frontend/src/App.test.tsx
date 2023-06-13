@@ -78,7 +78,7 @@ test("completes game by entering missing value", async () => {
   }
 
   // Check the new game menu has automatically been displayed, and start a new game
-  expect(screen.getByText("select difficulty:")).toBeVisible();
+  expect(screen.getByTestId("select-difficulty")).toBeVisible();
   const newGameButton = screen.getByText("easy");
   await act(() => fireEvent.click(newGameButton));
 
@@ -93,7 +93,7 @@ test("starts new game before completing current", async () => {
   // Toggle the new game menu
   const newGameMenuToggle = screen.getByText("new game");
   fireEvent.click(newGameMenuToggle);
-  expect(screen.getByText("select difficulty:")).toBeVisible();
+  expect(screen.getByTestId("select-difficulty")).toBeVisible();
 
   // Start a new medium difficulty game
   const newGameButton = screen.getByText("easy");

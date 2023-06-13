@@ -116,6 +116,7 @@ Action panel and children
 /* ----------------------------------------
 Game continuation
 ---------------------------------------- */
+
 .new-game-button {
   /* Display */
   display: flex;
@@ -179,7 +180,25 @@ Game continuation
   animation-iteration-count: 1;
 }
 
-.new-game-menu-item {
+/* Inputs within the new game menu
+===================================== */
+
+.select-text {
+  /* Display */
+  padding: 10px;
+  margin-bottom: 10px;
+
+  /* Border */
+  border-bottom: 1px solid var(--border-primary);
+
+  /* Typography */
+  color: var(--font-primary);
+  font-size: 15px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.new-game-difficulty-button {
   /* Display */
   display: flex;
   align-items: center;
@@ -198,23 +217,29 @@ Game continuation
   font-size: 20px;
 }
 
-.new-game-menu-item:hover {
+.new-game-difficulty-button:hover {
   background-color: var(--button-primary-hover);
 }
 
-.select-difficulty {
+.new-game-size-radio {
   /* Display */
-  padding: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: space-between;
 
   /* Border */
-  border-bottom: 1px solid var(--border-primary);
+  border: none;
+}
 
+.new-game-size-radio label {
   /* Typography */
   color: var(--font-primary);
-  font-size: 15px;
-  font-weight: bold;
-  font-style: italic;
+}
+
+.new-game-size-radio input {
+  /* Background */
+  accent-color: var(--button-secondary);
 }
 
 /* ----------------------------------------
