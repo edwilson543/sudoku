@@ -21,10 +21,12 @@ export default function NewGameMenu({
   }
   return (
     <div className={"new-game-menu-wrapper"}>
-      <div className={"new-game-menu"} onMouseLeave={handleMouseLeave}>
-        <div className={"select-text"} data-testid={"select-difficulty"}>
-          difficulty:
-        </div>
+      <div
+        className={"new-game-menu"}
+        onMouseLeave={handleMouseLeave}
+        data-testid={"new-game-menu"}
+      >
+        <div className={"select-text"}>difficulty:</div>
         <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Easy}

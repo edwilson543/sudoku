@@ -25,6 +25,7 @@ export default function NewGameSizeRadio({
         name={"size"}
         checked={newGameSize === sudokuSize}
         onChange={handleChange}
+        data-testid={`new-game-radio-${sudokuSize}`}
       />
       <label>{sudokuSize}</label>
     </div>

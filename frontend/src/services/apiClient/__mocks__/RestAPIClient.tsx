@@ -1,6 +1,8 @@
 import activeGameData from "../../data/activeGameData.json";
 import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
-import newGameData from "../../data/newGameData.json";
+import newHardGame from "../../data/newHardGame.json";
+import newEasyGame from "../../data/newEasyGame.json";
+import newSizeFourGame from "../../data/newSizeFourGame.json";
 import { APIClient } from "../useAPI";
 
 export default class RestAPIClient implements APIClient {
@@ -31,8 +33,12 @@ export default class RestAPIClient implements APIClient {
     size: SudokuSize
   ): Promise<Game> {
     /** Load a dummy next game from the filesystem. */
-    difficulty; // To appease ESLint.
-    size; // To appease ESLint.
+    let newGameData = newHardGame;
+    if (size === SudokuSize.Four) {
+      newGameData = newSizeFourGame;
+    } else if (difficulty === SudokuDifficulty.Easy) {
+      newGameData = newEasyGame;
+    }
     return new Promise(function (resolve, reject) {
       resolve({
         sudoku: newGameData.sudoku,

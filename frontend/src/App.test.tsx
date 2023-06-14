@@ -9,6 +9,7 @@ import {
 import { act } from "react-dom/test-utils";
 
 import App from "./App";
+import { SudokuDifficulty, SudokuSize } from "./utils/constants";
 
 afterEach(cleanup);
 jest.mock("./services/apiClient/RestAPIClient");
@@ -78,8 +79,9 @@ test("completes game by entering missing value", async () => {
   }
 
   // Check the new game menu has automatically been displayed, and start a new game
-  expect(screen.getByTestId("select-difficulty")).toBeVisible();
-  const newGameButton = screen.getByText("easy");
+  const newGameMenu = screen.getByTestId("new-game-menu");
+  expect(newGameMenu).toBeVisible();
+  const newGameButton = within(newGameMenu).getByText("hard");
   await act(() => fireEvent.click(newGameButton));
 
   // Check the moves from the previous game are now not rendered
@@ -87,28 +89,49 @@ test("completes game by entering missing value", async () => {
   expect(emptyCell).toBeEmptyDOMElement();
 });
 
-test("starts new game before completing current", async () => {
-  await act(() => render(<App />));
+test.each([
+  { difficulty: SudokuDifficulty.Hard, size: SudokuSize.Nine, topLeftCell: 9 },
+  { difficulty: SudokuDifficulty.Easy, size: SudokuSize.Nine, topLeftCell: 3 },
+  {
+    difficulty: SudokuDifficulty.Medium,
+    size: SudokuSize.Four,
+    topLeftCell: 1,
+  },
+])(
+  "starts new game of given size and difficulty before completing current",
+  async ({ difficulty, size, topLeftCell }) => {
+    await act(() => render(<App />));
 
-  // Toggle the new game menu
-  const newGameMenuToggle = screen.getByText("new game");
-  fireEvent.click(newGameMenuToggle);
-  expect(screen.getByTestId("select-difficulty")).toBeVisible();
+    // Toggle the new game menu
+    const newGameMenuToggle = screen.getByText("new game");
+    fireEvent.click(newGameMenuToggle);
+    const newGameMenu = screen.getByTestId("new-game-menu");
+    expect(newGameMenu).toBeVisible();
 
-  // Start a new medium difficulty game
-  const newGameButton = screen.getByText("easy");
-  await act(() => fireEvent.click(newGameButton));
+    // Select the size of the next game according to the parameterised difficulty
+    const newGameSizeRadio = screen.getByTestId(
+      `new-game-radio-${size.valueOf()}`
+    );
+    fireEvent.click(newGameSizeRadio);
+    expect(newGameSizeRadio).toBeChecked();
 
-  // Spot check that one of the clue cells is showing the correct clue
-  const someCell = screen.getByTestId("row-0-column-8");
-  expect(someCell).toHaveTextContent("");
+    // Start a new game of the selected size and parameterised difficulty
+    const newGameButton = within(newGameMenu).getByText(
+      difficulty.toLowerCase()
+    );
+    await act(() => fireEvent.click(newGameButton));
 
-  // Check the existing move for the previous game is no longer rendered
-  const existingMoveCell = screen.getByTestId(
-    `row-${existingMoveRow}-column-${existingMoveCol}`
-  );
-  expect(existingMoveCell).not.toHaveTextContent(`${existingMoveVal}`);
-});
+    // Spot check that one of the clue cells is showing the correct clue
+    const someCell = screen.getByTestId("row-0-column-0");
+    expect(someCell).toHaveTextContent(`${topLeftCell}`);
+
+    // Check the existing move for the previous game is no longer rendered
+    const existingMoveCell = screen.getByTestId(
+      `row-${existingMoveRow}-column-${existingMoveCol}`
+    );
+    expect(existingMoveCell).not.toHaveTextContent(`${existingMoveVal}`);
+  }
+);
 
 /**
  * Tests for different sequences of moves.
