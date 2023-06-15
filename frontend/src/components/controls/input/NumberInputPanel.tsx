@@ -20,9 +20,9 @@ export default function NumberInputPanel({
 
   return (
     <div className={"number-input-panel"} data-testid={"number-input-panel"}>
-      {indexes.map((rowIndex) => {
+      {indexes.map((rowIndex: number) => {
         // Structure the input buttons into rows
-        const rowItems = indexes.map((colIndex) => {
+        const rowItems = indexes.map((colIndex: number) => {
           const inputValue = rowIndex * sudokuRank + colIndex + 1;
           return (
             <NumberInput

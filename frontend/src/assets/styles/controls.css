@@ -4,9 +4,15 @@
   --number-input-width: 75px;
   --number-input-margin: 3px;
 }
-[data-sudoku-rank="2"] {--number-input-width: 100px}
-[data-sudoku-rank="3"] {--number-input-width: 75px}
-[data-sudoku-rank="4"] {--number-input-width: 55px}
+[data-sudoku-rank="2"] {
+  --number-input-width: 100px;
+}
+[data-sudoku-rank="3"] {
+  --number-input-width: 75px;
+}
+[data-sudoku-rank="4"] {
+  --number-input-width: 55px;
+}
 
 .control-panel {
   /* Display */

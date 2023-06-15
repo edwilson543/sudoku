@@ -14,16 +14,20 @@
   /* Border */
   border: none;
 }
+
 /* Embolden the sudoku tile row borders */
 [data-sudoku-rank="2"] .cell-row:nth-child(2n) {
   border-bottom: 2px solid var(--border-primary);
 }
+
 [data-sudoku-rank="3"] .cell-row:nth-child(3n) {
   border-bottom: 2px solid var(--border-primary);
 }
+
 [data-sudoku-rank="4"] .cell-row:nth-child(4n) {
   border-bottom: 2px solid var(--border-primary);
 }
+
 .cell-row:first-child {
   border-top: 2px solid var(--border-primary);
 }
@@ -33,30 +37,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
 
   /* Background and border */
   border: 0.5px solid var(--border-secondary);
 
   /* Typography */
   color: var(--font-primary);
-  font-size: 35px;
 }
+
 .cell:hover {
   cursor: default;
   background-color: var(--background-cell-active);
 }
-/* Embolden the sudoku tile column borders */
+
+[data-sudoku-rank="2"] .cell {
+  width: 80px;
+  height: 80px;
+  font-size: 45px;
+}
+
+[data-sudoku-rank="3"] .cell {
+  width: 60px;
+  height: 60px;
+  font-size: 35px;
+}
+
+[data-sudoku-rank="4"] .cell {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+}
+
+/* Style the cells according to the sudoku dimension */
 [data-sudoku-rank="2"] .cell:nth-child(2n) {
   border-right: 2px solid var(--border-primary);
 }
+
 [data-sudoku-rank="3"] .cell:nth-child(3n) {
   border-right: 2px solid var(--border-primary);
 }
+
 [data-sudoku-rank="4"] .cell:nth-child(4n) {
   border-right: 2px solid var(--border-primary);
 }
+
 .cell:first-child {
   border-left: 2px solid var(--border-primary);
 }
