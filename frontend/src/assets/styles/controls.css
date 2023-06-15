@@ -2,8 +2,11 @@
 
 :root {
   --number-input-width: 75px;
-  --number-input-margin: 2px;
+  --number-input-margin: 3px;
 }
+[data-sudoku-rank="2"] {--number-input-width: 100px}
+[data-sudoku-rank="3"] {--number-input-width: 75px}
+[data-sudoku-rank="4"] {--number-input-width: 55px}
 
 .control-panel {
   /* Display */
@@ -21,17 +24,22 @@ Number input panel and children
 .number-input-panel {
   /* Display */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
   min-width: 225px;
 }
 
+.number-input-row {
+  /* Display */
+  display: flex;
+  flex-direction: row;
+}
+
 .number-input {
   /* Display */
   display: flex;
-  flex-basis: 30%; /* Ensure each 3rd number causes a wrap */
   align-items: center;
   justify-content: center;
   width: var(--number-input-width);
@@ -46,7 +54,7 @@ Number input panel and children
 
   /* Typography */
   font-family: Monaco;
-  font-size: 40px;
+  font-size: calc(0.6 * var(--number-input-width));
   color: var(--font-secondary);
 }
 .number-input:hover {
@@ -122,7 +130,7 @@ Game continuation
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--number-input-width) * 3 + var(--number-input-margin) * 4);
+  width: 200px;
   height: 50px;
   margin-top: 10px;
 
@@ -135,7 +143,6 @@ Game continuation
   color: var(--font-tertiary);
   font-size: 25px;
 }
-
 .new-game-button:hover {
   background-color: var(--button-secondary-hover);
 }
@@ -160,7 +167,7 @@ Game continuation
   /* Positioning */
   position: absolute;
   bottom: 100%;
-  left: 5px;
+  left: -10px;
 
   /* Display */
   display: flex;

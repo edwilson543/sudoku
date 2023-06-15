@@ -15,19 +15,29 @@ export default function NumberInputPanel({
   setActiveCell,
   isSolved,
 }: NumberInputPanelProps) {
-  const numbers = [...Array(sudokuSize).keys()].map((i) => i + 1);
+  const sudokuRank = Math.sqrt(sudokuSize);
+  const indexes = [...Array(Math.sqrt(sudokuSize)).keys()];
 
   return (
     <div className={"number-input-panel"} data-testid={"number-input-panel"}>
-      {numbers.map((number) => {
+      {indexes.map((rowIndex) => {
+        // Structure the input buttons into rows
+        const rowItems = indexes.map((colIndex) => {
+          const inputValue = rowIndex * sudokuRank + colIndex + 1;
+          return (
+            <NumberInput
+              key={inputValue}
+              value={inputValue}
+              activeCell={activeCell}
+              setActiveCell={setActiveCell}
+              isSolved={isSolved}
+            />
+          );
+        });
         return (
-          <NumberInput
-            key={number}
-            value={number}
-            activeCell={activeCell}
-            setActiveCell={setActiveCell}
-            isSolved={isSolved}
-          />
+          <div key={rowIndex} className={"number-input-row"}>
+            {rowItems}
+          </div>
         );
       })}
     </div>
