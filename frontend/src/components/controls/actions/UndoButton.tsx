@@ -17,9 +17,6 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
   const restClient = useAPI();
 
   function handleClick(): void {
-    if (isSolved) {
-      return;
-    }
     const moveNumberToUndo = getMoveNumberToUndo(moves);
     if (moveNumberToUndo !== null) {
       movesDispatch({
@@ -33,12 +30,17 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
 
   return (
     <div className={"action-button"}>
-      <div className={"action-button-icon-wrapper"} onClick={handleClick}>
+      <button
+        className={"action-button-icon-wrapper"}
+        onClick={handleClick}
+        disabled={isSolved}
+        data-testid={"undo-button"}
+      >
         <FontAwesomeIcon
           icon={faArrowRotateLeft}
           className={"action-button-icon"}
         />
-      </div>
+      </button>
       <span className={"action-button-text"}>undo</span>
     </div>
   );

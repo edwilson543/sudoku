@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import NewGameMenu from "./NewGameMenu";
-import { SudokuDifficulty } from "../../../utils/constants";
+import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
 
 type NewGameProps = {
   isSolved: boolean;
-  startNewGame: (difficulty: SudokuDifficulty) => void;
+  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
 };
 
 export default function NewGame({ isSolved, startNewGame }: NewGameProps) {

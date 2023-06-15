@@ -1,10 +1,11 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 
-import { SudokuDifficulty } from "../../../utils/constants";
-import NewGameMenuItem from "./NewGameMenuItem";
+import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
+import NewGameDifficulty from "./NewGameDifficulty";
+import NewGameSizeRadio from "./NewGameSizeRadio";
 
 type NewGameMenuProps = {
-  startNewGame: (difficulty: SudokuDifficulty) => void;
+  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   setShowNewGameMenu: React.Dispatch<SetStateAction<boolean>>;
 };
 
@@ -12,26 +13,53 @@ export default function NewGameMenu({
   startNewGame,
   setShowNewGameMenu,
 }: NewGameMenuProps) {
+  /** Select the parameters for a new game */
+  const [newGameSize, setNewGameSize] = useState<SudokuSize>(SudokuSize.Nine);
+
   function handleMouseLeave(): void {
     setShowNewGameMenu(false);
   }
-
   return (
     <div className={"new-game-menu-wrapper"}>
-      <div className={"new-game-menu"} onMouseLeave={handleMouseLeave}>
-        <div className={"select-difficulty"}>select difficulty:</div>
-        <NewGameMenuItem
+      <div
+        className={"new-game-menu"}
+        onMouseLeave={handleMouseLeave}
+        data-testid={"new-game-menu"}
+      >
+        <div className={"select-text"}>difficulty:</div>
+        <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Easy}
+          size={newGameSize}
         />
-        <NewGameMenuItem
+        <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Medium}
+          size={newGameSize}
         />
-        <NewGameMenuItem
+        <NewGameDifficulty
           startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Hard}
+          size={newGameSize}
         />
+        <legend className={"select-text"}>size:</legend>
+        <fieldset className={"new-game-size-radio"}>
+          <NewGameSizeRadio
+            newGameSize={newGameSize}
+            setNewGameSize={setNewGameSize}
+            sudokuSize={SudokuSize.Four}
+          />
+          <NewGameSizeRadio
+            newGameSize={newGameSize}
+            setNewGameSize={setNewGameSize}
+            sudokuSize={SudokuSize.Nine}
+          />
+          <NewGameSizeRadio
+            newGameSize={newGameSize}
+            setNewGameSize={setNewGameSize}
+            sudokuSize={SudokuSize.Sixteen}
+          />
+        </fieldset>
       </div>
     </div>
   );

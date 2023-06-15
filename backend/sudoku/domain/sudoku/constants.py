@@ -12,6 +12,11 @@ NUMBER_OF_CLUES_FOR_SIZE = {
         constants.SudokuDifficulty.MEDIUM: 45,
         constants.SudokuDifficulty.HARD: 35,
     },
+    constants.SudokuSize.SIXTEEN: {
+        constants.SudokuDifficulty.EASY: 160,
+        constants.SudokuDifficulty.MEDIUM: 130,
+        constants.SudokuDifficulty.HARD: 100,
+    },
 }
 
 GENERATION_TIMEOUT_SECONDS = 3

@@ -1,4 +1,4 @@
-import { SudokuDifficulty } from "../../utils/constants";
+import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
 import { APIClient } from "./useAPI";
 
 const frontendAPIKey = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%";
@@ -47,11 +47,15 @@ export default class RestAPIClient implements APIClient {
       });
   }
 
-  async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
+  async createNextGame(
+    difficulty: SudokuDifficulty,
+    size: SudokuSize
+  ): Promise<Game> {
     /** Get a new game for the active player. */
     const payload = {
       ip_address: this.playerIpAddress,
       difficulty: difficulty,
+      size: size,
     };
     const absoluteUrl = baseUrl + RestAPIEndpoint.NextGame;
     return this.postRequest(absoluteUrl, payload)

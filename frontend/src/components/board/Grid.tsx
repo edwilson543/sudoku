@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react";
 
-import CellRow from "./CellRow";
+import Cell from "./Cell";
 
 type GridProps = {
   sudoku: Sudoku;
@@ -20,24 +20,32 @@ export default function Grid({
   isSolved,
 }: GridProps) {
   /** The grid of cells in a game of sudoku. */
+  const indexes = [...Array(sudoku.size).keys()];
   return (
-    <div className={"grid"}>
-      {sudoku.problem.map(
-        (problemRow: Array<number | null>, rowIndex: number) => {
+    <div className={"grid"} data-testid={"grid"}>
+      {indexes.map((rowIndex: number) => {
+        const row = indexes.map((colIndex: number) => {
+          const cellKey = rowIndex * sudoku.size + colIndex;
           return (
-            <CellRow
-              key={rowIndex}
+            <Cell
+              key={cellKey}
               sudoku={sudoku}
+              move={moves[rowIndex][colIndex]}
               rowIndex={rowIndex}
-              rowMoves={moves[rowIndex]}
+              columnIndex={colIndex}
               activeCell={activeCell}
               setActiveCell={setActiveCell}
               validationIsOn={validationIsOn}
               isSolved={isSolved}
             />
           );
-        }
-      )}
+        });
+        return (
+          <div key={rowIndex} className={"cell-row"}>
+            {row}
+          </div>
+        );
+      })}
     </div>
   );
 }

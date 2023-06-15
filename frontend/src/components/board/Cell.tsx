@@ -43,31 +43,34 @@ export default function Cell({
   function getClassName(): string {
     let className = "cell";
     if (isSolved) {
-      className += " cell-solved";
-      return className;
+      return className + " cell-solved";
     }
     if (!isClueCell) {
       className += " game-cell";
     }
     if (validationIsOn && cellValue && cellValue !== solutionValue) {
-      className += " game-cell-invalid";
+      return className + " game-cell-incorrect";
     }
     if (activeCell.row === rowIndex && activeCell.column === columnIndex) {
-      className += " active-cell";
+      return className + " active-cell";
     } else if (
       activeCell.row === rowIndex ||
       activeCell.column === columnIndex ||
       activeCell.tile === tileIndex
     ) {
-      className += " highlighted-cell";
+      return className + " highlighted-cell";
     } else if (activeCell.value === cellValue && cellValue) {
-      className += " highlighted-cell-value";
+      return className + " highlighted-cell-value";
     }
     return className;
   }
 
   return (
-    <div className={getClassName()} onClick={handleClick}>
+    <div
+      className={getClassName()}
+      onClick={handleClick}
+      data-testid={"row-" + rowIndex + "-column-" + columnIndex}
+    >
       {cellValue ?? ""}
     </div>
   );

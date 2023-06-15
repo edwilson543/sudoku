@@ -1,10 +1,19 @@
 import activeGameData from "../../data/activeGameData.json";
-import { SudokuDifficulty } from "../../../utils/constants";
-import newGameData from "../../data/newGameData.json";
+import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
+import newHardGame from "../../data/newHardGame.json";
+import newEasyGame from "../../data/newEasyGame.json";
+import newSizeFourGame from "../../data/newSizeFourGame.json";
 import { APIClient } from "../useAPI";
 
 export default class RestAPIClient implements APIClient {
   /** Mock API client used for testing. */
+
+  private playerIpAddress: string;
+
+  constructor(playerIpAddress: string) {
+    // Match the signature of the actual REST client
+    this.playerIpAddress = playerIpAddress;
+  }
 
   // API calls
   async getOrCreateActiveGame(): Promise<Game> {
@@ -19,9 +28,17 @@ export default class RestAPIClient implements APIClient {
     });
   }
 
-  async createNextGame(difficulty: SudokuDifficulty): Promise<Game> {
+  async createNextGame(
+    difficulty: SudokuDifficulty,
+    size: SudokuSize
+  ): Promise<Game> {
     /** Load a dummy next game from the filesystem. */
-    difficulty; // To appease ESLint.
+    let newGameData = newHardGame;
+    if (size === SudokuSize.Four) {
+      newGameData = newSizeFourGame;
+    } else if (difficulty === SudokuDifficulty.Easy) {
+      newGameData = newEasyGame;
+    }
     return new Promise(function (resolve, reject) {
       resolve({
         sudoku: newGameData.sudoku,

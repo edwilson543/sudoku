@@ -3,13 +3,9 @@ import React, { useState, useMemo, SetStateAction } from "react";
 import Grid from "./board/Grid";
 import useAPI from "../services/apiClient/useAPI";
 import ControlPanel from "./controls/ControlPanel";
+import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
-import { MoveType, SudokuDifficulty } from "../utils/constants";
-
-type GameProps = {
-  activeGame: Game;
-  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
-};
+import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -20,7 +16,17 @@ const initialActiveCell = {
   isClueCell: null,
 };
 
-export default function Game({ activeGame, setActiveGame }: GameProps) {
+type GameProps = {
+  activeGame: Game;
+  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
+  toggleDarkMode: () => void;
+};
+
+export default function Game({
+  activeGame,
+  setActiveGame,
+  toggleDarkMode,
+}: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
   // Store the active cell (i.e. the cell the user most recently clicked)
   const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
@@ -33,7 +39,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
   // Transform the moves array into a grid only showing the currently active moves
   const movesHistory = useMoves();
   const movesGrid = useMemo(() => {
-    return structureMovesAsGrid(sudoku, movesHistory);
+    return structureMovesAsGrid(sudoku.size, movesHistory);
   }, [movesHistory, sudoku]);
 
   // Check if the sudoku has been solved
@@ -44,7 +50,9 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
   const movesDispatch = useMovesDispatch();
   const restClient = useAPI();
 
-  function startNewGame(difficulty: SudokuDifficulty): void {
+  const sudokuRank = activeGame ? `${Math.sqrt(activeGame.sudoku.size)}` : null;
+
+  function startNewGame(difficulty: SudokuDifficulty, size: SudokuSize): void {
     /** Start a new game, at the player's discretion */
     // Clear all moves held in state since they were for the old game
     movesDispatch({
@@ -53,7 +61,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 
     // Ask for a new game from the API, and set the active game as this
     restClient
-      .createNextGame(difficulty)
+      .createNextGame(difficulty, size)
       .then((newGame) => setActiveGame(newGame));
 
     // Clear the currently active cell
@@ -61,9 +69,12 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
   }
 
   return (
-    <div className={"game-container"}>
-      <div className={"game-info"}>
-        difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+    <div className={"game-container"} data-sudoku-rank={sudokuRank}>
+      <div className={"game-info-container"}>
+        <div className={"game-difficulty"}>
+          difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+        </div>
+        <ColourThemeToggle toggleDarkMode={toggleDarkMode} />
       </div>
       <div className={"game"}>
         <Grid
@@ -89,7 +100,7 @@ export default function Game({ activeGame, setActiveGame }: GameProps) {
 }
 
 function structureMovesAsGrid(
-  sudoku: Sudoku,
+  sudokuSize: number,
   movesHistory: Array<MoveDetail>
 ): Array<Array<number | null>> {
   /** Convert the move history held as an array into the current board state
@@ -100,8 +111,8 @@ function structureMovesAsGrid(
    */
   // Create empty grid (an array of arrays representing the rows)
   const rows = [];
-  for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
-    rows.push(new Array(sudoku.size).fill(null));
+  for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
+    rows.push(new Array(sudokuSize).fill(null));
   }
 
   // Insert each move into the grid

@@ -1,22 +1,51 @@
 :root {
   /* Background colours */
+  --background-primary: white;
+  --background-secondary: #e6ebf2;
+
   --background-cell-active: #79b9c9;
   --background-cell-highlighted: #cfe1e6;
   --background-cell-value-highlighted: #abc3c9;
-  --background-cell-invalid: #db9194;
+  --background-cell-incorrect: #db9194;
   --background-cell-solved: #bcebc8;
 
-  --background-control: #e6ebf2;
-  --background-control-hover: #d3dceb;
-  --background-new-game: #1a55ba;
-  --background-new-game-hover: #154596;
+  --button-primary: #e6ebf2;
+  --button-primary-hover: #d3dceb;
+  --button-secondary: #1a55ba;
+  --button-secondary-hover: #154596;
 
   /* Border colours */
-  --border-black: black;
-  --border-grey: grey;
+  --border-primary: black;
+  --border-secondary: grey;
 
   /* Font colours */
-  --font-black: black;
-  --font-dark-blue: #1a55ba;
-  --font-grey-blue: #29354a;
+  --font-primary: black;
+  --font-secondary: #1a55ba;
+  --font-tertiary: white;
+}
+
+[data-theme="dark"] {
+  /* Background colours */
+  --background-primary: #141414;
+  --background-secondary: #2b2b2b;
+
+  --background-cell-active: #6872a3;
+  --background-cell-highlighted: #343a59;
+  --background-cell-value-highlighted: #333b63;
+  --background-cell-incorrect: #8a4346;
+  --background-cell-solved: #465e4c;
+
+  --button-primary: #6b6b6b;
+  --button-primary-hover: #7a7a7a;
+  --button-secondary: var(--button-primary);
+  --button-secondary-hover: var(--button-primary-hover);
+
+  /* Border colours */
+  --border-primary: white; /* TODO */
+  --border-secondary: #c7c8c9;
+
+  /* Font colours */
+  --font-primary: white;
+  --font-secondary: #f7f5d0;
+  --font-tertiary: var(--font-secondary);
 }
