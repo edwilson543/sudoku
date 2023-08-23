@@ -11,7 +11,7 @@ type Move = {
   row: number;
   column: number;
   value: number | null;
-  is_undone: boolean;
+  isUndone: boolean;
 };
 
 type ActiveCell = {
@@ -23,7 +23,7 @@ type ActiveCell = {
 };
 
 export type Game = {
-  gameId: number;
+  game_id: number;
   sudoku: Sudoku;
   moves: Move[];
 };

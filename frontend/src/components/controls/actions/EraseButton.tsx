@@ -18,7 +18,7 @@ export default function EraseButton({
   /** Button to erase the move in the active cell */
   const movesDispatch = useMovesDispatch();
   const moves = useMoves();
-  const restClient = useAPI();
+  // const restClient = useAPI();
   const isDisabled =
     // The game is over
     isSolved ||
@@ -37,7 +37,7 @@ export default function EraseButton({
     });
 
     // Record the move in the backend
-    restClient.makeMove(moves.length, activeCell.row, activeCell.column, null);
+    // restClient.makeMove(moves.length, activeCell.row, activeCell.column, null);
   }
 
   return (

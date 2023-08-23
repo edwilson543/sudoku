@@ -6,6 +6,7 @@ import ControlPanel from "./controls/ControlPanel";
 import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
+import { useGameMachine } from "../machines/game";
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -17,17 +18,20 @@ const initialActiveCell = {
 };
 
 type GameProps = {
-  activeGame: Game;
-  setActiveGame: React.Dispatch<SetStateAction<Game | null>>;
   toggleDarkMode: () => void;
+  ipAddress: string;
 };
 
-export default function Game({
-  activeGame,
-  setActiveGame,
-  toggleDarkMode,
-}: GameProps) {
+export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
+  const [current, send] = useGameMachine({ ipAddress: ipAddress });
+  const activeGame = {
+    game_id: current.context.game.game_id,
+    sudoku: current.context.game.sudoku,
+    moves: current.context.game.moves,
+    started_at: "",
+  };
+
   // Store the active cell (i.e. the cell the user most recently clicked)
   const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
 
@@ -48,7 +52,7 @@ export default function Game({
   }, [movesGrid, sudoku]);
 
   const movesDispatch = useMovesDispatch();
-  const restClient = useAPI();
+  // const restClient = useAPI();
 
   const sudokuRank = activeGame ? `${Math.sqrt(activeGame.sudoku.size)}` : null;
 
@@ -60,9 +64,9 @@ export default function Game({
     });
 
     // Ask for a new game from the API, and set the active game as this
-    restClient
-      .createNextGame(difficulty, size)
-      .then((newGame) => setActiveGame(newGame));
+    // restClient
+    //   .createNextGame(difficulty, size)
+    //   .then((newGame) => setActiveGame(newGame));
 
     // Clear the currently active cell
     setActiveCell(initialActiveCell);

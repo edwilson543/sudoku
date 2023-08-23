@@ -8,15 +8,17 @@ import RestAPIClient from "../../services/apiClient/RestAPIClient";
 const getOrCreateActiveGame = (context: types.ContextProps) => {
   const apiClient = new RestAPIClient(context.ipAddress);
   return apiClient.getOrCreateActiveGame();
+  // TODO -> error handling
 };
 
 export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
   createMachine<types.ContextProps, types.EventProps>({
     id: "game",
     initial: types.GameState.LOADING,
+    predictableActionArguments: true,
     context: { ...initialContext, ipAddress: ipAddress },
     states: {
-      loading: {
+      [types.GameState.LOADING]: {
         invoke: {
           id: "active-game",
           src: getOrCreateActiveGame,
@@ -28,7 +30,7 @@ export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
           },
         },
       },
-      playing: {
+      [types.GameState.PLAYING]: {
         on: {
           [types.GameEvent.MAKE_MOVE]: {
             actions: [

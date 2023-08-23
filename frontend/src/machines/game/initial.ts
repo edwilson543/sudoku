@@ -1,6 +1,6 @@
 export const initialContext = {
   game: {
-    gameId: 0,
+    game_id: 0,
     sudoku: {
       problem: [],
       solution: [],

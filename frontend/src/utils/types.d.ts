@@ -11,7 +11,6 @@ interface Sudoku {
   solution: Array<Array<number>>;
   difficulty: string;
   size: number;
-  number_of_missing_values: number;
 }
 
 interface ActiveCell {

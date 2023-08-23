@@ -19,7 +19,7 @@ export default function NumberInput({
 }: NumberInputProps) {
   const movesDispatch = useMovesDispatch();
   const moves = useMoves();
-  const restClient = useAPI();
+  // const restClient = useAPI();
   const isDisabled =
     // The player hasn't clicked on a cell yet
     activeCell.row === -1 ||
@@ -48,7 +48,7 @@ export default function NumberInput({
     });
 
     // Record the move in the backend
-    restClient.makeMove(moves.length, activeCell.row, activeCell.column, value);
+    // restClient.makeMove(moves.length, activeCell.row, activeCell.column, value);
   }
 
   return (

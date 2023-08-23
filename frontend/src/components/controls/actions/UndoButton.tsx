@@ -14,7 +14,7 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
   /** Button to undo the previous move (be it an entry or an erasing) */
   const moves = useMoves();
   const movesDispatch = useMovesDispatch();
-  const restClient = useAPI();
+  // const restClient = useAPI();
 
   function handleClick(): void {
     const moveNumberToUndo = getMoveNumberToUndo(moves);
@@ -24,7 +24,7 @@ export default function UndoButton({ isSolved }: UndoButtonProps) {
         moveNumberToUndo: moveNumberToUndo,
       });
       // Record the undo in the backend
-      restClient.undoMove(moveNumberToUndo);
+      // restClient.undoMove(moveNumberToUndo);
     }
   }
 
