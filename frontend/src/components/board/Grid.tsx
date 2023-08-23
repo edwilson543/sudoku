@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 import Cell from "./Cell";
 
@@ -6,7 +6,7 @@ type GridProps = {
   sudoku: Sudoku;
   moves: Array<Array<number | null>>;
   activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
   isSolved: boolean;
 };

@@ -1,11 +1,11 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 import NumberInput from "./NumberInput";
 
 type NumberInputPanelProps = {
   sudokuSize: number;
   activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  setActiveCell: (cell: ActiveCell) => void;
   isSolved: boolean;
 };
 

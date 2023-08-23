@@ -8,8 +8,11 @@ import RestAPIClient from "../../services/apiClient/RestAPIClient";
 const getOrCreateActiveGame = (context: types.ContextProps) => {
   const apiClient = new RestAPIClient(context.ipAddress);
   return apiClient.getOrCreateActiveGame();
-  // TODO -> error handling
 };
+
+// TODO -> split actions / services out
+// TODO -> active / inactive playing state?
+// TODO -> split game state into playing_active and playing_inactive
 
 export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
   createMachine<types.ContextProps, types.EventProps>({
@@ -27,6 +30,7 @@ export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
             actions: assign({
               game: (context, event) => event.data,
             }),
+            // TODO -> onError
           },
         },
       },
@@ -43,7 +47,18 @@ export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
               }),
             ],
           },
+          [types.GameEvent.SET_ACTIVE_CELL]: {
+            actions: [
+              assign({
+                // TODO -> `Pick`
+                activeCell: (_, event: types.SetActiveCellEvent) => {
+                  return event.cell;
+                },
+              }),
+            ],
+          },
         },
       },
+      [types.GameState.COMPLETED]: {},
     },
   });

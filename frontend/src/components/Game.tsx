@@ -1,12 +1,12 @@
 import React, { useState, useMemo, SetStateAction } from "react";
 
 import Grid from "./board/Grid";
-import useAPI from "../services/apiClient/useAPI";
 import ControlPanel from "./controls/ControlPanel";
 import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
 import { useGameMachine } from "../machines/game";
+import { GameEvent } from "../machines/game/types";
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -31,9 +31,6 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
     moves: current.context.game.moves,
     started_at: "",
   };
-
-  // Store the active cell (i.e. the cell the user most recently clicked)
-  const [activeCell, setActiveCell] = useState<ActiveCell>(initialActiveCell);
 
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState<boolean>(true);
@@ -63,14 +60,13 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
       type: MoveType.ClearAll,
     });
 
-    // Ask for a new game from the API, and set the active game as this
-    // restClient
-    //   .createNextGame(difficulty, size)
-    //   .then((newGame) => setActiveGame(newGame));
-
     // Clear the currently active cell
-    setActiveCell(initialActiveCell);
+    setActiveCell(initialActiveCell); // todo -> make a clear active cell event
   }
+
+  const setActiveCell = (cell: ActiveCell): void => {
+    send(GameEvent.SET_ACTIVE_CELL, { cell });
+  };
 
   return (
     <div className={"game-container"} data-sudoku-rank={sudokuRank}>
@@ -84,7 +80,7 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
         <Grid
           sudoku={sudoku}
           moves={movesGrid}
-          activeCell={activeCell}
+          activeCell={current.context.activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
           isSolved={isSolved}
@@ -92,7 +88,7 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
         <ControlPanel
           sudokuSize={sudoku.size}
           startNewGame={startNewGame}
-          activeCell={activeCell}
+          activeCell={current.context.activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}

@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 import { MoveType } from "../../../utils/constants";
 import { useMovesDispatch, useMoves } from "../../../context/movesContext";
@@ -7,7 +7,7 @@ import useAPI from "../../../services/apiClient/useAPI";
 type NumberInputProps = {
   value: number;
   activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  setActiveCell: (cell: ActiveCell) => void;
   isSolved: boolean;
 };
 

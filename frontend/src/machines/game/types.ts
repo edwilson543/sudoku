@@ -39,6 +39,7 @@ export type ContextProps = {
 export enum GameEvent {
   MAKE_MOVE = "MAKE_MOVE",
   GAME_COMPLETE = "GAME_COMPLETE",
+  SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
 }
 
 export type MakeMoveEvent = {
@@ -46,11 +47,17 @@ export type MakeMoveEvent = {
   move: Move;
 };
 
-export type EventProps = any;
+export type SetActiveCellEvent = {
+  type: GameEvent.SET_ACTIVE_CELL;
+  cell: ActiveCell;
+};
+
+export type EventProps = MakeMoveEvent | SetActiveCellEvent;
 
 // States
 
 export enum GameState {
   LOADING = "LOADING",
   PLAYING = "PLAYING",
+  COMPLETED = "COMPLETED",
 }

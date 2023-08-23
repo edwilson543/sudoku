@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 type CellProps = {
   sudoku: Sudoku;
@@ -6,7 +6,7 @@ type CellProps = {
   rowIndex: number;
   columnIndex: number;
   activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
   isSolved: boolean;
 };

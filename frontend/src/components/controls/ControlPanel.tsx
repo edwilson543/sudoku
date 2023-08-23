@@ -9,7 +9,7 @@ type ControlPanelProps = {
   sudokuSize: number;
   startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
+  setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
   setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
   isSolved: boolean;
