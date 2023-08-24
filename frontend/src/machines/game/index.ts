@@ -1,5 +1,5 @@
 import { useMachine } from "@xstate/react";
-import { gameMachine } from "./config";
+import { gameMachine } from "./machine";
 
 export const useGameMachine = ({ ipAddress }: { ipAddress: string }) => {
   // TODO -> useActor

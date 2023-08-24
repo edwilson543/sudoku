@@ -28,23 +28,31 @@ export type Game = {
   moves: Move[];
 };
 
-export type ContextProps = {
+export type GameContextProps = {
   game: Game;
   activeCell: ActiveCell;
   ipAddress: string;
 };
 
+// Actions
+
+export enum GameAction {
+  MAKE_MOVE = "MAKE_MOVE",
+  SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
+  SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
+}
+
 // Events
 
 export enum GameEvent {
   MAKE_MOVE = "MAKE_MOVE",
-  GAME_COMPLETE = "GAME_COMPLETE",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
+  SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
 }
 
-export type MakeMoveEvent = {
-  type: GameEvent.MAKE_MOVE;
-  move: Move;
+export type SetActiveGameEvent = {
+  type: GameEvent.SET_ACTIVE_GAME;
+  data: Game;
 };
 
 export type SetActiveCellEvent = {
@@ -52,7 +60,15 @@ export type SetActiveCellEvent = {
   cell: ActiveCell;
 };
 
-export type EventProps = MakeMoveEvent | SetActiveCellEvent;
+export type MakeMoveEvent = {
+  type: GameEvent.MAKE_MOVE;
+  move: Move;
+};
+
+export type GameEventProps =
+  | SetActiveGameEvent
+  | SetActiveCellEvent
+  | MakeMoveEvent;
 
 // States
 
