@@ -9,8 +9,6 @@ export const gameActions: ActionFunctionMap<GameContextProps, GameEventProps> =
   {
     [GameAction.SET_ACTIVE_GAME]: assign({
       game: (_, event: types.SetActiveGameEvent) => {
-        console.log("EVENT: ", event);
-        console.log("EVENT DATA: ", event.data);
         return event.data;
       },
     }),

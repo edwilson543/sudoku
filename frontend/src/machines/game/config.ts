@@ -1,19 +1,13 @@
 import { MachineConfig } from "xstate";
 
 import * as types from "./types";
-import { initialContext } from "./initial";
 import { GameAction, GameContextProps, GameEventProps } from "./types";
 import { gameServices } from "./gameServices";
 
-export const config = ({
-  ipAddress,
-}: {
-  ipAddress: string;
-}): MachineConfig<GameContextProps, any, GameEventProps> => ({
+export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
   id: "game",
   initial: types.GameState.LOADING,
   predictableActionArguments: true,
-  context: { ...initialContext, ipAddress: ipAddress },
   states: {
     [types.GameState.LOADING]: {
       invoke: {
@@ -38,4 +32,4 @@ export const config = ({
     },
     [types.GameState.COMPLETED]: {},
   },
-});
+};

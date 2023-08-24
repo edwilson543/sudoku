@@ -7,6 +7,7 @@ import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
 import { useGameMachine } from "../machines/game";
 import { GameEvent } from "../machines/game/types";
+import { useActor } from "@xstate/react";
 
 const initialActiveCell = {
   // The initial active cell is chosen as one that does not exist
@@ -24,7 +25,8 @@ type GameProps = {
 
 export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
-  const [current, send] = useGameMachine({ ipAddress: ipAddress });
+  const gameMachine = useGameMachine({ ipAddress });
+  const [current, send] = useActor(gameMachine);
   const activeGame = {
     game_id: current.context.game.game_id,
     sudoku: current.context.game.sudoku,

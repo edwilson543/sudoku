@@ -3,9 +3,15 @@ import * as types from "./types";
 import { config } from "./config";
 import { gameActions } from "./gameActions";
 import { gameServices } from "./gameServices";
+import { initialContext } from "./initial";
+import { useInterpret } from "@xstate/react";
 
-export const gameMachine = ({ ipAddress }: { ipAddress: string }) =>
-  createMachine<types.GameContextProps, types.GameEventProps>(
-    config({ ipAddress: ipAddress }),
-    { actions: gameActions, services: gameServices }
-  );
+export const useGameMachine = ({ ipAddress }: { ipAddress: string }) => {
+  const gameMachine = createMachine<
+    types.GameContextProps,
+    types.GameEventProps
+  >(config, { actions: gameActions, services: gameServices });
+  return useInterpret(gameMachine, {
+    context: { ...initialContext, ipAddress: ipAddress },
+  });
+};
