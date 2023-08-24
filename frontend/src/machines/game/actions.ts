@@ -1,6 +1,7 @@
 import { ActionFunctionMap, assign } from "xstate";
 import { GameAction, GameContextProps, GameEventProps } from "./types";
 import * as types from "./types";
+import { initialActiveCell } from "./initial";
 
 // TODO -> pick
 // TODO -> condition for some actions
@@ -10,6 +11,9 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
     game: (_, event: types.SetActiveGameEvent) => {
       return event.data;
     },
+  }),
+  [GameAction.CLEAR_ACTIVE_CELL]: assign({
+    activeCell: () => initialActiveCell,
   }),
   [GameAction.SET_ACTIVE_CELL]: assign({
     activeCell: (_, event: types.SetActiveCellEvent) => {

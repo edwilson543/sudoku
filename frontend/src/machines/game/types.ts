@@ -38,6 +38,7 @@ export type GameContextProps = {
 
 export enum GameAction {
   MAKE_MOVE = "MAKE_MOVE",
+  CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
 }
@@ -46,6 +47,7 @@ export enum GameAction {
 
 export enum GameEvent {
   MAKE_MOVE = "MAKE_MOVE",
+  CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
 }
@@ -60,6 +62,10 @@ export type SetActiveCellEvent = {
   cell: ActiveCell;
 };
 
+export type ClearActiveCellEvent = {
+  type: GameEvent.CLEAR_ACTIVE_CELL;
+};
+
 export type MakeMoveEvent = {
   type: GameEvent.MAKE_MOVE;
   move: Move;
@@ -67,6 +73,7 @@ export type MakeMoveEvent = {
 
 export type GameEventProps =
   | SetActiveGameEvent
+  | ClearActiveCellEvent
   | SetActiveCellEvent
   | MakeMoveEvent;
 
