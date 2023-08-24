@@ -30,17 +30,11 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
   const [current, send] = useActor(gameMachine);
 
   const ready = !current.matches(GameState.LOADING);
-  const activeGame = {
-    game_id: current.context.game.game_id,
-    sudoku: current.context.game.sudoku,
-    moves: current.context.game.moves,
-    started_at: "",
-  };
 
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState<boolean>(true);
 
-  const sudoku = activeGame.sudoku;
+  const sudoku = current.context.game.sudoku;
 
   // Transform the moves array into a grid only showing the currently active moves
   const movesHistory = useMoves();
@@ -56,7 +50,7 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
   const movesDispatch = useMovesDispatch();
   // const restClient = useAPI();
 
-  const sudokuRank = activeGame ? `${Math.sqrt(activeGame.sudoku.size)}` : null;
+  const sudokuRank = `${Math.sqrt(sudoku.size)}`;
 
   function startNewGame(difficulty: SudokuDifficulty, size: SudokuSize): void {
     /** Start a new game, at the player's discretion */
