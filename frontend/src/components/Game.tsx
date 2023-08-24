@@ -1,4 +1,4 @@
-import React, { useState, useMemo, SetStateAction } from "react";
+import React, { useState, useMemo } from "react";
 
 import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
@@ -6,7 +6,7 @@ import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useMoves, useMovesDispatch } from "../context/movesContext";
 import { MoveType, SudokuDifficulty, SudokuSize } from "../utils/constants";
 import { useGameMachine } from "../machines/game";
-import { GameEvent } from "../machines/game/types";
+import { GameEvent, GameState } from "../machines/game/types";
 import { useActor } from "@xstate/react";
 import { GameMachineContext } from "../context/context";
 
@@ -28,6 +28,8 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
   const gameMachine = useGameMachine({ ipAddress });
   const [current, send] = useActor(gameMachine);
+
+  const ready = !current.matches(GameState.LOADING);
   const activeGame = {
     game_id: current.context.game.game_id,
     sudoku: current.context.game.sudoku,
@@ -73,33 +75,35 @@ export default function Game({ toggleDarkMode, ipAddress }: GameProps) {
 
   return (
     <GameMachineContext.Provider value={gameMachine}>
-      <div className={"game-container"} data-sudoku-rank={sudokuRank}>
-        <div className={"game-info-container"}>
-          <div className={"game-difficulty"}>
-            difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+      {ready && (
+        <div className={"game-container"} data-sudoku-rank={sudokuRank}>
+          <div className={"game-info-container"}>
+            <div className={"game-difficulty"}>
+              difficulty: <b>{sudoku.difficulty.toLowerCase()}</b>
+            </div>
+            <ColourThemeToggle toggleDarkMode={toggleDarkMode} />
           </div>
-          <ColourThemeToggle toggleDarkMode={toggleDarkMode} />
+          <div className={"game"}>
+            <Grid
+              sudoku={sudoku}
+              moves={movesGrid}
+              activeCell={current.context.activeCell}
+              setActiveCell={setActiveCell}
+              validationIsOn={validationIsOn}
+              isSolved={isSolved}
+            />
+            <ControlPanel
+              sudokuSize={sudoku.size}
+              startNewGame={startNewGame}
+              activeCell={current.context.activeCell}
+              setActiveCell={setActiveCell}
+              validationIsOn={validationIsOn}
+              setValidationIsOn={setValidationIsOn}
+              isSolved={isSolved}
+            />
+          </div>
         </div>
-        <div className={"game"}>
-          <Grid
-            sudoku={sudoku}
-            moves={movesGrid}
-            activeCell={current.context.activeCell}
-            setActiveCell={setActiveCell}
-            validationIsOn={validationIsOn}
-            isSolved={isSolved}
-          />
-          <ControlPanel
-            sudokuSize={sudoku.size}
-            startNewGame={startNewGame}
-            activeCell={current.context.activeCell}
-            setActiveCell={setActiveCell}
-            validationIsOn={validationIsOn}
-            setValidationIsOn={setValidationIsOn}
-            isSolved={isSolved}
-          />
-        </div>
-      </div>
+      )}
     </GameMachineContext.Provider>
   );
 }
