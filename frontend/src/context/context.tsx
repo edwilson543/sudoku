@@ -10,5 +10,5 @@ export const GameMachineContext = createContext<
 export const useInterpretedGameContext = () => {
   const gameMachine = useContext(GameMachineContext);
   const [current, send] = useActor(gameMachine);
-  return { state: current.context, send };
+  return { current, send };
 };

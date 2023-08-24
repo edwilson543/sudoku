@@ -1,5 +1,7 @@
 // Context
 
+import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
+
 type Sudoku = {
   problem: Array<Array<number | null>>;
   solution: Array<Array<number>>;
@@ -50,6 +52,7 @@ export enum GameEvent {
   CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
+  LOAD_NEW_GAME = "LOAD_NEW_GAME",
 }
 
 export type SetActiveGameEvent = {
@@ -71,16 +74,24 @@ export type MakeMoveEvent = {
   move: Move;
 };
 
+export type LoadNewGameEvent = {
+  type: GameEvent.LOAD_NEW_GAME;
+  difficulty: SudokuDifficulty;
+  size: SudokuSize;
+};
+
 export type GameEventProps =
   | SetActiveGameEvent
   | ClearActiveCellEvent
   | SetActiveCellEvent
-  | MakeMoveEvent;
+  | MakeMoveEvent
+  | LoadNewGameEvent;
 
 // States
 
 export enum GameState {
-  LOADING = "LOADING",
+  LOADING_ACTIVE_GAME = "LOADING_ACTIVE_GAME",
+  LOADING_NEW_GAME = "LOADING_NEW_GAME",
   PLAYING = "PLAYING",
   COMPLETED = "COMPLETED",
 }

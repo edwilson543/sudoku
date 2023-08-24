@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Game from "./components/Game";
+import { GameWrapper } from "./components/Game";
 import getPlayerIpAddress from "./services/__mocks__/profile";
 import { ColourTheme } from "./utils/constants";
 
@@ -25,7 +25,10 @@ export default function App() {
       <h1 className={"headstrap"}>eduko</h1>
       {playerIpAddress && (
         <div className={"page-content"}>
-          <Game ipAddress={playerIpAddress} toggleDarkMode={toggleDarkMode} />
+          <GameWrapper
+            ipAddress={playerIpAddress}
+            toggleDarkMode={toggleDarkMode}
+          />
         </div>
       )}
     </div>
