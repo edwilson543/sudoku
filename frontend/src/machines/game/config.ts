@@ -2,7 +2,7 @@ import { MachineConfig } from "xstate";
 
 import * as types from "./types";
 import { GameAction, GameContextProps, GameEventProps } from "./types";
-import { gameServices } from "./gameServices";
+import { services } from "./services";
 
 export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
   id: "game",
@@ -12,7 +12,7 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
     [types.GameState.LOADING]: {
       invoke: {
         id: "active-game",
-        src: gameServices.getOrCreateActiveGame,
+        src: services.getOrCreateActiveGame,
         onDone: {
           target: types.GameState.PLAYING,
           actions: [GameAction.SET_ACTIVE_GAME],
