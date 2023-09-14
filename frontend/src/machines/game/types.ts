@@ -82,7 +82,9 @@ export type SetActiveCellEvent = {
 
 export type MakeMoveEvent = {
   type: GameEvent.MAKE_MOVE;
-  move: Move;
+  row: number;
+  column: number;
+  value: number;
 };
 
 export type EraseMoveEvent = {

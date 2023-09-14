@@ -25,12 +25,9 @@ export default function NumberInput({ value, isSolved }: NumberInputProps) {
   function handleClick(): void {
     send({
       type: GameEvent.MAKE_MOVE,
-      move: {
-        row: activeCell.row,
-        column: activeCell.column,
-        value: value,
-        isUndone: false,
-      },
+      row: activeCell.row,
+      column: activeCell.column,
+      value: value,
     });
   }
 
