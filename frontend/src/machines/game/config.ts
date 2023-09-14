@@ -35,6 +35,7 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
       on: {
         [types.GameEvent.MAKE_MOVE]: {
           actions: [GameAction.MAKE_MOVE],
+          // TODO -> record move in the BE
         },
         [types.GameEvent.SET_ACTIVE_CELL]: {
           actions: [GameAction.SET_ACTIVE_CELL],

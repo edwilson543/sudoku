@@ -9,7 +9,6 @@ type ControlPanelProps = {
   sudokuSize: number;
   startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   activeCell: ActiveCell;
-  setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
   setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
   isSolved: boolean;
@@ -19,7 +18,6 @@ export default function ControlPanel({
   sudokuSize,
   startNewGame,
   activeCell,
-  setActiveCell,
   validationIsOn,
   setValidationIsOn,
   isSolved,
@@ -32,12 +30,7 @@ export default function ControlPanel({
         setValidationIsOn={setValidationIsOn}
         isSolved={isSolved}
       />
-      <NumberInputPanel
-        sudokuSize={sudokuSize}
-        activeCell={activeCell}
-        setActiveCell={setActiveCell}
-        isSolved={isSolved}
-      />
+      <NumberInputPanel sudokuSize={sudokuSize} isSolved={isSolved} />
       <NewGame isSolved={isSolved} startNewGame={startNewGame} />
     </div>
   );

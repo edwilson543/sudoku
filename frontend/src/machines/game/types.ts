@@ -48,11 +48,11 @@ export enum GameAction {
 // Events
 
 export enum GameEvent {
-  MAKE_MOVE = "MAKE_MOVE",
   CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
+  LOAD_NEW_GAME = "LOAD_NEW_GAME",
+  MAKE_MOVE = "MAKE_MOVE",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
-  LOAD_NEW_GAME = "LOAD_NEW_GAME",
 }
 
 export type SetActiveGameEvent = {

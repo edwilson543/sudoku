@@ -90,7 +90,6 @@ function Game({ toggleDarkMode }: GameProps) {
           sudokuSize={sudoku.size}
           startNewGame={startNewGame}
           activeCell={current.context.activeCell}
-          setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
           isSolved={isSolved}

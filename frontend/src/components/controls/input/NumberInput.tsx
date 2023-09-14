@@ -1,25 +1,17 @@
 import React from "react";
 
-import { MoveType } from "../../../utils/constants";
-import { useMovesDispatch, useMoves } from "../../../context/movesContext";
-import useAPI from "../../../services/apiClient/useAPI";
+import { useInterpretedGameContext } from "../../../context/context";
+import { GameEvent } from "../../../machines/game/types";
 
 type NumberInputProps = {
   value: number;
-  activeCell: ActiveCell;
-  setActiveCell: (cell: ActiveCell) => void;
   isSolved: boolean;
 };
 
-export default function NumberInput({
-  value,
-  activeCell,
-  setActiveCell,
-  isSolved,
-}: NumberInputProps) {
-  const movesDispatch = useMovesDispatch();
-  const moves = useMoves();
-  // const restClient = useAPI();
+export default function NumberInput({ value, isSolved }: NumberInputProps) {
+  const { current, send } = useInterpretedGameContext();
+  const activeCell = current.context.activeCell;
+
   const isDisabled =
     // The player hasn't clicked on a cell yet
     activeCell.row === -1 ||
@@ -31,24 +23,15 @@ export default function NumberInput({
     isSolved;
 
   function handleClick(): void {
-    movesDispatch({
-      type: MoveType.Create,
-      row: activeCell.row,
-      column: activeCell.column,
-      value: value,
+    send({
+      type: GameEvent.MAKE_MOVE,
+      move: {
+        row: activeCell.row,
+        column: activeCell.column,
+        value: value,
+        isUndone: false,
+      },
     });
-
-    // Need to update the value stored in the activeCell state
-    setActiveCell({
-      row: activeCell.row,
-      column: activeCell.column,
-      tile: activeCell.tile,
-      value: value,
-      isClueCell: activeCell.isClueCell,
-    });
-
-    // Record the move in the backend
-    // restClient.makeMove(moves.length, activeCell.row, activeCell.column, value);
   }
 
   return (

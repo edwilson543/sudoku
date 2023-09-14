@@ -23,8 +23,12 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
   [GameAction.MAKE_MOVE]: assign({
     game: (context, event: types.MakeMoveEvent) => ({
       ...context.game,
-      moves: [event.move, ...context.game.moves],
+      moves: [...context.game.moves, event.move],
     }),
+    // Need to update the activeCell's value of the activeCell state
+    activeCell: (context, event: types.MakeMoveEvent) => {
+      return { ...context.activeCell, value: event.move.value };
+    },
     // TODO -> conditionally transition to completed
   }),
 };

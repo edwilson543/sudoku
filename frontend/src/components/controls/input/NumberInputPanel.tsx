@@ -4,15 +4,11 @@ import NumberInput from "./NumberInput";
 
 type NumberInputPanelProps = {
   sudokuSize: number;
-  activeCell: ActiveCell;
-  setActiveCell: (cell: ActiveCell) => void;
   isSolved: boolean;
 };
 
 export default function NumberInputPanel({
   sudokuSize,
-  activeCell,
-  setActiveCell,
   isSolved,
 }: NumberInputPanelProps) {
   const sudokuRank = Math.sqrt(sudokuSize);
@@ -28,8 +24,6 @@ export default function NumberInputPanel({
             <NumberInput
               key={inputValue}
               value={inputValue}
-              activeCell={activeCell}
-              setActiveCell={setActiveCell}
               isSolved={isSolved}
             />
           );
