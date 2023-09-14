@@ -1,24 +1,19 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
-import { MoveType } from "../../../utils/constants";
-import { useMoves, useMovesDispatch } from "../../../context/movesContext";
-import useAPI from "../../../services/apiClient/useAPI";
+import { useInterpretedGameContext } from "../../../context/context";
+import { GameEvent } from "../../../machines/game/types";
 
 type EraseButtonProps = {
-  activeCell: ActiveCell;
   isSolved: boolean;
 };
 
-export default function EraseButton({
-  activeCell,
-  isSolved,
-}: EraseButtonProps) {
+export default function EraseButton({ isSolved }: EraseButtonProps) {
   /** Button to erase the move in the active cell */
-  const movesDispatch = useMovesDispatch();
-  const moves = useMoves();
-  // const restClient = useAPI();
+  const { current, send } = useInterpretedGameContext();
+  const activeCell = current.context.activeCell;
+
   const isDisabled =
     // The game is over
     isSolved ||
@@ -30,14 +25,11 @@ export default function EraseButton({
     !activeCell.value;
 
   function handleClick(): void {
-    movesDispatch({
-      type: MoveType.Erase,
+    send({
+      type: GameEvent.ERASE_MOVE,
       row: activeCell.row,
       column: activeCell.column,
     });
-
-    // Record the move in the backend
-    // restClient.makeMove(moves.length, activeCell.row, activeCell.column, null);
   }
 
   return (

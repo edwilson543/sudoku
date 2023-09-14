@@ -89,7 +89,6 @@ function Game({ toggleDarkMode }: GameProps) {
         <ControlPanel
           sudokuSize={sudoku.size}
           startNewGame={startNewGame}
-          activeCell={current.context.activeCell}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
           isSolved={isSolved}

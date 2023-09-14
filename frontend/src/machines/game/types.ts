@@ -39,40 +39,26 @@ export type GameContextProps = {
 // Actions
 
 export enum GameAction {
-  MAKE_MOVE = "MAKE_MOVE",
   CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
+  MAKE_MOVE = "MAKE_MOVE",
+  ERASE_MOVE = "ERASE_MOVE",
 }
 
 // Events
 
 export enum GameEvent {
-  CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
+  // Game loading
   LOAD_NEW_GAME = "LOAD_NEW_GAME",
-  MAKE_MOVE = "MAKE_MOVE",
-  SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
+  // Active cell
+  CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
+  SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
+  // Moves
+  MAKE_MOVE = "MAKE_MOVE",
+  ERASE_MOVE = "ERASE_MOVE",
 }
-
-export type SetActiveGameEvent = {
-  type: GameEvent.SET_ACTIVE_GAME;
-  data: Game;
-};
-
-export type SetActiveCellEvent = {
-  type: GameEvent.SET_ACTIVE_CELL;
-  cell: ActiveCell;
-};
-
-export type ClearActiveCellEvent = {
-  type: GameEvent.CLEAR_ACTIVE_CELL;
-};
-
-export type MakeMoveEvent = {
-  type: GameEvent.MAKE_MOVE;
-  move: Move;
-};
 
 export type LoadNewGameEvent = {
   type: GameEvent.LOAD_NEW_GAME;
@@ -80,12 +66,38 @@ export type LoadNewGameEvent = {
   size: SudokuSize;
 };
 
+export type SetActiveGameEvent = {
+  type: GameEvent.SET_ACTIVE_GAME;
+  data: Game;
+};
+
+export type ClearActiveCellEvent = {
+  type: GameEvent.CLEAR_ACTIVE_CELL;
+};
+
+export type SetActiveCellEvent = {
+  type: GameEvent.SET_ACTIVE_CELL;
+  cell: ActiveCell;
+};
+
+export type MakeMoveEvent = {
+  type: GameEvent.MAKE_MOVE;
+  move: Move;
+};
+
+export type EraseMoveEvent = {
+  type: GameEvent.ERASE_MOVE;
+  row: number;
+  column: number;
+};
+
 export type GameEventProps =
   | SetActiveGameEvent
   | ClearActiveCellEvent
   | SetActiveCellEvent
+  | LoadNewGameEvent
   | MakeMoveEvent
-  | LoadNewGameEvent;
+  | EraseMoveEvent;
 
 // States
 

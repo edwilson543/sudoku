@@ -31,4 +31,14 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
     },
     // TODO -> conditionally transition to completed
   }),
+  [GameAction.ERASE_MOVE]: assign({
+    game: (context, event: types.EraseMoveEvent) => ({
+      ...context.game,
+      moves: [
+        ...context.game.moves,
+        { row: event.row, column: event.column, value: null, isUndone: false },
+      ],
+    }),
+    // TODO -> maybe set activeCell value to null
+  }),
 };

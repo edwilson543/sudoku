@@ -8,7 +8,6 @@ import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
 type ControlPanelProps = {
   sudokuSize: number;
   startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
-  activeCell: ActiveCell;
   validationIsOn: boolean;
   setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
   isSolved: boolean;
@@ -17,7 +16,6 @@ type ControlPanelProps = {
 export default function ControlPanel({
   sudokuSize,
   startNewGame,
-  activeCell,
   validationIsOn,
   setValidationIsOn,
   isSolved,
@@ -25,7 +23,6 @@ export default function ControlPanel({
   return (
     <div className={"control-panel"}>
       <ActionPanel
-        activeCell={activeCell}
         validationIsOn={validationIsOn}
         setValidationIsOn={setValidationIsOn}
         isSolved={isSolved}

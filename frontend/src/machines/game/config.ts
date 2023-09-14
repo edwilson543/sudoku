@@ -33,15 +33,19 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
     },
     [types.GameState.PLAYING]: {
       on: {
-        [types.GameEvent.MAKE_MOVE]: {
-          actions: [GameAction.MAKE_MOVE],
-          // TODO -> record move in the BE
+        [types.GameEvent.LOAD_NEW_GAME]: {
+          target: types.GameState.LOADING_NEW_GAME,
         },
         [types.GameEvent.SET_ACTIVE_CELL]: {
           actions: [GameAction.SET_ACTIVE_CELL],
         },
-        [types.GameEvent.LOAD_NEW_GAME]: {
-          target: types.GameState.LOADING_NEW_GAME,
+        [types.GameEvent.MAKE_MOVE]: {
+          actions: [GameAction.MAKE_MOVE],
+          // TODO -> record move in the BE
+        },
+        [types.GameEvent.ERASE_MOVE]: {
+          actions: [GameAction.ERASE_MOVE],
+          // TODO -> record move in the BE
         },
       },
     },
