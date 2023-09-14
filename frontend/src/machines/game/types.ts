@@ -9,7 +9,7 @@ type Sudoku = {
   size: number;
 };
 
-type Move = {
+export type Move = {
   row: number;
   column: number;
   value: number | null;
@@ -39,11 +39,15 @@ export type GameContextProps = {
 // Actions
 
 export enum GameAction {
+  // Game loading
   CLEAR_ACTIVE_CELL = "CLEAR_ACTIVE_CELL",
+  // Active cell
   SET_ACTIVE_CELL = "SET_ACTIVE_CELL",
   SET_ACTIVE_GAME = "SET_ACTIVE_GAME",
+  // Moves
   MAKE_MOVE = "MAKE_MOVE",
   ERASE_MOVE = "ERASE_MOVE",
+  UNDO_MOVE = "UNDO_MOVE",
 }
 
 // Events
@@ -58,6 +62,7 @@ export enum GameEvent {
   // Moves
   MAKE_MOVE = "MAKE_MOVE",
   ERASE_MOVE = "ERASE_MOVE",
+  UNDO_MOVE = "UNDON_MOVE",
 }
 
 export type LoadNewGameEvent = {
@@ -93,13 +98,19 @@ export type EraseMoveEvent = {
   column: number;
 };
 
+export type UndoMoveEvent = {
+  type: GameEvent.UNDO_MOVE;
+  moveNumberToUndo: number;
+};
+
 export type GameEventProps =
   | SetActiveGameEvent
   | ClearActiveCellEvent
   | SetActiveCellEvent
   | LoadNewGameEvent
   | MakeMoveEvent
-  | EraseMoveEvent;
+  | EraseMoveEvent
+  | UndoMoveEvent;
 
 // States
 

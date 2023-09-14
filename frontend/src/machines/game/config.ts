@@ -47,6 +47,10 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
           actions: [GameAction.ERASE_MOVE],
           // TODO -> record move in the BE
         },
+        [types.GameEvent.UNDO_MOVE]: {
+          actions: [GameAction.UNDO_MOVE],
+          // TODO -> record move in the BE
+        },
       },
     },
     [types.GameState.COMPLETED]: {},

@@ -49,4 +49,20 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
     }),
     // TODO -> maybe set activeCell value to null
   }),
+  [GameAction.UNDO_MOVE]: assign({
+    game: (context, event: types.UndoMoveEvent) => ({
+      ...context.game,
+      moves: undoMove(context.game.moves, event.moveNumberToUndo),
+    }),
+    // TODO -> maybe set activeCell value
+  }),
 };
+
+function undoMove(moves: types.Move[], moveNumberToUndo: number): types.Move[] {
+  const moveToUndo = moves[moveNumberToUndo];
+  return [
+    ...moves.slice(0, moveNumberToUndo),
+    { ...moveToUndo, isUndone: true },
+    ...moves.slice(moveNumberToUndo + 1, moves.length),
+  ];
+}

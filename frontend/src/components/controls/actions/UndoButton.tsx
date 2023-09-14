@@ -2,9 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { MoveType } from "../../../utils/constants";
-import { useMoves, useMovesDispatch } from "../../../context/movesContext";
-import useAPI from "../../../services/apiClient/useAPI";
+import { useInterpretedGameContext } from "../../../context/context";
+import { GameEvent } from "../../../machines/game/types";
 
 type UndoButtonProps = {
   isSolved: boolean;
@@ -12,19 +11,15 @@ type UndoButtonProps = {
 
 export default function UndoButton({ isSolved }: UndoButtonProps) {
   /** Button to undo the previous move (be it an entry or an erasing) */
-  const moves = useMoves();
-  const movesDispatch = useMovesDispatch();
-  // const restClient = useAPI();
+  const { current, send } = useInterpretedGameContext();
 
   function handleClick(): void {
-    const moveNumberToUndo = getMoveNumberToUndo(moves);
+    const moveNumberToUndo = getMoveNumberToUndo(current.context.game.moves);
     if (moveNumberToUndo !== null) {
-      movesDispatch({
-        type: MoveType.Undo,
+      send({
+        type: GameEvent.UNDO_MOVE,
         moveNumberToUndo: moveNumberToUndo,
       });
-      // Record the undo in the backend
-      // restClient.undoMove(moveNumberToUndo);
     }
   }
 
@@ -50,7 +45,7 @@ function getMoveNumberToUndo(moves: Array<MoveDetail>): number | null {
   /** Loop through the reversed move history, to get the most recent not-undone move */
   // Start at length minus one since the move count starts at 0
   let moveNumber = moves.length - 1;
-  for (const move of moves.reverse()) {
+  for (const move of moves.slice().reverse()) {
     if (!move.isUndone) {
       return moveNumber;
     } else {
