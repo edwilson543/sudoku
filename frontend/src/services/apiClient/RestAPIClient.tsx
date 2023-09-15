@@ -14,25 +14,17 @@ enum RestAPIEndpoint {
 
 export default class RestAPIClient implements APIClient {
   /** API client for the backend REST API. */
-  private playerIpAddress: string;
-  private gameId: number | null;
-
-  constructor(playerIpAddress: string) {
-    /** Store the player's IP address and the game ID
-     * These are used for player & game identification when communicating with the REST API.
-     * */
-    this.playerIpAddress = playerIpAddress;
-    this.gameId = null;
-  }
-
-  // TODO -> remove these
 
   // API calls
 
-  async getOrCreateActiveGame(): Promise<Game> {
+  async getOrCreateActiveGame({
+    ipAddress,
+  }: {
+    ipAddress: string;
+  }): Promise<Game> {
     /** Get the currently active game for some player */
     const payload = {
-      ip_address: this.playerIpAddress,
+      ip_address: ipAddress,
     };
     const absoluteUrl = baseUrl + RestAPIEndpoint.ActiveGame;
     return this.postRequest(absoluteUrl, payload)
@@ -40,8 +32,8 @@ export default class RestAPIClient implements APIClient {
         return response.json() as unknown as APIGame;
       })
       .then((data) => {
-        this.gameId = data.id;
         return {
+          id: data.id,
           sudoku: data.sudoku,
           moves: normalizeAPIMoves(data.moves),
           started_at: data.started_at,
@@ -49,13 +41,18 @@ export default class RestAPIClient implements APIClient {
       });
   }
 
-  async createNextGame(
-    difficulty: SudokuDifficulty,
-    size: SudokuSize
-  ): Promise<Game> {
+  async createNextGame({
+    difficulty,
+    size,
+    ipAddress,
+  }: {
+    ipAddress: string;
+    difficulty: SudokuDifficulty;
+    size: SudokuSize;
+  }): Promise<Game> {
     /** Get a new game for the active player. */
     const payload = {
-      ip_address: this.playerIpAddress,
+      ip_address: ipAddress,
       difficulty: difficulty,
       size: size,
     };
@@ -65,8 +62,8 @@ export default class RestAPIClient implements APIClient {
         return response.json() as unknown as APIGame;
       })
       .then((data) => {
-        this.gameId = data.id;
         return {
+          id: data.id,
           sudoku: data.sudoku,
           moves: normalizeAPIMoves(data.moves),
           started_at: data.started_at,
@@ -74,27 +71,40 @@ export default class RestAPIClient implements APIClient {
       });
   }
 
-  async makeMove(
-    numberInGame: number,
-    row: number,
-    column: number,
-    value: number | null
-  ): Promise<void> {
+  async makeMove({
+    gameId,
+    numberInGame,
+    row,
+    column,
+    value,
+  }: {
+    gameId: number;
+    numberInGame: number;
+    row: number;
+    column: number;
+    value: number | null;
+  }): Promise<void> {
     const payload = {
       number_in_game: numberInGame,
       row: row,
       column: column,
       value: value,
     };
-    const absoluteUrl = baseUrl + `${this.gameId}/` + RestAPIEndpoint.MakeMove;
+    const absoluteUrl = baseUrl + `${gameId}/` + RestAPIEndpoint.MakeMove;
     this.postRequest(absoluteUrl, payload);
   }
 
-  async undoMove(numberInGame: number): Promise<void> {
+  async undoMove({
+    gameId,
+    numberInGame,
+  }: {
+    gameId: number;
+    numberInGame: number;
+  }): Promise<void> {
     const payload = {};
     const absoluteUrl =
       baseUrl +
-      `${this.gameId}/` +
+      `${gameId}/` +
       RestAPIEndpoint.UndoLastMove +
       `${numberInGame}/`;
     this.postRequest(absoluteUrl, payload);

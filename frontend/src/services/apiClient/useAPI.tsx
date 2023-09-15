@@ -18,16 +18,37 @@ export default function useAPI(): APIClient {
 
 export interface APIClient {
   /** API client used to persist game actions and for game continuation. */
-  getOrCreateActiveGame(): Promise<Game>;
+  getOrCreateActiveGame({ ipAddress }: { ipAddress: string }): Promise<Game>;
 
-  createNextGame(difficulty: SudokuDifficulty, size: SudokuSize): Promise<Game>;
+  createNextGame({
+    ipAddress,
+    difficulty,
+    size,
+  }: {
+    ipAddress: string;
+    difficulty: SudokuDifficulty;
+    size: SudokuSize;
+  }): Promise<Game>;
 
-  makeMove(
-    numberInGame: number,
-    row: number,
-    column: number,
-    value: number | null
-  ): Promise<void>;
+  makeMove({
+    gameId,
+    numberInGame,
+    row,
+    column,
+    value,
+  }: {
+    gameId: number;
+    numberInGame: number;
+    row: number;
+    column: number;
+    value: number | null;
+  }): Promise<void>;
 
-  undoMove(numberInGame: number): Promise<void>;
+  undoMove({
+    gameId,
+    numberInGame,
+  }: {
+    gameId: number;
+    numberInGame: number;
+  }): Promise<void>;
 }

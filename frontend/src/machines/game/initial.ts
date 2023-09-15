@@ -8,7 +8,7 @@ export const initialActiveCell = {
 
 export const initialContext = {
   game: {
-    game_id: 0,
+    id: 0,
     sudoku: {
       problem: [],
       solution: [],

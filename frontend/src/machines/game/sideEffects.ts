@@ -10,12 +10,13 @@ export const sideEffects: ActionFunctionMap<
     context,
     event: types.MakeMoveEvent
   ) => {
-    const apiClient = new RestAPIClient(context.ipAddress);
-    return apiClient.makeMove(
-      context.game.moves.length,
-      event.row,
-      event.column,
-      event.value
-    );
+    const apiClient = new RestAPIClient();
+    return apiClient.makeMove({
+      gameId: context.game.id,
+      numberInGame: context.game.moves.length,
+      row: event.row,
+      column: event.column,
+      value: event.value,
+    });
   },
 };

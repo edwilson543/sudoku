@@ -25,7 +25,7 @@ type ActiveCell = {
 };
 
 export type Game = {
-  game_id: number;
+  id: number;
   sudoku: Sudoku;
   moves: Move[];
 };
