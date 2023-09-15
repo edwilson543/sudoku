@@ -1,26 +1,27 @@
 import { ActionFunctionMap, assign } from "xstate";
-import { GameAction, GameContextProps, GameEventProps } from "./types";
 import * as types from "./types";
 import { initialActiveCell } from "./initial";
 
 // TODO -> pick
-// TODO -> condition for some actions
 
-export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
-  [GameAction.SET_ACTIVE_GAME]: assign({
+export const actions: ActionFunctionMap<
+  types.GameContextProps,
+  types.GameEventProps
+> = {
+  [types.GameAction.SET_ACTIVE_GAME]: assign({
     game: (_, event: types.SetActiveGameEvent) => {
       return event.data;
     },
   }),
-  [GameAction.CLEAR_ACTIVE_CELL]: assign({
+  [types.GameAction.CLEAR_ACTIVE_CELL]: assign({
     activeCell: () => initialActiveCell,
   }),
-  [GameAction.SET_ACTIVE_CELL]: assign({
+  [types.GameAction.SET_ACTIVE_CELL]: assign({
     activeCell: (_, event: types.SetActiveCellEvent) => {
       return event.cell;
     },
   }),
-  [GameAction.MAKE_MOVE]: assign({
+  [types.GameAction.MAKE_MOVE]: assign({
     game: (context, event: types.MakeMoveEvent) => ({
       ...context.game,
       moves: [
@@ -39,7 +40,7 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
     },
     // TODO -> conditionally transition to completed
   }),
-  [GameAction.ERASE_MOVE]: assign({
+  [types.GameAction.ERASE_MOVE]: assign({
     game: (context, event: types.EraseMoveEvent) => ({
       ...context.game,
       moves: [
@@ -47,14 +48,12 @@ export const actions: ActionFunctionMap<GameContextProps, GameEventProps> = {
         { row: event.row, column: event.column, value: null, isUndone: false },
       ],
     }),
-    // TODO -> maybe set activeCell value to null
   }),
-  [GameAction.UNDO_MOVE]: assign({
+  [types.GameAction.UNDO_MOVE]: assign({
     game: (context, event: types.UndoMoveEvent) => ({
       ...context.game,
       moves: undoMove(context.game.moves, event.moveNumberToUndo),
     }),
-    // TODO -> maybe set activeCell value
   }),
 };
 
