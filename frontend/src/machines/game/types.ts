@@ -50,6 +50,12 @@ export enum GameAction {
   UNDO_MOVE = "UNDO_MOVE",
 }
 
+export enum SideEffect {
+  // Record moves in BE
+  RECORD_MAKE_MOVE = "RECORD_MAKE_MOVE",
+  RECORD_UNDO_MOVE = "RECORD_UNDO_MOVE",
+}
+
 // Events
 
 export enum GameEvent {

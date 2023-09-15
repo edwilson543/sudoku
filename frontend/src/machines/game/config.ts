@@ -1,10 +1,13 @@
 import { MachineConfig } from "xstate";
 
 import * as types from "./types";
-import { GameAction, GameContextProps, GameEventProps } from "./types";
 import { services } from "./services";
 
-export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
+export const config: MachineConfig<
+  types.GameContextProps,
+  any,
+  types.GameEventProps
+> = {
   id: "game",
   initial: types.GameState.LOADING_ACTIVE_GAME,
   predictableActionArguments: true,
@@ -15,7 +18,7 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
         src: services.getOrCreateActiveGame,
         onDone: {
           target: types.GameState.PLAYING,
-          actions: [GameAction.SET_ACTIVE_GAME],
+          actions: [types.GameAction.SET_ACTIVE_GAME],
           // TODO -> onError
         },
       },
@@ -26,7 +29,10 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
         src: services.createNextGame,
         onDone: {
           target: types.GameState.PLAYING,
-          actions: [GameAction.CLEAR_ACTIVE_CELL, GameAction.SET_ACTIVE_GAME],
+          actions: [
+            types.GameAction.CLEAR_ACTIVE_CELL,
+            types.GameAction.SET_ACTIVE_GAME,
+          ],
           // TODO -> onError
         },
       },
@@ -37,18 +43,22 @@ export const config: MachineConfig<GameContextProps, any, GameEventProps> = {
           target: types.GameState.LOADING_NEW_GAME,
         },
         [types.GameEvent.SET_ACTIVE_CELL]: {
-          actions: [GameAction.SET_ACTIVE_CELL],
+          actions: [types.GameAction.SET_ACTIVE_CELL],
         },
         [types.GameEvent.MAKE_MOVE]: {
-          actions: [GameAction.MAKE_MOVE],
-          // TODO -> record move in the BE
+          actions: [
+            types.GameAction.MAKE_MOVE,
+            types.SideEffect.RECORD_MAKE_MOVE,
+          ],
         },
         [types.GameEvent.ERASE_MOVE]: {
-          actions: [GameAction.ERASE_MOVE],
-          // TODO -> record move in the BE
+          actions: [
+            types.GameAction.ERASE_MOVE,
+            types.SideEffect.RECORD_MAKE_MOVE,
+          ],
         },
         [types.GameEvent.UNDO_MOVE]: {
-          actions: [GameAction.UNDO_MOVE],
+          actions: [types.GameAction.UNDO_MOVE],
           // TODO -> record move in the BE
         },
       },

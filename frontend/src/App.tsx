@@ -6,7 +6,7 @@ import { ColourTheme } from "./utils/constants";
 
 export default function App() {
   /** Root application. */
-  const [darkModeOn, setDarkModeOn] = useState(false);
+  const [darkModeOn, setDarkModeOn] = useState<boolean>(false);
   const colourTheme = darkModeOn ? ColourTheme.Dark : ColourTheme.Light;
   const [playerIpAddress, setPlayerIpAddress] = useState<string>("");
 

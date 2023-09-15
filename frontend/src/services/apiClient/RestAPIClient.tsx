@@ -25,6 +25,8 @@ export default class RestAPIClient implements APIClient {
     this.gameId = null;
   }
 
+  // TODO -> remove these
+
   // API calls
 
   async getOrCreateActiveGame(): Promise<Game> {
