@@ -7,18 +7,16 @@ import UndoButton from "./UndoButton";
 type ActionPanelProps = {
   validationIsOn: boolean;
   setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
-  isSolved: boolean;
 };
 
 export default function ActionPanel({
   validationIsOn,
   setValidationIsOn,
-  isSolved,
 }: ActionPanelProps) {
   return (
     <div className={"action-panel"}>
-      <UndoButton isSolved={isSolved} />
-      <EraseButton isSolved={isSolved} />
+      <UndoButton />
+      <EraseButton />
       <ValidateButton
         validationIsOn={validationIsOn}
         setValidationIsOn={setValidationIsOn}

@@ -53,11 +53,6 @@ function Game({ toggleDarkMode }: GameProps) {
     return structureMovesAsGrid(sudoku.size, moves);
   }, [moves, sudoku]);
 
-  // Check if the sudoku has been solved - TODO -> COMPLETED state
-  const isSolved = useMemo(() => {
-    return sudokuIsSolved(movesGrid, sudoku);
-  }, [movesGrid, sudoku]);
-
   const startNewGame = (
     difficulty: SudokuDifficulty,
     size: SudokuSize
@@ -84,14 +79,12 @@ function Game({ toggleDarkMode }: GameProps) {
           activeCell={current.context.activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
-          isSolved={isSolved}
         />
         <ControlPanel
           sudokuSize={sudoku.size}
           startNewGame={startNewGame}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
-          isSolved={isSolved}
         />
       </div>
     </div>
@@ -123,25 +116,4 @@ function structureMovesAsGrid(
     }
   }
   return rows;
-}
-
-function sudokuIsSolved(
-  movesGrid: Array<Array<number | null>>,
-  sudoku: Sudoku
-): boolean {
-  /** Check if the player has found the correct solution for the sudoku */
-  for (let rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
-    for (let colIndex = 0; colIndex < sudoku.size; colIndex++) {
-      if (sudoku.problem[rowIndex][colIndex]) {
-        continue;
-      }
-      const move = movesGrid[rowIndex][colIndex];
-      if (move === null) {
-        return false;
-      } else if (move !== sudoku.solution[rowIndex][colIndex]) {
-        return false;
-      }
-    }
-  }
-  return true;
 }

@@ -3,15 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useInterpretedGameContext } from "../../../context/context";
-import { GameEvent } from "../../../machines/game/types";
+import { GameEvent, GameState } from "../../../machines/game/types";
 
-type UndoButtonProps = {
-  isSolved: boolean;
-};
-
-export default function UndoButton({ isSolved }: UndoButtonProps) {
+export default function UndoButton() {
   /** Button to undo the previous move (be it an entry or an erasing) */
   const { current, send } = useInterpretedGameContext();
+  const isSolved = current.matches(GameState.SOLVED);
 
   function handleClick(): void {
     const moveNumberToUndo = getMoveNumberToUndo(current.context.game.moves);

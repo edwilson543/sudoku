@@ -1,4 +1,6 @@
 import React from "react";
+import { useInterpretedGameContext } from "../../context/context";
+import { GameState } from "../../machines/game/types";
 
 type CellProps = {
   sudoku: Sudoku;
@@ -8,7 +10,6 @@ type CellProps = {
   activeCell: ActiveCell;
   setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
-  isSolved: boolean;
 };
 
 export default function Cell({
@@ -19,7 +20,6 @@ export default function Cell({
   activeCell,
   setActiveCell,
   validationIsOn,
-  isSolved,
 }: CellProps) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
@@ -27,10 +27,10 @@ export default function Cell({
   const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
   const cellValue = isClueCell ? solutionValue : move;
 
+  const { current } = useInterpretedGameContext();
+  const isSolved = current.matches(GameState.SOLVED);
+
   function handleClick(): void {
-    if (isSolved) {
-      return;
-    }
     setActiveCell({
       row: rowIndex,
       column: columnIndex,

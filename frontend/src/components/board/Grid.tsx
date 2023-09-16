@@ -8,7 +8,6 @@ type GridProps = {
   activeCell: ActiveCell;
   setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
-  isSolved: boolean;
 };
 
 export default function Grid({
@@ -17,7 +16,6 @@ export default function Grid({
   activeCell,
   setActiveCell,
   validationIsOn,
-  isSolved,
 }: GridProps) {
   /** The grid of cells in a game of sudoku. */
   const indexes = [...Array(sudoku.size).keys()];
@@ -36,7 +34,6 @@ export default function Grid({
               activeCell={activeCell}
               setActiveCell={setActiveCell}
               validationIsOn={validationIsOn}
-              isSolved={isSolved}
             />
           );
         });

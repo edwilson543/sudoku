@@ -4,12 +4,10 @@ import NumberInput from "./NumberInput";
 
 type NumberInputPanelProps = {
   sudokuSize: number;
-  isSolved: boolean;
 };
 
 export default function NumberInputPanel({
   sudokuSize,
-  isSolved,
 }: NumberInputPanelProps) {
   const sudokuRank = Math.sqrt(sudokuSize);
   const indexes = [...Array(Math.sqrt(sudokuSize)).keys()];
@@ -20,13 +18,7 @@ export default function NumberInputPanel({
         // Structure the input buttons into rows
         const rowItems = indexes.map((colIndex: number) => {
           const inputValue = rowIndex * sudokuRank + colIndex + 1;
-          return (
-            <NumberInput
-              key={inputValue}
-              value={inputValue}
-              isSolved={isSolved}
-            />
-          );
+          return <NumberInput key={inputValue} value={inputValue} />;
         });
         return (
           <div key={rowIndex} className={"number-input-row"}>

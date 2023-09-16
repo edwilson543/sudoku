@@ -2,7 +2,7 @@
 
 import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
 
-type Sudoku = {
+export type Sudoku = {
   problem: Array<Array<number | null>>;
   solution: Array<Array<number>>;
   difficulty: string;
@@ -57,6 +57,11 @@ export enum SideEffect {
   RECORD_MOVE_UNDONE = "RECORD_MOVE_UNDONE",
 }
 
+// Guards
+export enum Guard {
+  SUDOKU_IS_SOLVED = "SUDOKU_IS_SOLVED",
+}
+
 // Events
 
 export enum GameEvent {
@@ -69,7 +74,7 @@ export enum GameEvent {
   // Moves
   MAKE_MOVE = "MAKE_MOVE",
   ERASE_MOVE = "ERASE_MOVE",
-  UNDO_MOVE = "UNDON_MOVE",
+  UNDO_MOVE = "UNDO_MOVE",
 }
 
 export type LoadNewGameEvent = {
@@ -125,5 +130,6 @@ export enum GameState {
   LOADING_ACTIVE_GAME = "LOADING_ACTIVE_GAME",
   LOADING_NEW_GAME = "LOADING_NEW_GAME",
   PLAYING = "PLAYING",
-  COMPLETED = "COMPLETED",
+  CHECKING = "CHECKING",
+  SOLVED = "SOLVED",
 }

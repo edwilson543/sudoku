@@ -1,15 +1,15 @@
 import React from "react";
 
 import { useInterpretedGameContext } from "../../../context/context";
-import { GameEvent } from "../../../machines/game/types";
+import { GameEvent, GameState } from "../../../machines/game/types";
 
 type NumberInputProps = {
   value: number;
-  isSolved: boolean;
 };
 
-export default function NumberInput({ value, isSolved }: NumberInputProps) {
+export default function NumberInput({ value }: NumberInputProps) {
   const { current, send } = useInterpretedGameContext();
+  const isSolved = current.matches(GameState.SOLVED);
   const activeCell = current.context.activeCell;
 
   const isDisabled =

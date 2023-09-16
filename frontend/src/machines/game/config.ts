@@ -2,6 +2,7 @@ import { MachineConfig } from "xstate";
 
 import * as types from "./types";
 import { services } from "./services";
+import { GameState } from "./types";
 
 export const config: MachineConfig<
   types.GameContextProps,
@@ -50,6 +51,7 @@ export const config: MachineConfig<
             types.GameAction.MAKE_MOVE,
             types.SideEffect.RECORD_MOVE_MADE,
           ],
+          target: GameState.CHECKING,
         },
         [types.GameEvent.ERASE_MOVE]: {
           actions: [
@@ -65,6 +67,21 @@ export const config: MachineConfig<
         },
       },
     },
-    [types.GameState.COMPLETED]: {},
+    [types.GameState.CHECKING]: {
+      always: [
+        {
+          target: types.GameState.SOLVED,
+          cond: types.Guard.SUDOKU_IS_SOLVED,
+        },
+        { target: types.GameState.PLAYING },
+      ],
+    },
+    [types.GameState.SOLVED]: {
+      on: {
+        [types.GameEvent.LOAD_NEW_GAME]: {
+          target: types.GameState.LOADING_NEW_GAME,
+        },
+      },
+    },
   },
 };

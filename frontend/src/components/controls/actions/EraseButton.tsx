@@ -3,15 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 
 import { useInterpretedGameContext } from "../../../context/context";
-import { GameEvent } from "../../../machines/game/types";
+import { GameEvent, GameState } from "../../../machines/game/types";
 
-type EraseButtonProps = {
-  isSolved: boolean;
-};
-
-export default function EraseButton({ isSolved }: EraseButtonProps) {
+export default function EraseButton() {
   /** Button to erase the move in the active cell */
   const { current, send } = useInterpretedGameContext();
+  const isSolved = current.matches(GameState.SOLVED);
   const activeCell = current.context.activeCell;
 
   const isDisabled =
