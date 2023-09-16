@@ -41,13 +41,10 @@ export default class RestAPIClient implements APIClient {
     } else if (difficulty === SudokuDifficulty.Easy) {
       newGameData = newEasyGame;
     }
-    return new Promise(function (resolve, reject) {
-      resolve({
-        sudoku: newGameData.sudoku,
-        moves: newGameData.moves,
-        started_at: newGameData.started_at,
-      });
-      reject();
+    return Promise.resolve({
+      sudoku: newGameData.sudoku,
+      moves: newGameData.moves,
+      started_at: newGameData.started_at,
     });
   }
 
