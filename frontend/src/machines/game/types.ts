@@ -52,8 +52,9 @@ export enum GameAction {
 
 export enum SideEffect {
   // Record moves in BE
-  RECORD_MAKE_MOVE = "RECORD_MAKE_MOVE",
-  RECORD_UNDO_MOVE = "RECORD_UNDO_MOVE",
+  RECORD_MOVE_MADE = "RECORD_MOVE_MADE",
+  RECORD_MOVE_ERASED = "RECORD_MOVE_ERASED",
+  RECORD_MOVE_UNDONE = "RECORD_MOVE_UNDONE",
 }
 
 // Events

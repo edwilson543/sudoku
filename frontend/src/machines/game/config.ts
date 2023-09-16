@@ -48,18 +48,20 @@ export const config: MachineConfig<
         [types.GameEvent.MAKE_MOVE]: {
           actions: [
             types.GameAction.MAKE_MOVE,
-            types.SideEffect.RECORD_MAKE_MOVE,
+            types.SideEffect.RECORD_MOVE_MADE,
           ],
         },
         [types.GameEvent.ERASE_MOVE]: {
           actions: [
             types.GameAction.ERASE_MOVE,
-            types.SideEffect.RECORD_MAKE_MOVE,
+            types.SideEffect.RECORD_MOVE_ERASED,
           ],
         },
         [types.GameEvent.UNDO_MOVE]: {
-          actions: [types.GameAction.UNDO_MOVE],
-          // TODO -> record move in the BE
+          actions: [
+            types.GameAction.UNDO_MOVE,
+            types.SideEffect.RECORD_MOVE_UNDONE,
+          ],
         },
       },
     },
