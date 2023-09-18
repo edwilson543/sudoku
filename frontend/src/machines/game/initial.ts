@@ -16,6 +16,7 @@ export const initialContext = {
       size: 0,
     },
     moves: [],
+    movesGrid: [],
   },
   activeCell: initialActiveCell,
   ipAddress: "",

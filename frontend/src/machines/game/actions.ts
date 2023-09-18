@@ -12,6 +12,9 @@ export const actions: ActionFunctionMap<
     game: (_, event: types.SetActiveGameEvent) => {
       return event.data;
     },
+    movesGrid: (_, event: types.SetActiveGameEvent) => {
+      return structureMovesAsGrid(event.data);
+    },
   }),
   [types.GameAction.CLEAR_ACTIVE_CELL]: assign({
     activeCell: () => initialActiveCell,
@@ -55,6 +58,11 @@ export const actions: ActionFunctionMap<
       moves: undoMove(context.game.moves, event.moveNumberToUndo),
     }),
   }),
+  [types.GameAction.CALCULATE_MOVES_GRID]: assign({
+    movesGrid: (context) => {
+      return structureMovesAsGrid(context.game);
+    },
+  }),
 };
 
 function undoMove(moves: types.Move[], moveNumberToUndo: number): types.Move[] {
@@ -65,3 +73,27 @@ function undoMove(moves: types.Move[], moveNumberToUndo: number): types.Move[] {
     ...moves.slice(moveNumberToUndo + 1, moves.length),
   ];
 }
+
+const structureMovesAsGrid = (
+  game: types.Game
+): Array<Array<number | null>> => {
+  /** Convert the move history held as an array into the current board state
+   *
+   * Note the most recent move for any cell will be the one that gets rendered.
+   * If the most recent move for a cell has `value: null`, then that cell will
+   * appear empty.
+   */
+  // Create empty grid (an array of arrays representing the rows)
+  const rows = [];
+  for (let rowIndex = 0; rowIndex < game.sudoku.size; rowIndex++) {
+    rows.push(new Array(game.sudoku.size).fill(null));
+  }
+
+  // Insert each move into the grid
+  for (const move of game.moves) {
+    if (!move.isUndone) {
+      rows[move.row][move.column] = move.value;
+    }
+  }
+  return rows;
+};

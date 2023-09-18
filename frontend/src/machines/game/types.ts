@@ -32,6 +32,7 @@ export type Game = {
 
 export type GameContextProps = {
   game: Game;
+  movesGrid: Array<Array<number | null>>; // Positional representation derived from the history
   activeCell: ActiveCell;
   ipAddress: string;
 };
@@ -48,6 +49,7 @@ export enum GameAction {
   MAKE_MOVE = "MAKE_MOVE",
   ERASE_MOVE = "ERASE_MOVE",
   UNDO_MOVE = "UNDO_MOVE",
+  CALCULATE_MOVES_GRID = "CALCULATE_MOVES_GRID",
 }
 
 export enum SideEffect {

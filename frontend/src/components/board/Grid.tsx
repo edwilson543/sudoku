@@ -1,10 +1,10 @@
 import React from "react";
 
 import Cell from "./Cell";
+import { useInterpretedGameContext } from "../../context/context";
 
 type GridProps = {
   sudoku: Sudoku;
-  moves: Array<Array<number | null>>;
   activeCell: ActiveCell;
   setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
@@ -12,12 +12,13 @@ type GridProps = {
 
 export default function Grid({
   sudoku,
-  moves,
   activeCell,
   setActiveCell,
   validationIsOn,
 }: GridProps) {
   /** The grid of cells in a game of sudoku. */
+  const { current } = useInterpretedGameContext();
+
   const indexes = [...Array(sudoku.size).keys()];
   return (
     <div className={"grid"} data-testid={"grid"}>
@@ -28,7 +29,7 @@ export default function Grid({
             <Cell
               key={cellKey}
               sudoku={sudoku}
-              move={moves[rowIndex][colIndex]}
+              move={current.context.movesGrid[rowIndex][colIndex]}
               rowIndex={rowIndex}
               columnIndex={colIndex}
               activeCell={activeCell}

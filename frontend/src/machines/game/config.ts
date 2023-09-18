@@ -50,6 +50,7 @@ export const config: MachineConfig<
           actions: [
             types.GameAction.MAKE_MOVE,
             types.SideEffect.RECORD_MOVE_MADE,
+            types.GameAction.CALCULATE_MOVES_GRID,
           ],
           target: GameState.CHECKING,
         },
@@ -57,12 +58,14 @@ export const config: MachineConfig<
           actions: [
             types.GameAction.ERASE_MOVE,
             types.SideEffect.RECORD_MOVE_ERASED,
+            types.GameAction.CALCULATE_MOVES_GRID,
           ],
         },
         [types.GameEvent.UNDO_MOVE]: {
           actions: [
             types.GameAction.UNDO_MOVE,
             types.SideEffect.RECORD_MOVE_UNDONE,
+            types.GameAction.CALCULATE_MOVES_GRID,
           ],
         },
       },

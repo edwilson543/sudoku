@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 
 import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
@@ -45,13 +45,7 @@ function Game({ toggleDarkMode }: GameProps) {
 
   // Helpers
   const sudoku = current.context.game.sudoku;
-  const moves = current.context.game.moves;
   const sudokuRank = `${Math.sqrt(sudoku.size)}`;
-
-  // Transform the moves array into a grid only showing the currently active moves
-  const movesGrid = useMemo(() => {
-    return structureMovesAsGrid(sudoku.size, moves);
-  }, [moves, sudoku]);
 
   const startNewGame = (
     difficulty: SudokuDifficulty,
@@ -75,7 +69,6 @@ function Game({ toggleDarkMode }: GameProps) {
       <div className={"game"}>
         <Grid
           sudoku={sudoku}
-          moves={movesGrid}
           activeCell={current.context.activeCell}
           setActiveCell={setActiveCell}
           validationIsOn={validationIsOn}
@@ -89,31 +82,4 @@ function Game({ toggleDarkMode }: GameProps) {
       </div>
     </div>
   );
-}
-
-// Helpers
-
-function structureMovesAsGrid(
-  sudokuSize: number,
-  movesHistory: Array<MoveDetail>
-): Array<Array<number | null>> {
-  /** Convert the move history held as an array into the current board state
-   *
-   * Note the most recent move for any cell will be the one that gets rendered.
-   * If the most recent move for a cell has `value: null`, then that cell will
-   * appear empty.
-   */
-  // Create empty grid (an array of arrays representing the rows)
-  const rows = [];
-  for (let rowIndex = 0; rowIndex < sudokuSize; rowIndex++) {
-    rows.push(new Array(sudokuSize).fill(null));
-  }
-
-  // Insert each move into the grid
-  for (const move of movesHistory) {
-    if (!move.isUndone) {
-      rows[move.row][move.column] = move.value;
-    }
-  }
-  return rows;
 }
