@@ -54,10 +54,6 @@ function Game({ toggleDarkMode }: GameProps) {
     send({ type: GameEvent.LOAD_NEW_GAME, difficulty: difficulty, size: size });
   };
 
-  const setActiveCell = (cell: ActiveCell): void => {
-    send({ type: GameEvent.SET_ACTIVE_CELL, cell: cell });
-  };
-
   return (
     <div className={"game-container"} data-sudoku-rank={sudokuRank}>
       <div className={"game-info-container"}>
@@ -67,12 +63,7 @@ function Game({ toggleDarkMode }: GameProps) {
         <ColourThemeToggle toggleDarkMode={toggleDarkMode} />
       </div>
       <div className={"game"}>
-        <Grid
-          sudoku={sudoku}
-          activeCell={current.context.activeCell}
-          setActiveCell={setActiveCell}
-          validationIsOn={validationIsOn}
-        />
+        <Grid validationIsOn={validationIsOn} />
         <ControlPanel
           sudokuSize={sudoku.size}
           startNewGame={startNewGame}

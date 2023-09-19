@@ -4,22 +4,16 @@ import Cell from "./Cell";
 import { useInterpretedGameContext } from "../../context/context";
 
 type GridProps = {
-  sudoku: Sudoku;
-  activeCell: ActiveCell;
-  setActiveCell: (cell: ActiveCell) => void;
   validationIsOn: boolean;
 };
 
-export default function Grid({
-  sudoku,
-  activeCell,
-  setActiveCell,
-  validationIsOn,
-}: GridProps) {
+export default function Grid({ validationIsOn }: GridProps) {
   /** The grid of cells in a game of sudoku. */
   const { current } = useInterpretedGameContext();
 
+  const sudoku = current.context.game.sudoku;
   const indexes = [...Array(sudoku.size).keys()];
+
   return (
     <div className={"grid"} data-testid={"grid"}>
       {indexes.map((rowIndex: number) => {
@@ -28,12 +22,9 @@ export default function Grid({
           return (
             <Cell
               key={cellKey}
-              sudoku={sudoku}
               move={current.context.movesGrid[rowIndex][colIndex]}
               rowIndex={rowIndex}
               columnIndex={colIndex}
-              activeCell={activeCell}
-              setActiveCell={setActiveCell}
               validationIsOn={validationIsOn}
             />
           );
