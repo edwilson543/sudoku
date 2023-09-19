@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 
 import NewGameMenu from "./NewGameMenu";
-import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
 import { useInterpretedGameContext } from "../../../context/context";
 import { GameState } from "../../../machines/game/types";
 
-type NewGameProps = {
-  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
-};
-
-export default function NewGame({ startNewGame }: NewGameProps) {
+export default function NewGame() {
   const [showNewGameMenu, setShowNewGameMenu] = useState<boolean>(false);
   const { current } = useInterpretedGameContext();
   const isSolved = current.matches(GameState.SOLVED);
@@ -21,10 +16,7 @@ export default function NewGame({ startNewGame }: NewGameProps) {
   return (
     <div className={"new-game-wrapper"}>
       {showNewGameMenu || isSolved ? (
-        <NewGameMenu
-          setShowNewGameMenu={setShowNewGameMenu}
-          startNewGame={startNewGame}
-        />
+        <NewGameMenu setShowNewGameMenu={setShowNewGameMenu} />
       ) : (
         ""
       )}

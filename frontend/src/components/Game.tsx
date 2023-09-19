@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import Grid from "./board/Grid";
 import ControlPanel from "./controls/ControlPanel";
 import ColourThemeToggle from "./controls/ColourThemeToggle";
-import { SudokuDifficulty, SudokuSize } from "../utils/constants";
 import { useGameMachine } from "../machines/game";
-import { GameEvent, GameState } from "../machines/game/types";
+import { GameState } from "../machines/game/types";
 import { useActor } from "@xstate/react";
 import {
   GameMachineContext,
@@ -38,7 +37,7 @@ type GameProps = {
 
 function Game({ toggleDarkMode }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
-  const { current, send } = useInterpretedGameContext();
+  const { current } = useInterpretedGameContext();
 
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState<boolean>(true);
@@ -46,13 +45,6 @@ function Game({ toggleDarkMode }: GameProps) {
   // Helpers
   const sudoku = current.context.game.sudoku;
   const sudokuRank = `${Math.sqrt(sudoku.size)}`;
-
-  const startNewGame = (
-    difficulty: SudokuDifficulty,
-    size: SudokuSize
-  ): void => {
-    send({ type: GameEvent.LOAD_NEW_GAME, difficulty: difficulty, size: size });
-  };
 
   return (
     <div className={"game-container"} data-sudoku-rank={sudokuRank}>
@@ -66,7 +58,6 @@ function Game({ toggleDarkMode }: GameProps) {
         <Grid validationIsOn={validationIsOn} />
         <ControlPanel
           sudokuSize={sudoku.size}
-          startNewGame={startNewGame}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
         />
