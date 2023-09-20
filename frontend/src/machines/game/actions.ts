@@ -2,8 +2,6 @@ import { ActionFunctionMap, assign } from "xstate";
 import * as types from "./types";
 import { initialActiveCell } from "./initial";
 
-// TODO -> pick
-
 export const actions: ActionFunctionMap<
   types.GameContextProps,
   types.GameEventProps
@@ -41,7 +39,6 @@ export const actions: ActionFunctionMap<
     activeCell: (context, event: types.MakeMoveEvent) => {
       return { ...context.activeCell, value: event.value };
     },
-    // TODO -> conditionally transition to completed
   }),
   [types.GameAction.ERASE_MOVE]: assign({
     game: (context, event: types.EraseMoveEvent) => ({

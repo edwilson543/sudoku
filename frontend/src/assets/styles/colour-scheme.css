@@ -41,7 +41,7 @@
   --button-secondary-hover: var(--button-primary-hover);
 
   /* Border colours */
-  --border-primary: white; /* TODO */
+  --border-primary: white;
   --border-secondary: #c7c8c9;
 
   /* Font colours */
