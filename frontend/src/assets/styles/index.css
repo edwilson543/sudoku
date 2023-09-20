@@ -59,8 +59,13 @@ Page layout
 Game layout
 ---------------------------------------- */
 @keyframes game-start {
-  0% {opacity: 0; transform: rotate(360deg);}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .game-container {
@@ -69,7 +74,7 @@ Game layout
   flex-direction: column;
 
   /* Transition */
-  animation: game-start 2s
+  animation: game-start 2s;
 }
 
 .game {
