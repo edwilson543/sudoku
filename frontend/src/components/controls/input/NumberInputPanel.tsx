@@ -1,10 +1,10 @@
 import React from "react";
 
 import NumberInput from "./NumberInput";
-import { useInterpretedGameContext } from "../../../context/context";
+import { useGameMachineContext } from "../../../context/context";
 
 export default function NumberInputPanel() {
-  const { current } = useInterpretedGameContext();
+  const { current } = useGameMachineContext();
 
   const sudokuSize = current.context.game.sudoku.size;
   const sudokuRank = Math.sqrt(sudokuSize);

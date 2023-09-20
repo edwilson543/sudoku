@@ -6,10 +6,7 @@ import ColourThemeToggle from "./controls/ColourThemeToggle";
 import { useGameMachine } from "../machines/game";
 import { GameState } from "../machines/game/types";
 import { useActor } from "@xstate/react";
-import {
-  GameMachineContext,
-  useInterpretedGameContext,
-} from "../context/context";
+import { GameMachineContext, useGameMachineContext } from "../context/context";
 
 export type GameWrapperProps = {
   toggleDarkMode: () => void;
@@ -37,7 +34,7 @@ type GameProps = {
 
 function Game({ toggleDarkMode }: GameProps) {
   /** A game of sudoku, including the grid and the controls. */
-  const { current } = useInterpretedGameContext();
+  const { current } = useGameMachineContext();
 
   // Set the initial game mode (validation is on)
   const [validationIsOn, setValidationIsOn] = useState<boolean>(true);

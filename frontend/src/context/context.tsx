@@ -7,7 +7,7 @@ export const GameMachineContext = createContext<
   InterpreterFrom<typeof gameMachine>
 >({} as InterpreterFrom<typeof gameMachine>);
 
-export const useInterpretedGameContext = () => {
+export const useGameMachineContext = () => {
   const gameMachine = useContext(GameMachineContext);
   const [current, send] = useActor(gameMachine);
   return { current, send };

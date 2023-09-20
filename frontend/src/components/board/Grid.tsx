@@ -1,7 +1,7 @@
 import React from "react";
 
 import Cell from "./Cell";
-import { useInterpretedGameContext } from "../../context/context";
+import { useGameMachineContext } from "../../context/context";
 
 type GridProps = {
   validationIsOn: boolean;
@@ -9,7 +9,7 @@ type GridProps = {
 
 export default function Grid({ validationIsOn }: GridProps) {
   /** The grid of cells in a game of sudoku. */
-  const { current } = useInterpretedGameContext();
+  const { current } = useGameMachineContext();
 
   const sudoku = current.context.game.sudoku;
   const indexes = [...Array(sudoku.size).keys()];

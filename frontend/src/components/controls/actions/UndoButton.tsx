@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { useInterpretedGameContext } from "../../../context/context";
+import { useGameMachineContext } from "../../../context/context";
 import { GameEvent, GameState } from "../../../machines/game/types";
 
 export default function UndoButton() {
   /** Button to undo the previous move (be it an entry or an erasing) */
-  const { current, send } = useInterpretedGameContext();
+  const { current, send } = useGameMachineContext();
   const isSolved = current.matches(GameState.SOLVED);
 
   function handleClick(): void {

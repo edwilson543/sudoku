@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useInterpretedGameContext } from "../../../context/context";
+import { useGameMachineContext } from "../../../context/context";
 import { GameEvent, GameState } from "../../../machines/game/types";
 
 type NumberInputProps = {
@@ -8,7 +8,7 @@ type NumberInputProps = {
 };
 
 export default function NumberInput({ value }: NumberInputProps) {
-  const { current, send } = useInterpretedGameContext();
+  const { current, send } = useGameMachineContext();
   const isSolved = current.matches(GameState.SOLVED);
   const activeCell = current.context.activeCell;
 

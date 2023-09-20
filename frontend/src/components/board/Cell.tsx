@@ -1,5 +1,5 @@
 import React from "react";
-import { useInterpretedGameContext } from "../../context/context";
+import { useGameMachineContext } from "../../context/context";
 import { GameEvent, GameState } from "../../machines/game/types";
 
 type CellProps = {
@@ -16,7 +16,7 @@ export default function Cell({
   validationIsOn,
 }: CellProps) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
-  const { current, send } = useInterpretedGameContext();
+  const { current, send } = useGameMachineContext();
 
   // Variables from context & state
   const sudoku = current.context.game.sudoku;

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 import NewGameMenu from "./NewGameMenu";
-import { useInterpretedGameContext } from "../../../context/context";
+import { useGameMachineContext } from "../../../context/context";
 import { GameState } from "../../../machines/game/types";
 
 export default function NewGame() {
   const [showNewGameMenu, setShowNewGameMenu] = useState<boolean>(false);
-  const { current } = useInterpretedGameContext();
+  const { current } = useGameMachineContext();
   const isSolved = current.matches(GameState.SOLVED);
 
   function handleClick(): void {
