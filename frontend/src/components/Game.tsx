@@ -16,10 +16,21 @@ export type GameWrapperProps = {
 export function GameWrapper({ toggleDarkMode, ipAddress }: GameWrapperProps) {
   const gameMachine = useGameMachine({ ipAddress });
   const [current] = useActor(gameMachine);
-  const ready = !current.matches(GameState.LOADING_ACTIVE_GAME);
+
+  const unavailable = current.matches(GameState.UNAVAILABLE);
+  const showGame = [
+    GameState.PLAYING,
+    GameState.CHECKING,
+    GameState.SOLVED,
+    GameState.LOADING_NEW_GAME,
+  ].some(current.matches);
+
   return (
     <>
-      {ready && (
+      {unavailable && (
+        <div>eduko is currently unavailable - please try again later</div>
+      )}
+      {showGame && (
         <GameMachineContext.Provider value={gameMachine}>
           <Game toggleDarkMode={toggleDarkMode} />
         </GameMachineContext.Provider>

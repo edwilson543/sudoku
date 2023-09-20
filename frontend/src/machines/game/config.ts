@@ -20,7 +20,9 @@ export const config: MachineConfig<
         onDone: {
           target: types.GameState.PLAYING,
           actions: [types.GameAction.SET_ACTIVE_GAME],
-          // TODO -> onError
+        },
+        onError: {
+          target: types.GameState.UNAVAILABLE,
         },
       },
     },
@@ -34,10 +36,13 @@ export const config: MachineConfig<
             types.GameAction.CLEAR_ACTIVE_CELL,
             types.GameAction.SET_ACTIVE_GAME,
           ],
-          // TODO -> onError
+        },
+        onError: {
+          target: GameState.UNAVAILABLE,
         },
       },
     },
+    [types.GameState.UNAVAILABLE]: {},
     [types.GameState.PLAYING]: {
       on: {
         [types.GameEvent.LOAD_NEW_GAME]: {
