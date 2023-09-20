@@ -5,13 +5,11 @@ import ActionPanel from "./actions/ActionPanel";
 import NewGame from "./new/NewGame";
 
 type ControlPanelProps = {
-  sudokuSize: number;
   validationIsOn: boolean;
   setValidationIsOn: React.Dispatch<SetStateAction<boolean>>;
 };
 
 export default function ControlPanel({
-  sudokuSize,
   validationIsOn,
   setValidationIsOn,
 }: ControlPanelProps) {
@@ -21,7 +19,7 @@ export default function ControlPanel({
         validationIsOn={validationIsOn}
         setValidationIsOn={setValidationIsOn}
       />
-      <NumberInputPanel sudokuSize={sudokuSize} />
+      <NumberInputPanel />
       <NewGame />
     </div>
   );

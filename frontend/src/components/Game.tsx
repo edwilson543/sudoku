@@ -57,7 +57,6 @@ function Game({ toggleDarkMode }: GameProps) {
       <div className={"game"}>
         <Grid validationIsOn={validationIsOn} />
         <ControlPanel
-          sudokuSize={sudoku.size}
           validationIsOn={validationIsOn}
           setValidationIsOn={setValidationIsOn}
         />

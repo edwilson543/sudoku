@@ -1,14 +1,12 @@
 import React from "react";
 
 import NumberInput from "./NumberInput";
+import { useInterpretedGameContext } from "../../../context/context";
 
-type NumberInputPanelProps = {
-  sudokuSize: number;
-};
+export default function NumberInputPanel() {
+  const { current } = useInterpretedGameContext();
 
-export default function NumberInputPanel({
-  sudokuSize,
-}: NumberInputPanelProps) {
+  const sudokuSize = current.context.game.sudoku.size;
   const sudokuRank = Math.sqrt(sudokuSize);
   const indexes = [...Array(Math.sqrt(sudokuSize)).keys()];
 
