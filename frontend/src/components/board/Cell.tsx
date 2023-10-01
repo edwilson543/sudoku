@@ -1,43 +1,43 @@
-import React, { SetStateAction } from "react";
+import React from "react";
+import { useGameMachineContext } from "../../context/context";
+import { GameEvent, GameState } from "../../machines/game/types";
 
 type CellProps = {
-  sudoku: Sudoku;
   move: number | null;
   rowIndex: number;
   columnIndex: number;
-  activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   validationIsOn: boolean;
-  isSolved: boolean;
 };
 
 export default function Cell({
-  sudoku,
   move,
   rowIndex,
   columnIndex,
-  activeCell,
-  setActiveCell,
   validationIsOn,
-  isSolved,
 }: CellProps) {
   /** A cell in the sudoku grid that may or may not contain a clue. */
+  const { current, send } = useGameMachineContext();
+
+  // Variables from context & state
+  const sudoku = current.context.game.sudoku;
+  const activeCell = current.context.activeCell;
+  const isSolved = current.matches(GameState.SOLVED);
+
+  // Derived variables
   const tileIndex = getTileIndex(rowIndex, columnIndex, sudoku.size);
   const solutionValue = sudoku.solution[rowIndex][columnIndex];
   const isClueCell = sudoku.problem[rowIndex][columnIndex] === solutionValue;
   const cellValue = isClueCell ? solutionValue : move;
 
   function handleClick(): void {
-    if (isSolved) {
-      return;
-    }
-    setActiveCell({
+    const newActiveCell = {
       row: rowIndex,
       column: columnIndex,
       tile: tileIndex,
       value: cellValue,
       isClueCell: isClueCell,
-    });
+    };
+    send({ type: GameEvent.SET_ACTIVE_CELL, cell: newActiveCell });
   }
 
   function getClassName(): string {

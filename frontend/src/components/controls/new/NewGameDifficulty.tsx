@@ -1,21 +1,23 @@
 import { SudokuDifficulty, SudokuSize } from "../../../utils/constants";
 import React from "react";
+import { GameEvent } from "../../../machines/game/types";
+import { useGameMachineContext } from "../../../context/context";
 
 type NewGameMenuItemProps = {
-  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   difficulty: SudokuDifficulty;
   size: SudokuSize;
 };
 
 export default function NewGameDifficulty({
-  startNewGame,
   difficulty,
   size,
 }: NewGameMenuItemProps) {
   /** A button for starting a new game of a particular difficulty */
-  function handleClick(): void {
-    startNewGame(difficulty, size);
-  }
+  const { send } = useGameMachineContext();
+
+  const handleClick = (): void => {
+    send({ type: GameEvent.LOAD_NEW_GAME, difficulty: difficulty, size: size });
+  };
 
   return (
     <div className={"new-game-difficulty-button"} onClick={handleClick}>

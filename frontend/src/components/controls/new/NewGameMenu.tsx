@@ -5,20 +5,17 @@ import NewGameDifficulty from "./NewGameDifficulty";
 import NewGameSizeRadio from "./NewGameSizeRadio";
 
 type NewGameMenuProps = {
-  startNewGame: (difficulty: SudokuDifficulty, size: SudokuSize) => void;
   setShowNewGameMenu: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export default function NewGameMenu({
-  startNewGame,
-  setShowNewGameMenu,
-}: NewGameMenuProps) {
+export default function NewGameMenu({ setShowNewGameMenu }: NewGameMenuProps) {
   /** Select the parameters for a new game */
   const [newGameSize, setNewGameSize] = useState<SudokuSize>(SudokuSize.Nine);
 
   function handleMouseLeave(): void {
     setShowNewGameMenu(false);
   }
+
   return (
     <div className={"new-game-menu-wrapper"}>
       <div
@@ -28,17 +25,14 @@ export default function NewGameMenu({
       >
         <div className={"select-text"}>difficulty:</div>
         <NewGameDifficulty
-          startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Easy}
           size={newGameSize}
         />
         <NewGameDifficulty
-          startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Medium}
           size={newGameSize}
         />
         <NewGameDifficulty
-          startNewGame={startNewGame}
           difficulty={SudokuDifficulty.Hard}
           size={newGameSize}
         />

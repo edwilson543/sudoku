@@ -1,20 +1,12 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 import NumberInput from "./NumberInput";
+import { useGameMachineContext } from "../../../context/context";
 
-type NumberInputPanelProps = {
-  sudokuSize: number;
-  activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
-  isSolved: boolean;
-};
+export default function NumberInputPanel() {
+  const { current } = useGameMachineContext();
 
-export default function NumberInputPanel({
-  sudokuSize,
-  activeCell,
-  setActiveCell,
-  isSolved,
-}: NumberInputPanelProps) {
+  const sudokuSize = current.context.game.sudoku.size;
   const sudokuRank = Math.sqrt(sudokuSize);
   const indexes = [...Array(Math.sqrt(sudokuSize)).keys()];
 
@@ -24,15 +16,7 @@ export default function NumberInputPanel({
         // Structure the input buttons into rows
         const rowItems = indexes.map((colIndex: number) => {
           const inputValue = rowIndex * sudokuRank + colIndex + 1;
-          return (
-            <NumberInput
-              key={inputValue}
-              value={inputValue}
-              activeCell={activeCell}
-              setActiveCell={setActiveCell}
-              isSolved={isSolved}
-            />
-          );
+          return <NumberInput key={inputValue} value={inputValue} />;
         });
         return (
           <div key={rowIndex} className={"number-input-row"}>

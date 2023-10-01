@@ -1,26 +1,19 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 
 import Cell from "./Cell";
+import { useGameMachineContext } from "../../context/context";
 
 type GridProps = {
-  sudoku: Sudoku;
-  moves: Array<Array<number | null>>;
-  activeCell: ActiveCell;
-  setActiveCell: React.Dispatch<SetStateAction<ActiveCell>>;
   validationIsOn: boolean;
-  isSolved: boolean;
 };
 
-export default function Grid({
-  sudoku,
-  moves,
-  activeCell,
-  setActiveCell,
-  validationIsOn,
-  isSolved,
-}: GridProps) {
+export default function Grid({ validationIsOn }: GridProps) {
   /** The grid of cells in a game of sudoku. */
+  const { current } = useGameMachineContext();
+
+  const sudoku = current.context.game.sudoku;
   const indexes = [...Array(sudoku.size).keys()];
+
   return (
     <div className={"grid"} data-testid={"grid"}>
       {indexes.map((rowIndex: number) => {
@@ -29,14 +22,10 @@ export default function Grid({
           return (
             <Cell
               key={cellKey}
-              sudoku={sudoku}
-              move={moves[rowIndex][colIndex]}
+              move={current.context.movesGrid[rowIndex][colIndex]}
               rowIndex={rowIndex}
               columnIndex={colIndex}
-              activeCell={activeCell}
-              setActiveCell={setActiveCell}
               validationIsOn={validationIsOn}
-              isSolved={isSolved}
             />
           );
         });
