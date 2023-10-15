@@ -4,7 +4,18 @@ https://github.com/edwilson543/sudoku/assets/102787343/04161d2b-a238-4b37-9286-4
 
 ---
 
-## Setup:
+## Pre-setup
+- Copy frontend/.env.example to frontend/.env and comment out the relevant with / without docker section
+
+
+## Setup (wit docker):
+### Running:
+```
+docker-compose build
+docker-compose up
+```
+
+## Setup (without docker):
 ### System requirements:
 - Python 3.11
 - Node 18.16

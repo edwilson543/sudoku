@@ -29,7 +29,11 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Frontend integration config
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1"]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:3000",
+]
 CORS_ALLOW_HEADERS = ["content-type", "frontend-api-key"]
 FRONTEND_API_KEY = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%"
 
