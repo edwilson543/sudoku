@@ -3,7 +3,7 @@ import { APIClient } from "./useAPI";
 
 const frontendAPIKey = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%";
 
-const baseUrl = "http://127.0.0.1:8000/rest-api/game/";
+const baseUrl = "http://127.0.0.1/rest-api/game/";
 
 enum RestAPIEndpoint {
   ActiveGame = "active/",
