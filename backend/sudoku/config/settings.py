@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 # Standard library imports
+import os
 from pathlib import Path
+
+# Third party imports
+import dotenv
+
+dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,21 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-h&!9=4=^-4lce7g*$!w9d@9!6wy!0_k*cj2fg_kwzt2!i4lfbv"
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG"))
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
 # Frontend integration config
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1",
-    "http://127.0.0.1:3000",
-]
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 CORS_ALLOW_HEADERS = ["content-type", "frontend-api-key"]
-FRONTEND_API_KEY = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%"
+FRONTEND_API_KEY = str(os.getenv("FRONTEND_API_KEY"))
 
 
 # Application definition

@@ -4,18 +4,31 @@ https://github.com/edwilson543/sudoku/assets/102787343/04161d2b-a238-4b37-9286-4
 
 ---
 
-## Pre-setup
-- Copy frontend/.env.example to frontend/.env and comment out the relevant with / without docker section
+## Repo setup
+Clone the repo
+```bash
+git clone git@github.com:edwilson543/sudoku.git
+cd sudoku
+```
 
+Copy the example .env files
+```bash
+cp frontend/.env.example frontend/.env
+cp backend/sudoku/.env.example backend/sudoku/.env
+```
+In `frontend/.env` comment out on of the with / without docker sections as relevant
 
-## Setup (wit docker):
+## App setup (with docker):
+### System requirements:
+- Docker
+
 ### Running:
 ```
 docker-compose build
 docker-compose up
 ```
 
-## Setup (without docker):
+## App setup (without docker):
 ### System requirements:
 - Python 3.11
 - Node 18.16
@@ -25,7 +38,7 @@ Backend:
 ```bash
 cd backend
 python -m venv venv
-source ./venv/bin/activate
+source venv/bin/activate
 pip install -r requirements/app-requirements.txt
 python manage.py migrate
 ```
