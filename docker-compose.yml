@@ -12,6 +12,8 @@ services:
       context: ./frontend
     volumes:
       - frontend_build:/frontend/build
+    depends_on:
+      - backend
   nginx:
     image: nginx:latest
     ports:
