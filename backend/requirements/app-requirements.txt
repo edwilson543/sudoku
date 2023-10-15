@@ -1,4 +1,5 @@
 Django==4.2.1
 django-cors-headers==4.0.0
 djangorestframework==3.14.0
+gunicorn==21.2.0
 PuLP==2.7.0
