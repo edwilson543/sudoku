@@ -10,6 +10,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14.9
+        env:
+          # Credentials required by postgres
+          POSTGRES_NAME: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: [ '5432:5432' ]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
     - uses: actions/checkout@v3
     - name: Install Python 3.11
@@ -21,6 +32,11 @@ jobs:
         pip install -r backend/requirements/app-requirements.txt
         pip install -r backend/requirements/test-requirements.txt
     - name: Run test suite with pytest
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_NAME: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
       run: |
         cd backend
         pytest
