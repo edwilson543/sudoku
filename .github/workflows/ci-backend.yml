@@ -7,6 +7,13 @@ on:
   workflow_dispatch:
 
 
+env:
+  POSTGRES_HOST: localhost
+  POSTGRES_NAME: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,7 +22,6 @@ jobs:
         image: postgres:14.9
         env:
           # Credentials required by postgres
-          POSTGRES_NAME: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports: [ '5432:5432' ]
@@ -31,15 +37,22 @@ jobs:
       run: |
         pip install -r backend/requirements/app-requirements.txt
         pip install -r backend/requirements/test-requirements.txt
-    - name: Run test suite with pytest
-      env:
-        POSTGRES_HOST: localhost
-        POSTGRES_NAME: postgres
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
+    - name: Run unit tests
       run: |
         cd backend
-        pytest
+        pytest tests/unit
+    - name: Run integration tests
+      run: |
+        cd backend
+        pytest tests/integration
+    - name: Run functional tests
+      run: |
+        cd backend
+        pytest tests/functional
+    - name: Run specialized tests
+      run: |
+        cd backend
+        pytest tests/specialized
 
   linting:
     runs-on: ubuntu-latest
@@ -59,17 +72,17 @@ jobs:
         cd backend
         mypy .
     - name: Run black
-      if: success() || failure()
+      if: ${{ always() }}
       run: |
         cd backend/sudoku
         black .
     - name: Run isort on all python code
-      if: success() || failure()
+      if: ${{ always() }}
       run: |
         cd backend/sudoku
         isort . --profile=black
     - name: Run flake8 on all python code
-      if: success() || failure()
+      if: ${{ always() }}
       run: |
         cd backend/sudoku
         flake8 .
