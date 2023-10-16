@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    command: bash -c "
+      python manage.py migrate
+      && python manage.py collectstatic --noinput
+      && gunicorn config.wsgi --bind 0.0.0.0:8000
+      "
+    volumes:
+      - admin_site_statics:/backend/static
+    ports:
+      - "8000:8000"
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - frontend_build:/frontend/build
+    depends_on:
+      - backend
+  nginx:
+    image: nginx:latest
+    ports:
+      # Forward requests made to port 80 (which is where the browser will send requests) ...
+      # ... to port 8080 (which is where nginx will be running)
+      - "80:8080"
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      # Sync the local nginx file with the nginx file within the container
+      - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf:ro
+      # Make the React build available to the nginx server (so nginx can serve it to clients)
+      - frontend_build:/var/www/frontend
+      # Make the admin site statics available to the nginx server
+      - admin_site_statics:/var/www/admin_site_statics/static
+
+volumes:
+  frontend_build:
+  admin_site_statics:

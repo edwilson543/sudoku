@@ -16,9 +16,11 @@ Including another URLconf
 """
 # Django imports
 from django import urls
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
     urls.path("admin/", admin.site.urls),
     urls.path("rest-api/", urls.include("interfaces.rest_api.urls")),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

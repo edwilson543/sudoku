@@ -1,9 +1,9 @@
 import { SudokuDifficulty, SudokuSize } from "../../utils/constants";
 import { APIClient } from "./useAPI";
 
-const frontendAPIKey = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%";
+const frontendAPIKey = process.env.REACT_APP_FRONTEND_API_KEY as string;
 
-const baseUrl = "http://127.0.0.1:8000/rest-api/game/";
+const baseUrl = `${process.env.REACT_APP_REST_API_URL}/game/` as string;
 
 enum RestAPIEndpoint {
   ActiveGame = "active/",

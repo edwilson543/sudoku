@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 # Standard library imports
+import os
 from pathlib import Path
+
+# Third party imports
+import dotenv
+
+dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,17 +27,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-h&!9=4=^-4lce7g*$!w9d@9!6wy!0_k*cj2fg_kwzt2!i4lfbv"
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG"))
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Frontend integration config
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(
+    ","
+)
 CORS_ALLOW_HEADERS = ["content-type", "frontend-api-key"]
-FRONTEND_API_KEY = "_9)*jy)3d=c84v7zl)-=s2=0m*(+_duv24zme2417nwjszb#u%"
+FRONTEND_API_KEY = str(os.getenv("FRONTEND_API_KEY"))
 
 
 # Application definition
@@ -90,8 +98,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "PORT": 5432,
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "NAME": os.getenv("POSTGRES_NAME", "sudoku"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
     }
 }
 
@@ -131,6 +143,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
